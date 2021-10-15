@@ -1,4 +1,9 @@
 import { createApp } from 'vue'
 import App from './App.vue'
+import './main.css';
 
-createApp(App).mount('#app')
+import OrPlugin from './plugin';
+
+const app = createApp(App)
+    .use(OrPlugin)
+    .mount('#app')
