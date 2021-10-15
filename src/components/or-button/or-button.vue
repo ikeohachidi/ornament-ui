@@ -6,7 +6,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { Size } from '@/types/size.ts';
+import { Size, Sizes } from '@/types/size.ts';
 
 const props = withDefaults(defineProps<{
     size?: Size 
@@ -15,10 +15,10 @@ const props = withDefaults(defineProps<{
 })
 
 const getSize = computed(() => {
-    if (props.size === Size.MD) { return 'py-3 px-4' }
-    if (props.size === Size.LG) { return 'py-4 px-5' }
+    if (props.size === Size.MD) { return Sizes.md }
+    if (props.size === Size.LG) { return Sizes.lg }
 
-    return 'py-2 px-3';
+    return Sizes.sm;
 })
 </script>
 
