@@ -9,7 +9,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, computed } from "vue";
+import { onMounted, ref, computed, watch } from "vue";
 import { Size, Sizes } from '@/types/size';
 
 const props = withDefaults(defineProps<{
@@ -19,6 +19,14 @@ const props = withDefaults(defineProps<{
     modelValue: '',
     size: Size.SM 
 })
+
+const watch_modelValue = watch(
+    () => props.modelValue,
+    (value) => {
+        if (value !== input.value!.value) {
+            input.value!.value = value;
+        }
+}) 
 
 const emit = defineEmits<{
     (e: 'update:modelValue', value: string): void
