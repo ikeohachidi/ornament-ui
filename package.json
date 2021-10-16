@@ -10,7 +10,8 @@
   },
   "dependencies": {
     "remixicon": "^2.5.0",
-    "vue": "^3.2.16"
+    "vue": "^3.2.16",
+    "vue3-click-away": "^1.2.1"
   },
   "devDependencies": {
     "@babel/core": "^7.15.8",

@@ -1,16 +1,22 @@
 <template>
-    <div class="or-dropdown-wrapper">
+    <div class="or-dropdown-wrapper" v-click-away="onClickAway">
         <div class="or-dropdown-value" @click="toggleDropdown">
-            <div>
+            <div class="text-gray-800">
                 <slot name="value" :selected="multi ? selectedOptions : selectedOption">
                     <template v-if="multi">
-                        {{ selectedOptions }}
+                        <span v-for="(option, optionIndex) in selectedOptions" :key="optionIndex">
+                            {{ label ? option[label] : option }}
+                            {{ optionIndex < selectedOptions.length - 1 ? ', ' : '' }}
+                        </span>
                     </template>
                     <template v-else>
-                        {{ selectedOption }}
+                        {{ label ? selectedOption[label] : selectedOption }}
                     </template>
                 </slot>
             </div>
+            <span class="text-gray-400 text-sm pointer-events-none" v-if="selectedOptions.length === 0 && selectedOption === undefined">
+                {{ placeholder }}
+            </span>
             <span class="ml-auto">
                 <i class="ri-arrow-down-s-line"></i>
             </span>
@@ -49,6 +55,16 @@
     </div>
 </template>
 
+<script lang="ts">
+import { directive } from "vue3-click-away";
+
+export default {
+    directives: {
+        ClickAway: directive
+    }
+}
+</script>
+
 <script setup lang="ts">
 import { computed, onMounted, ref, unref } from 'vue';
 
@@ -56,12 +72,13 @@ const props = withDefaults(defineProps<{
     options?: object[],
     modelValue?: object[] | object,
     multi?: boolean,
-    label?: string
+    label?: string,
+    placeholder: string
 }>(), {
     options: () => ([]),
     modelValue: () => ([]),
     multi: false,
-    label: ''
+    label: '',
 })
 
 const emit = defineEmits<{
@@ -71,6 +88,22 @@ const emit = defineEmits<{
 const selectedOptions = ref<object[]>([]);
 const selectedOption = ref<object>();
 const filterTerm = ref<string>('');
+
+const selectedDisplayValues = computed(() => {
+    if (props.multi) {
+        return selectedOptions.value.map(option => {
+            if (props.label) return (option as Record<string, unknown>)[props.label];
+
+            return option
+        });
+    }
+
+    if (props.label && props.label in selectedOption) {
+        return (selectedOption.value as Record<string, unknown>)[props.label];
+    }
+
+    return selectedOption.value; 
+})
 
 const filteredOptions = computed(() => {
     return props.options.filter(option => JSON.stringify(option).includes(filterTerm.value))
@@ -91,6 +124,10 @@ const toggleDropdown = (): void => {
     if (dropdownList) {
         dropdownList.value?.classList.toggle('show')
     }
+}
+
+const onClickAway = (): void => {
+    dropdownList.value?.classList.remove('show');
 }
 
 const toggleOption = (option: object): void => {
@@ -128,7 +165,7 @@ onMounted(() => {
 }
 
 .or-dropdown-value {
-    @apply border border-gray-100 bg-gray-50 rounded-md px-3 py-1 flex cursor-pointer;
+    @apply border border-gray-100 bg-gray-50 rounded-md px-3 py-1 flex items-center cursor-pointer;
     @apply transition duration-300 hover:border-gray-200;
 }
 
