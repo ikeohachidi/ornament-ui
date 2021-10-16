@@ -1,6 +1,6 @@
 <template>
-    <div class="or-dropdown-wrapper" @click="toggleDropdown">
-        <div class="or-dropdown-value">
+    <div class="or-dropdown-wrapper">
+        <div class="or-dropdown-value" @click="toggleDropdown">
             <div>
                 <slot name="value" :selected="multi ? selectedOptions : selectedOption">
                     <template v-if="multi">
