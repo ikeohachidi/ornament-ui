@@ -1,7 +1,6 @@
 <template>
-    <div class="or-dropdown-wrapper" v-click-away="onClickAway">
-        <div class="or-dropdown-value" @click="toggleDropdown">
-            <div class="text-gray-800">
+    <div class="or-dropdown-wrapper" v-click-away="hideDropdownList">
+        <div class="or-dropdown-value" @click="toggleDropdownList">
                 <slot name="value" :selected="multi ? selectedOptions : selectedOption">
                     <template v-if="multi">
                         <span v-for="(option, optionIndex) in selectedOptions" :key="optionIndex">
@@ -120,13 +119,13 @@ const getItemIndex = (item: object): number => {
 }
 
 const dropdownList = ref<HTMLDivElement>();
-const toggleDropdown = (): void => {
+const toggleDropdownList = (): void => {
     if (dropdownList) {
         dropdownList.value?.classList.toggle('show')
     }
 }
 
-const onClickAway = (): void => {
+const hideDropdownList = (): void => {
     dropdownList.value?.classList.remove('show');
 }
 
