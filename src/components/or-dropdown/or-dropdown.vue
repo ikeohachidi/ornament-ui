@@ -1,6 +1,7 @@
 <template>
     <div class="or-dropdown-wrapper" v-click-away="hideDropdownList">
         <div class="or-dropdown-value" @click="toggleDropdownList">
+            <div class="text-gray-600">
                 <slot name="value" :selected="multi ? selectedOptions : selectedOption">
                     <template v-if="multi">
                         <span v-for="(option, optionIndex) in selectedOptions" :key="optionIndex">
@@ -9,14 +10,14 @@
                         </span>
                     </template>
                     <template v-else>
-                        {{ label ? selectedOption[label] : selectedOption }}
+                        {{ label && selectedOption ? selectedOption[label] : selectedOption }}
                     </template>
                 </slot>
             </div>
-            <span class="text-gray-400 text-sm pointer-events-none" v-if="selectedOptions.length === 0 && selectedOption === undefined">
+            <span class="text-gray-400 text-sm pointer-events-none" v-if="selectedOptions.length === 0 && !isSelectedOptionValid">
                 {{ placeholder }}
             </span>
-            <span class="ml-auto">
+            <span class="ml-auto text-gray-400">
                 <i class="ri-arrow-down-s-line"></i>
             </span>
         </div>
@@ -24,12 +25,12 @@
             <li class="or-dropdown-filter">
                 <or-input v-model="filterTerm" placeholder="Filter items">
                     <template #before>
-                        <spa class="text-lg text-gray-400">
+                        <spa class="text-base text-gray-400">
                             <i class="ri-search-2-line mr-3"></i>
                         </spa>
                     </template>
                     <template #after>
-                        <span class="text-lg text-gray-400 cursor-pointer" @click="filterTerm = ''">
+                        <span class="text-base text-gray-400 cursor-pointer" @click="filterTerm = ''">
                             <i class="ri-close-line ml-3"></i>
                         </span>
                     </template>
@@ -85,25 +86,19 @@ const emit = defineEmits<{
 }>()
 
 const selectedOptions = ref<object[]>([]);
-const selectedOption = ref<object>();
-const filterTerm = ref<string>('');
 
-const selectedDisplayValues = computed(() => {
-    if (props.multi) {
-        return selectedOptions.value.map(option => {
-            if (props.label) return (option as Record<string, unknown>)[props.label];
+const selectedOption = ref<object>({});
+const isSelectedOptionValid = computed(() => {
+    const constructor = selectedOption.value.constructor;
 
-            return option
-        });
-    }
+    if (constructor === Array) return (selectedOption.value as Array<unknown>).length > 0;
 
-    if (props.label && props.label in selectedOption) {
-        return (selectedOption.value as Record<string, unknown>)[props.label];
-    }
+    if (constructor === Object) return Object.keys((selectedOption.value as Record<string, unknown>)).length > 0;
 
-    return selectedOption.value; 
+    return String(selectedOption.value).length > 0
 })
 
+const filterTerm = ref<string>('');
 const filteredOptions = computed(() => {
     return props.options.filter(option => JSON.stringify(option).includes(filterTerm.value))
 })
@@ -174,7 +169,7 @@ onMounted(() => {
     transform: translateY(30px);
     transition: 0s visibility, .2s opacity, .2s transform;
 
-    @apply absolute w-full;
+    @apply absolute w-full z-10;
     @apply shadow-sm rounded-md p-4 mt-2 border border-gray-50 bg-white;
 }
 
@@ -189,7 +184,7 @@ onMounted(() => {
 }
 
 .or-dropdown-item {
-    @apply p-2 cursor-pointer my-1;
+    @apply p-2 cursor-pointer my-1 text-gray-600;
     @apply hover:bg-gray-50  transition-all duration-300;
 }
 
