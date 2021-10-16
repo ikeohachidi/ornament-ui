@@ -50,7 +50,8 @@ onMounted(() => {
 
 <style scoped>
 .or-input-wrapper {
-    @apply flex border border-gray-200 rounded-sm text-sm bg-white transition-all duration-500;
+    @apply flex border border-gray-100 rounded-md text-sm bg-gray-50 transition-all duration-500;
+    @apply transition duration-300 hover:border-gray-200;
 }
 
 .or-input-wrapper:focus-within {
@@ -59,6 +60,10 @@ onMounted(() => {
 
 .or-input-wrapper * {
     @apply flex-1;
+}
+
+.or-input {
+    @apply bg-gray-50;
 }
 
 .or-input:focus {
