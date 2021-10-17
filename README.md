@@ -10,8 +10,9 @@ A UI component library for Vue 3 built with Tailwind, developed on Vite
 - [ ] Chip
 - [ ] Radio
 - [ ] Input
-    - [ ] Normal input
-    - [ ] Input tags
+    - [x] Normal input
+    - [x] Input tags
+    - [x] Input tags search dropdown
 - [ ] Select 
 - [ ] Dropdown
     - [x] Single select 
