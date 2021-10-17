@@ -10,7 +10,7 @@
 
 <script setup lang="ts">
 import { onMounted, ref, computed, watch } from "vue";
-import { Size, Sizes } from '@/types/size';
+import { Size, Sizes } from '@/types/Size';
 
 const props = withDefaults(defineProps<{
     modelValue?: string

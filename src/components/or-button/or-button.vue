@@ -6,7 +6,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { Size, Sizes } from '@/types/size.ts';
+import { Size, Sizes } from '@/types/Size.ts';
 
 const props = withDefaults(defineProps<{
     size?: Size 
