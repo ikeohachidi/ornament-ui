@@ -19,7 +19,7 @@ A UI component library for Vue 3 built with Tailwind, developed on Vite
     - [x] Multi select 
     - [ ] Chip view 
 - [ ] Accordion
-- [ ] Tab
+- [x] Tab
 
 #### Motivation
     - Wanted to learn Vue 3
