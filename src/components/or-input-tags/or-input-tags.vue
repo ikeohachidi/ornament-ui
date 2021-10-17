@@ -27,7 +27,7 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { onMounted, ref, unref, computed, watch } from 'vue';
+import { onMounted, ref, unref } from 'vue';
 
 const props = withDefaults(defineProps<{
     modelValue: unknown[],
