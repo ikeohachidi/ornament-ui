@@ -1,7 +1,6 @@
 <template>
     <div class="or-tab">
-        <slot>
-        </slot>
+        <slot></slot>
     </div>
 </template>
 

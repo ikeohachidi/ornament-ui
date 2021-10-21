@@ -6,7 +6,12 @@
             :key="titleIndex"
             @click="setActiveSlot(titleIndex)"
         >
-            {{ title }}
+            <template v-if="defaultSlots[titleIndex].children.title">
+                <component :is="defaultSlots[titleIndex].children.title"/>
+            </template>
+            <template v-else>
+                {{ title }}
+            </template>
         </span>
     </div>
     <div class="or-tab-body">
@@ -64,6 +69,9 @@ const tabTitles = computed<string[]>(() => {
 
 onMounted(() => {
     if (defaultSlots.value.length > 0) {
+        defaultSlots.value.forEach(slot => {
+            console.log(slot.children)
+        })
         setActiveSlot(0)
     }
 })
