@@ -70,10 +70,18 @@ const addOption = (option: unknown) => {
 }
 
 const addTag = (): void => {
-    tags.value.push(input.value);
-    input.value = '';
+    if (props.options.length === 0) {
 
-    emit('update:modelValue', tags.value)
+        tags.value.push(input.value);
+        input.value = '';
+
+        emit('update:modelValue', tags.value)
+    }
+
+    if (optionsFilter.value.length > 0) {
+        addOption(optionsFilter.value[0]);
+    }
+
 }
 
 const inputElement = ref<HTMLInputElement>();
