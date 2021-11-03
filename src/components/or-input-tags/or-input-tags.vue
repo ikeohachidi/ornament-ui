@@ -1,7 +1,9 @@
 <template>
-    <div class="or-input-tags-wrapper">
+    <div class="or-input-tags-wrapper" @click="focusInput">
         <span v-for="(tag, tagIndex) in tags" :key="tagIndex" class="or-input-tag">
-            {{ tag }}
+            <slot name="option" :option="tag" :index="tagIndex">
+                {{ option }}
+            </slot>
             <span class="cursor-pointer" @click="removeTag(tagIndex)">
                 <i class="ri-close-line ml-3"></i>
             </span>
@@ -12,9 +14,17 @@
             @keydown.enter="addTag"
             @keydown.tab="addTag"
             v-model="input"
+            ref="inputElement"
             :placeholder="placeholder"
             :style="{width: `${input ? input.length : placeholder.length}ch`}"
         >
+        <ul class="or-input-tags-options" v-if="input.length > 0">
+            <li v-for="(option, optionIndex) in optionsFilter" :key="optionIndex" @click="addOption(option)">
+                <slot name="option" :option="option" :index="optionIndex">
+                    {{ option }}
+                </slot>
+            </li>
+        </ul>
     </div>
 </template>
 
@@ -27,14 +37,16 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { onMounted, ref, unref } from 'vue';
+import { computed, onMounted, ref, unref } from 'vue';
 
 const props = withDefaults(defineProps<{
     modelValue: unknown[],
-    placeholder?: string
+    placeholder?: string,
+    options: unknown[]
 }>(), {
     modelValue: () => ([]),
-    placeholder: 'Enter text' 
+    placeholder: 'Enter text',
+    options: () => ([])
 })
 
 const emit = defineEmits<{
@@ -44,11 +56,29 @@ const emit = defineEmits<{
 const tags = ref<unknown[]>([]);
 const input = ref('');
 
+const optionsFilter = computed(() => {
+    return props.options.filter(option => {
+        return JSON.stringify(option).toLowerCase().includes(input.value.toLowerCase());
+    })
+})
+
+const addOption = (option: unknown) => {
+    tags.value.push(option);
+    input.value = '';
+
+    emit('update:modelValue', tags.value)
+}
+
 const addTag = (): void => {
     tags.value.push(input.value);
     input.value = '';
 
     emit('update:modelValue', tags.value)
+}
+
+const inputElement = ref<HTMLInputElement>();
+const focusInput = () => {
+    inputElement.value?.focus();
 }
 
 const removeTag = (tagIndex: number): void => {
@@ -62,9 +92,9 @@ onMounted(() => {
 })
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .or-input-tags-wrapper {
-    @apply flex flex-row flex-wrap border border-gray-100 rounded-md text-sm bg-gray-50 transition-all duration-500 p-1;
+    @apply relative flex flex-row flex-wrap border border-gray-100 rounded-md text-sm bg-gray-50 p-1;
     @apply transition duration-300 hover:border-gray-200;
 }
 
@@ -79,5 +109,16 @@ onMounted(() => {
 .or-input-tags-input {
     @apply ml-2 bg-gray-50 flex items-center;
     @apply focus:outline-none;
+}
+
+.or-input-tags-options {
+    @apply absolute left-0 top-full; 
+    @apply w-full rounded-md overflow-hidden shadow-sm;
+
+    li {
+        @apply p-2 cursor-pointer;
+        @apply transition duration-500;
+        @apply hover:bg-gray-50;
+    }
 }
 </style>
