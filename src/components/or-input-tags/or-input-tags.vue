@@ -13,13 +13,13 @@
             class="or-input-tags-input"
             @keydown.enter="addTag"
             @keydown.tab="addTag"
-            @keydown="removePreviousTag"
+            @keydown="onInputKeydown"
             v-model="input"
             ref="inputElement"
             :placeholder="placeholder"
             :style="{width: `${input ? input.length : placeholder.length}ch`}"
         >
-        <ul class="or-input-tags-options" v-if="input.length > 0">
+        <ul class="or-input-tags-options" :class="optionsElementPosition" v-if="input.length > 0">
             <li v-for="(option, optionIndex) in optionsFilter" :key="optionIndex" @click="addOption(option)">
                 <slot name="option" :option="option" :index="optionIndex">
                     {{ option }}
@@ -56,6 +56,21 @@ const emit = defineEmits<{
 
 const tags = ref<unknown[]>([]);
 const input = ref('');
+const inputElement = ref<HTMLInputElement>();
+
+const optionsElementPosition = computed(() => {
+    if (inputElement.value === null) return 0;
+
+    const threshold = window.innerHeight - (30 + (props.options.length * 16)); 
+
+    const inputElementPos = inputElement.value?.getBoundingClientRect().top as number + window.scrollY;
+
+    return inputElementPos > threshold ? "show-top" : "show-bottom";
+})
+
+const focusInput = () => {
+    inputElement.value?.focus();
+}
 
 const optionsFilter = computed(() => {
     return props.options.filter(option => {
@@ -85,27 +100,27 @@ const addTag = (): void => {
 
 }
 
-const removePreviousTag = (event: KeyboardEvent): void => {
-    if (tags.value.length === 0) return;
-
-    if (event.key === "Backspace" && input.value.length === 0) {
-        const length = tags.value.length - 1;
-
-        tags.value.splice(length, 1);
-
-        emit('update:modelValue', tags.value);
-    }
-}
-
-const inputElement = ref<HTMLInputElement>();
-const focusInput = () => {
-    inputElement.value?.focus();
-}
-
 const removeTag = (tagIndex: number): void => {
     tags.value.splice(tagIndex, 1);
 
     emit('update:modelValue', tags.value);
+}
+
+const removePreviousTag = (): void => {
+    if (tags.value.length === 0) return;
+
+
+    if (input.value.length === 0) {
+        const length = tags.value.length - 1;
+        removeTag(length)
+
+    }
+}
+
+const onInputKeydown = (event: Event): void => {
+    if ((event as KeyboardEvent).key === "Backspace") {
+        removePreviousTag();
+    }
 }
 
 onMounted(() => {
@@ -133,7 +148,15 @@ onMounted(() => {
 }
 
 .or-input-tags-options {
-    @apply absolute left-0 top-full; 
+    @apply absolute left-0;
+
+    &.show-top {
+        @apply bottom-full; 
+    }
+    &.show-bottom {
+        @apply top-full; 
+    }
+
     @apply w-full rounded-md overflow-hidden shadow-sm;
 
     li {
