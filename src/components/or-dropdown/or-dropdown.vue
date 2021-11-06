@@ -1,13 +1,18 @@
 <template>
     <div class="or-dropdown-wrapper" v-click-away="hideDropdownList">
         <div class="or-dropdown-value" @click="toggleDropdownList">
-            <div class="text-gray-600">
+            <span class="text-gray-400 text-sm pointer-events-none" v-if="selectedOptions.length === 0 && !isSelectedOptionValid">
+                {{ placeholder }}
+            </span>
+            <div class="text-gray-600 w-full" v-else>
                 <template v-if="multi">
-                    <span v-for="(option, optionIndex) in selectedOptions" :key="optionIndex">
+                    <span :class="{'chip': chips}" v-for="(option, optionIndex) in selectedOptions" :key="optionIndex">
                         <slot name="value" :selected="option">
                             {{ option }}
                         </slot>
-                        {{ optionIndex < selectedOptions.length - 1 ? ', ' : '' }}
+                        <span v-if="!chips">
+                            {{ optionIndex < selectedOptions.length - 1 ? ', ' : '' }}
+                        </span>
                     </span>
                 </template>
                 <span v-else>
@@ -16,9 +21,6 @@
                     </slot>
                 </span>
             </div>
-            <span class="text-gray-400 text-sm pointer-events-none" v-if="selectedOptions.length === 0 && !isSelectedOptionValid">
-                {{ placeholder }}
-            </span>
             <span class="ml-auto text-gray-400">
                 <i class="ri-arrow-down-s-line"></i>
             </span>
@@ -157,7 +159,7 @@ onMounted(() => {
 })
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .or-dropdown-wrapper {
     @apply relative;
 }
@@ -165,6 +167,14 @@ onMounted(() => {
 .or-dropdown-value {
     @apply border border-gray-100 bg-gray-50 rounded-md px-3 py-1 flex items-center cursor-pointer;
     @apply transition duration-300 hover:border-gray-200;
+
+    .chip {
+        @apply ml-2 py-1 px-2 bg-gray-200 rounded-full text-sm text-gray-600;
+
+        &:first-of-type {
+            @apply ml-0;
+        }
+    }
 }
 
 .or-dropdown-list {
