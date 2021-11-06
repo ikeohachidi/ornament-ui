@@ -2,7 +2,7 @@
     <div class="or-input-tags-wrapper" @click="focusInput">
         <span v-for="(tag, tagIndex) in tags" :key="tagIndex" class="or-input-tag">
             <slot name="option" :option="tag" :index="tagIndex">
-                {{ option }}
+                {{ tag }}
             </slot>
             <span class="cursor-pointer" @click="removeTag(tagIndex)">
                 <i class="ri-close-line ml-3"></i>
@@ -19,7 +19,7 @@
             :placeholder="placeholder"
             :style="{width: `${input ? input.length : placeholder.length}ch`}"
         >
-        <ul class="or-input-tags-options" :class="optionsElementPosition" v-if="input.length > 0">
+        <ul class="or-input-tags-options" :style="optionsElementPosition" v-if="input.length > 0">
             <li v-for="(option, optionIndex) in optionsFilter" :key="optionIndex" @click="addOption(option)">
                 <slot name="option" :option="option" :index="optionIndex">
                     {{ option }}
@@ -40,7 +40,7 @@ export default {
 <script setup lang="ts">
 import { computed, onMounted, ref, unref } from 'vue';
 
-import useShowPosition from "@/utilities/use-show-position";
+import useDropPosition from "@/utilities/use-drop-position";
 
 const props = withDefaults(defineProps<{
     modelValue: unknown[],
@@ -61,7 +61,7 @@ const input = ref('');
 const inputElement = ref<HTMLInputElement>();
 
 const optionsElementPosition = computed(() => {
-    return useShowPosition(inputElement.value!, 30 + (props.options.length * 16));
+    return useDropPosition(inputElement.value!, 30 + (props.options.length * 16));
 })
 
 const focusInput = () => {
