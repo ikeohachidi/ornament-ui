@@ -13,6 +13,7 @@
             class="or-input-tags-input"
             @keydown.enter="addTag"
             @keydown.tab="addTag"
+            @keydown="removePreviousTag"
             v-model="input"
             ref="inputElement"
             :placeholder="placeholder"
@@ -82,6 +83,18 @@ const addTag = (): void => {
         addOption(optionsFilter.value[0]);
     }
 
+}
+
+const removePreviousTag = (event: KeyboardEvent): void => {
+    if (tags.value.length === 0) return;
+
+    if (event.key === "Backspace" && input.value.length === 0) {
+        const length = tags.value.length - 1;
+
+        tags.value.splice(length, 1);
+
+        emit('update:modelValue', tags.value);
+    }
 }
 
 const inputElement = ref<HTMLInputElement>();
