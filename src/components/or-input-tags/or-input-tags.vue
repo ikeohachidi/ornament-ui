@@ -62,7 +62,6 @@ const optionsElementPosition = computed(() => {
     if (inputElement.value === null) return 0;
 
     const threshold = window.innerHeight - (30 + (props.options.length * 16)); 
-
     const inputElementPos = inputElement.value?.getBoundingClientRect().top as number + window.scrollY;
 
     return inputElementPos > threshold ? "show-top" : "show-bottom";
@@ -109,11 +108,9 @@ const removeTag = (tagIndex: number): void => {
 const removePreviousTag = (): void => {
     if (tags.value.length === 0) return;
 
-
     if (input.value.length === 0) {
         const length = tags.value.length - 1;
-        removeTag(length)
-
+        removeTag(length);
     }
 }
 
@@ -124,8 +121,9 @@ const onInputKeydown = (event: Event): void => {
 }
 
 onMounted(() => {
-    tags.value = unref(props.modelValue)
+    tags.value = unref(props.modelValue);
 })
+
 </script>
 
 <style lang="scss" scoped>
