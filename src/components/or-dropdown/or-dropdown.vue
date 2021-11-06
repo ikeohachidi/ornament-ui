@@ -185,7 +185,7 @@ onMounted(() => {
 }
 
 .or-dropdown-item {
-    @apply p-2 cursor-pointer my-1 text-gray-600;
+    @apply p-2 cursor-pointer text-gray-600;
     @apply hover:bg-gray-50  transition-all duration-300;
 }
 
