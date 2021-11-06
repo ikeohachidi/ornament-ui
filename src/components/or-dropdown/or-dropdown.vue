@@ -23,7 +23,7 @@
         </div>
         <ul class="or-dropdown-list" ref="dropdownList">
             <li class="or-dropdown-filter">
-                <or-input v-model="filterTerm" placeholder="Filter items">
+                <or-input v-model="filterTerm" placeholder="Filter items" v-if="hasFilter">
                     <template #before>
                         <spa class="text-base text-gray-400">
                             <i class="ri-search-2-line mr-3"></i>
@@ -72,11 +72,13 @@ const props = withDefaults(defineProps<{
     options?: object[],
     modelValue?: object[] | object,
     multi?: boolean,
+    hasFilter?: boolean;
     placeholder: string
 }>(), {
     options: () => ([]),
     modelValue: () => ([]),
     multi: false,
+    hasFilter: true
 })
 
 const emit = defineEmits<{
@@ -166,8 +168,9 @@ onMounted(() => {
     opacity: 0;
     transform: translateY(30px);
     transition: 0s visibility, .2s opacity, .2s transform;
+    max-height: 200px;
 
-    @apply absolute w-full z-10;
+    @apply absolute w-full z-10 overflow-y-auto;
     @apply shadow-sm rounded-md p-4 mt-2 border border-gray-50 bg-white;
 }
 
