@@ -5,12 +5,12 @@
                 <slot name="value" :selected="multi ? selectedOptions : selectedOption">
                     <template v-if="multi">
                         <span v-for="(option, optionIndex) in selectedOptions" :key="optionIndex">
-                            {{ label ? option[label] : option }}
+                            {{ option }}
                             {{ optionIndex < selectedOptions.length - 1 ? ', ' : '' }}
                         </span>
                     </template>
                     <template v-else>
-                        {{ label && selectedOption ? selectedOption[label] : selectedOption }}
+                        {{ selectedOption }}
                     </template>
                 </slot>
             </div>
@@ -72,13 +72,11 @@ const props = withDefaults(defineProps<{
     options?: object[],
     modelValue?: object[] | object,
     multi?: boolean,
-    label?: string,
     placeholder: string
 }>(), {
     options: () => ([]),
     modelValue: () => ([]),
     multi: false,
-    label: '',
 })
 
 const emit = defineEmits<{
