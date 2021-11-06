@@ -106,7 +106,28 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
+
+$size: 18px;
+
+.or-checkbox {
+    @apply hidden;
+
+    &:checked + .or-checkbox-label:before {
+        content: "✔";
+        @apply bg-indigo-700 text-white;
+    }
+}
+
 .or-checkbox-label {
-    display: inline-block;
+    @apply flex justify-center items-center;
+}
+
+.or-checkbox-label:before {
+    content: "";
+    height: $size;
+    width: $size;
+    @apply bg-white border border-gray-200 inline-block mr-1;
+    @apply flex items-center content-center;
+    @apply transition-all;
 }
 </style>
