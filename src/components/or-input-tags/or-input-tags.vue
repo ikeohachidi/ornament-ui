@@ -40,6 +40,8 @@ export default {
 <script setup lang="ts">
 import { computed, onMounted, ref, unref } from 'vue';
 
+import useShowPosition from "@/utilities/use-show-position";
+
 const props = withDefaults(defineProps<{
     modelValue: unknown[],
     placeholder?: string,
@@ -59,12 +61,7 @@ const input = ref('');
 const inputElement = ref<HTMLInputElement>();
 
 const optionsElementPosition = computed(() => {
-    if (inputElement.value === null) return 0;
-
-    const threshold = window.innerHeight - (30 + (props.options.length * 16)); 
-    const inputElementPos = inputElement.value?.getBoundingClientRect().top as number + window.scrollY;
-
-    return inputElementPos > threshold ? "show-top" : "show-bottom";
+    return useShowPosition(inputElement.value!, 30 + (props.options.length * 16));
 })
 
 const focusInput = () => {
