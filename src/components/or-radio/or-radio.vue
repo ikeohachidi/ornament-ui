@@ -29,7 +29,6 @@ const inputElementId = computed(() => {
 })
 
 const onRadioValueChange = () => {
-    console.log(props.modelValue)
     emit('update:modelValue', props.value);
 }
 </script>
