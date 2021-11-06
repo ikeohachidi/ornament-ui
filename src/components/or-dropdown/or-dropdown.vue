@@ -2,17 +2,19 @@
     <div class="or-dropdown-wrapper" v-click-away="hideDropdownList">
         <div class="or-dropdown-value" @click="toggleDropdownList">
             <div class="text-gray-600">
-                <slot name="value" :selected="multi ? selectedOptions : selectedOption">
-                    <template v-if="multi">
-                        <span v-for="(option, optionIndex) in selectedOptions" :key="optionIndex">
+                <template v-if="multi">
+                    <span v-for="(option, optionIndex) in selectedOptions" :key="optionIndex">
+                        <slot name="value" :selected="option">
                             {{ option }}
-                            {{ optionIndex < selectedOptions.length - 1 ? ', ' : '' }}
-                        </span>
-                    </template>
-                    <template v-else>
+                        </slot>
+                        {{ optionIndex < selectedOptions.length - 1 ? ', ' : '' }}
+                    </span>
+                </template>
+                <span v-else>
+                    <slot name="value" :selected="selectedOption">
                         {{ selectedOption }}
-                    </template>
-                </slot>
+                    </slot>
+                </span>
             </div>
             <span class="text-gray-400 text-sm pointer-events-none" v-if="selectedOptions.length === 0 && !isSelectedOptionValid">
                 {{ placeholder }}
@@ -72,12 +74,14 @@ const props = withDefaults(defineProps<{
     options?: object[],
     modelValue?: object[] | object,
     multi?: boolean,
+    chips: boolean;
     hasFilter?: boolean;
     placeholder: string
 }>(), {
     options: () => ([]),
     modelValue: () => ([]),
     multi: false,
+    chips: false,
     hasFilter: true
 })
 
