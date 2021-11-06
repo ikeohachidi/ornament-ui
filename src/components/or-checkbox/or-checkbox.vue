@@ -7,7 +7,9 @@
         v-bind="$attrs"
         @change="onCheckboxValueChange"
     >
-    <label class="or-checkbox-label" :for="inputElementId">
+    <label v-if="isSwitch" class="or-switch"  :for="inputElementId"></label>
+
+    <label class="or-checkbox-label" v-else :for="inputElementId">
         <slot></slot>
     </label>
 </template>
@@ -20,6 +22,7 @@ const props = defineProps<{
     checkedValue: unknown;
     uncheckedValue: unknown;
     value?: unknown;
+    isSwitch: boolean;
 }>()
 
 const modelType = computed(() => {
@@ -107,19 +110,48 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 
-$size: 18px;
+$size: 20px;
 
 .or-checkbox {
     @apply hidden;
 
-    &:checked + .or-checkbox-label:before {
-        content: "✔";
-        @apply bg-indigo-700 text-white;
-    }
+    &:checked + {
+        .or-checkbox-label:before {
+            content: "✔";
+            @apply bg-indigo-700 text-white;
+        }
+
+
+        .or-switch {
+            @apply bg-indigo-700;
+        }
+
+        .or-switch:before {
+            @apply bg-white;
+            left: calc(96% - ($size - 6px));
+        }
+    } 
 }
 
 .or-checkbox-label {
     @apply flex justify-center items-center;
+}
+
+.or-switch {
+    height: $size;
+    width: $size * 2;
+    @apply border rounded-full border-gray-200 inline-block relative bg-gray-100;
+    @apply flex content-center items-center;
+    @apply transition-all;
+
+    &:before {
+        content: "";
+        height: $size - 6px;
+        width: $size - 6px;
+        @apply rounded-full bg-white inline-block absolute;
+        left: 3px;
+        transition: left .2s linear;
+    }
 }
 
 .or-checkbox-label:before {
