@@ -61,7 +61,9 @@ const input = ref('');
 const inputElement = ref<HTMLInputElement>();
 
 const optionsElementPosition = computed(() => {
-    return useDropPosition(inputElement.value!, 30 + (props.options.length * 16));
+    if (inputElement.value) {
+        return useDropPosition(inputElement.value!, 30 + (props.options.length * 16));
+    }
 })
 
 const focusInput = () => {

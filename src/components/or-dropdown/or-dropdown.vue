@@ -25,7 +25,7 @@
                 <i class="ri-arrow-down-s-line"></i>
             </span>
         </div>
-        <ul class="or-dropdown-list" ref="dropdownList">
+        <ul class="or-dropdown-list" ref="dropdownList" :style="dropdownPosition">
             <li class="or-dropdown-filter">
                 <or-input v-model="filterTerm" placeholder="Filter items" v-if="hasFilter">
                     <template #before>
@@ -71,6 +71,8 @@ export default {
 
 <script setup lang="ts">
 import { computed, onMounted, ref, unref } from 'vue';
+
+import useDropPosition from "@/utilities/use-drop-position";
 
 const props = withDefaults(defineProps<{
     options?: object[],
@@ -120,6 +122,12 @@ const getItemIndex = (item: object): number => {
 }
 
 const dropdownList = ref<HTMLDivElement>();
+const dropdownPosition = computed(() => {
+    if (dropdownList.value) {
+        return useDropPosition(dropdownList.value, 30 + (props.options.length * 16))
+    }
+});
+
 const toggleDropdownList = (): void => {
     if (dropdownList) {
         dropdownList.value?.classList.toggle('show')
@@ -185,7 +193,7 @@ onMounted(() => {
     max-height: 200px;
 
     @apply absolute w-full z-10 overflow-y-auto;
-    @apply shadow-sm rounded-md p-4 mt-2 border border-gray-50 bg-white;
+    @apply shadow-sm rounded-md p-4 my-2 border border-gray-50 bg-white;
 }
 
 .or-dropdown-list.show {
