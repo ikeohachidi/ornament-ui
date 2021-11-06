@@ -2,6 +2,7 @@ import { App } from 'vue';
 
 import OrButton from './components/or-button';
 import OrDropdown from './components/or-dropdown';
+import OrCheckbox from './components/or-checkbox';
 import OrInput from './components/or-input';
 import OrInputTags from './components/or-input-tags';
 import { OrTab, OrTabs } from './components/or-tabs';
@@ -33,5 +34,6 @@ export default {
         app.component('or-accordion-body', OrAccordionBody);
         app.component('or-sidebar', OrSidebar);
         app.component('or-radio', OrRadio);
+        app.component('or-checkbox', OrCheckbox);
     }
 }
