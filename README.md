@@ -3,22 +3,23 @@ A UI component library for Vue 3 built with Tailwind, developed on Vite
 
 
 **Components**
+Will be updated as more ideas come up 
 - [ ] List item
-- [ ] Button
-- [ ] Checkbox
-    - [ ] Switch view
+- [x] Button
+- [x] Checkbox
+    - [x] Switch view
 - [ ] Chip
-- [ ] Radio
-- [ ] Input
+- [x] Radio
+- [x] Input
     - [x] Normal input
     - [x] Input tags
     - [x] Input tags search dropdown
 - [ ] Select 
-- [ ] Dropdown
+- [x] Dropdown
     - [x] Single select 
     - [x] Multi select 
-    - [ ] Chip view 
-- [ ] Accordion
+    - [x] Chip view 
+- [x] Accordion
 - [x] Tab
 
 #### Motivation
