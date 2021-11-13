@@ -12,7 +12,16 @@ export default defineUserConfig<DefaultThemeOptions, ViteBundlerOptions>({
   // because vite is the default bundler
   bundler: '@vuepress/bundler-vite',
   bundlerConfig: {
+    vuePluginOptions: {},
     viteOptions: {
+      css: {
+        postcss: {
+            plugins: [
+              require('tailwindcss'),
+              require('autoprefixer')
+            ]
+        }
+      },
       resolve: {
         alias: [
           {
