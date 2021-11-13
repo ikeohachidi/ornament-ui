@@ -6,12 +6,12 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { Size, Sizes } from '@/types/Size.ts';
+import { Size, Sizes } from '@/types/Size';
 
 const props = withDefaults(defineProps<{
     size?: Size 
 }>(), {
-    size: 'sm'
+    size: Size.SM 
 })
 
 const getSize = computed(() => {
@@ -24,6 +24,7 @@ const getSize = computed(() => {
 
 <style scoped>
 button {
-    @apply bg-blue-600 text-white text-base border-0 rounded-sm cursor-pointer hover:bg-blue-800 transition-all duration-100;
+    @apply or-bg-primary or-border-radius; 
+    @apply text-white text-base border-0 cursor-pointer hover:bg-blue-800 transition-all duration-100;
 }
 </style>

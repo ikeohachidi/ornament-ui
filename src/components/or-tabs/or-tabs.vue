@@ -95,7 +95,7 @@ onMounted(() => {
         @apply transition duration-200;
 
         &.active {
-            @apply border-indigo-700;
+            @apply or-border-primary or-text-primary;
         }
     }
 }
