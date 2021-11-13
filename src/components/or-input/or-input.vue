@@ -71,7 +71,7 @@ onMounted(() => {
 }
 
 .or-input {
-    @apply bg-gray-50;
+    @apply bg-gray-50 border-0;
 }
 
 .or-input:focus {
