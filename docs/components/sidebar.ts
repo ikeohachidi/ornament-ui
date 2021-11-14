@@ -6,6 +6,10 @@ const sidebar: SidebarItem = {
         {
             text: 'Input',
             link: '/components/or-input/'
+        },
+        {
+            text: 'Button',
+            link: '/components/or-button/'
         }
     ]
 }
