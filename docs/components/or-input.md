@@ -1,8 +1,18 @@
-## OrInput
+# OrInput
+Creates a customized input element
 
-Page for input
+```html
+<or-input v-model="text" placeholder="some text here"/>
+```
+**Output**
+<or-input v-model="text" placeholder="some text here"/>
 
-<or-input v-model="text"/>
+
+# Props
+| Prop | Default | Values |
+|--|--|--|
+| size | "sm" | "sm", "md", "lg"
+
 
 <script lang="ts">
 

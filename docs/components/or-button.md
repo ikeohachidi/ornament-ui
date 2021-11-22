@@ -5,11 +5,16 @@ Renders a button on screen that can be used for forms and in whatever contexts y
 
 ## Overview 
 
-<or-button>Some text here</or-button>
-
 ```html
 <or-button>Some text here</or-button>
 ```
+**Output**
+<or-button>Some text here</or-button>
+
+# Props
+| Prop | Default | Values |
+|--|--|--|
+| size | "sm" | "sm", "md", "lg"
 
 <script lang="ts">
 
