@@ -11,6 +11,7 @@ import OrSidebar from './components/or-sidebar';
 import OrRadio from './components/or-radio';
 import OrAvatar from './components/or-avatar';
 import OrChips from './components/or-chips';
+import OrSelect from './components/or-select/or-select';
 
 export {
 	OrButton,
@@ -23,7 +24,8 @@ export {
 	OrSidebar,
 	OrRadio,
 	OrAvatar,
-	OrChips
+	OrChips,
+	OrSelect
 }
 
 export default {
@@ -41,5 +43,6 @@ export default {
 		app.component('or-checkbox', OrCheckbox);
 		app.component('or-avatar', OrAvatar);
 		app.component('or-chips', OrChips);
+		app.component('or-select', OrSelect);
 	}
 }
