@@ -9,31 +9,34 @@ import { OrTab, OrTabs } from './components/or-tabs';
 import { OrAccordion, OrAccordionBody } from './components/or-accordion';
 import OrSidebar from './components/or-sidebar';
 import OrRadio from './components/or-radio';
+import OrAvatar from './components/or-avatar';
 
 export {
-    OrButton,
-    OrDropdown,
-    OrInput,
-    OrInputTags,
-    OrTab,
-    OrTabs,
-    OrAccordion,
-    OrSidebar,
-    OrRadio
+	OrButton,
+	OrDropdown,
+	OrInput,
+	OrInputTags,
+	OrTab,
+	OrTabs,
+	OrAccordion,
+	OrSidebar,
+	OrRadio,
+	OrAvatar
 }
 
 export default {
-    install: (app: App) => {
-        app.component('or-button', OrButton);
-        app.component('or-dropdown', OrDropdown);
-        app.component('or-input', OrInput);
-        app.component('or-input-tags', OrInputTags);
-        app.component('or-tab', OrTab);
-        app.component('or-tabs', OrTabs);
-        app.component('or-accordion', OrAccordion);
-        app.component('or-accordion-body', OrAccordionBody);
-        app.component('or-sidebar', OrSidebar);
-        app.component('or-radio', OrRadio);
-        app.component('or-checkbox', OrCheckbox);
-    }
+	install: (app: App) => {
+		app.component('or-button', OrButton);
+		app.component('or-dropdown', OrDropdown);
+		app.component('or-input', OrInput);
+		app.component('or-input-tags', OrInputTags);
+		app.component('or-tab', OrTab);
+		app.component('or-tabs', OrTabs);
+		app.component('or-accordion', OrAccordion);
+		app.component('or-accordion-body', OrAccordionBody);
+		app.component('or-sidebar', OrSidebar);
+		app.component('or-radio', OrRadio);
+		app.component('or-checkbox', OrCheckbox);
+		app.component('or-avatar', OrAvatar);
+	}
 }

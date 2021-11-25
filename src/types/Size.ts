@@ -9,3 +9,9 @@ export const Sizes = {
 	md: 'py-2 px-3',
 	lg: 'py-3 px-4',
 }
+
+export const RadiusSize = {
+	sm: "3px",
+	md: "8px",
+	lg: "14px",
+}
