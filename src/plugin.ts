@@ -10,6 +10,7 @@ import { OrAccordion, OrAccordionBody } from './components/or-accordion';
 import OrSidebar from './components/or-sidebar';
 import OrRadio from './components/or-radio';
 import OrAvatar from './components/or-avatar';
+import OrChips from './components/or-chips';
 
 export {
 	OrButton,
@@ -21,7 +22,8 @@ export {
 	OrAccordion,
 	OrSidebar,
 	OrRadio,
-	OrAvatar
+	OrAvatar,
+	OrChips
 }
 
 export default {
@@ -38,5 +40,6 @@ export default {
 		app.component('or-radio', OrRadio);
 		app.component('or-checkbox', OrCheckbox);
 		app.component('or-avatar', OrAvatar);
+		app.component('or-chips', OrChips);
 	}
 }
