@@ -63,8 +63,6 @@ const tabTitles = computed<string[]>(() => {
 	return defaultSlots.value.map(slot => {
 		return slot.props!.title
 	})
-
-	return [];
 })
 
 onMounted(() => {
