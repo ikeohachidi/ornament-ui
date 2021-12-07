@@ -13,7 +13,7 @@ import OrAvatar from './components/or-avatar';
 import OrChips from './components/or-chips';
 import OrSelect from './components/or-select/or-select';
 import { OrList, OrListItem } from './components/or-list/index';
-import { OrCircularLoader } from './components/or-loaders';
+import { OrCircularLoader, OrPulsingLoader } from './components/or-loaders';
 
 export {
 	OrButton,
@@ -28,7 +28,8 @@ export {
 	OrChips,
 	OrSelect,
 	OrList, OrListItem,
-	OrCircularLoader
+	OrCircularLoader,
+	OrPulsingLoader
 }
 
 export default {
@@ -50,5 +51,6 @@ export default {
 		app.component('or-list', OrList);
 		app.component('or-list-item', OrListItem);
 		app.component('or-circular-loader', OrCircularLoader);
+		app.component('or-pulsing-loader', OrPulsingLoader);
 	}
 }
