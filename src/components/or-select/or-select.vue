@@ -8,22 +8,24 @@
 	</select>
 </template>
 
+<script lang="ts">
+import ListOptions from '@/mixins/list-option';
+export default {
+	mixins: [ ListOptions ]
+}
+</script>
+
 <script setup lang="ts">
 import { computed, onMounted, ref, unref } from 'vue';
-import { List } from '@/types/List';
 import { Size, Sizes } from '@/types/Size';
 
 const prop = withDefaults(defineProps<{
 	modelValue: unknown;
 	options: unknown[];
-	optionValue?: string;
-	optionLabel?: string;
 	size?: Size
 }>(), {
 	modelValue: null,
 	options: [],
-	optionValue: '',
-	optionLabel: 'label',
 	size: Size.SM
 })
 
@@ -35,27 +37,6 @@ const currentValue = ref<unknown>(null);
 
 const onSelectChange = (): void => {
 	emit('update:modelValue', currentValue.value);
-}
-
-const primitives = ['number', 'string', 'boolean'];
-
-const getOptionValue = (option: unknown) => {
-	if (!primitives.includes(typeof option)) {
-		if (prop.optionValue) return (option as Record<string, unknown>)[prop.optionValue] || option;
-	}
-
-	return option;
-}
-
-const getOptionLabel = (option: unknown) => {
-	if (!primitives.includes(typeof option)) {
-		const optionObject = option as Record<string, unknown>;
-		if (prop.optionLabel && prop.optionLabel in optionObject) return optionObject[prop.optionLabel];
-
-		return option;
-	}
-
-	return option;
 }
 
 const getSize = computed(() => {
