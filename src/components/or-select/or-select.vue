@@ -1,10 +1,8 @@
-import { ref } from "vue";
-
 <template>
 	<select class="or-select" v-model="currentValue" @change="onSelectChange" :class="[getSize]">
-		<option v-for="(option, index) in options" :key="index" :value="option.value">
+		<option v-for="(option, index) in options" :key="index" :value="getOptionValue(option)">
 			<slot name="option" :option="option">
-				{{ option.label }}
+				{{ getOptionLabel(option) }}
 			</slot>
 		</option>
 	</select>
@@ -17,11 +15,15 @@ import { Size, Sizes } from '@/types/Size';
 
 const prop = withDefaults(defineProps<{
 	modelValue: unknown;
-	options: List[];
+	options: unknown[];
+	optionValue?: string;
+	optionLabel?: string;
 	size?: Size
 }>(), {
 	modelValue: null,
 	options: [],
+	optionValue: '',
+	optionLabel: 'label',
 	size: Size.SM
 })
 
@@ -33,6 +35,27 @@ const currentValue = ref<unknown>(null);
 
 const onSelectChange = (): void => {
 	emit('update:modelValue', currentValue.value);
+}
+
+const primitives = ['number', 'string', 'boolean'];
+
+const getOptionValue = (option: unknown) => {
+	if (!primitives.includes(typeof option)) {
+		if (prop.optionValue) return (option as Record<string, unknown>)[prop.optionValue] || option;
+	}
+
+	return option;
+}
+
+const getOptionLabel = (option: unknown) => {
+	if (!primitives.includes(typeof option)) {
+		const optionObject = option as Record<string, unknown>;
+		if (prop.optionLabel && prop.optionLabel in optionObject) return optionObject[prop.optionLabel];
+
+		return option;
+	}
+
+	return option;
 }
 
 const getSize = computed(() => {
