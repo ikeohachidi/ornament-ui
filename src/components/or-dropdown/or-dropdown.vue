@@ -91,7 +91,8 @@ const props = withDefaults(defineProps<{
 })
 
 const emit = defineEmits<{
-	(e: 'update:modelValue', selectedOptions: object[] | object): void
+	(e: 'update:modelValue', value: object[] | object): void,
+	(e: 'change', value: object[] | object): void
 }>()
 
 const selectedOptions = ref<object[]>([]);
@@ -150,11 +151,13 @@ const toggleOption = (option: object): void => {
 			selectedOptions.value.push(option)
 		}
 
+		emit('change', selectedOptions.value);
 		emit('update:modelValue', selectedOptions.value);
 		return
 	}
 
 	selectedOption.value = option;
+	emit('change', selectedOptions.value);
 	emit('update:modelValue', selectedOption.value);
 }
 
