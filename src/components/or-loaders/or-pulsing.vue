@@ -21,7 +21,7 @@ const props = withDefaults(defineProps<{
 	topText: 'hello dark',
 	bottomText: '',
 	count: 4,
-	rounded: true 
+	rounded: false 
 })
 
 const loaderStyle = computed(() => {
