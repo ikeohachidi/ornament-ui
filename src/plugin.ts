@@ -12,20 +12,21 @@ import OrRadio from './components/or-radio';
 import OrAvatar from './components/or-avatar';
 import OrChips from './components/or-chips';
 import OrSelect from './components/or-select/or-select';
+import { OrList, OrListItem } from './components/or-list/index';
 
 export {
 	OrButton,
 	OrDropdown,
 	OrInput,
 	OrInputTags,
-	OrTab,
-	OrTabs,
+	OrTab, OrTabs,
 	OrAccordion,
 	OrSidebar,
 	OrRadio,
 	OrAvatar,
 	OrChips,
-	OrSelect
+	OrSelect,
+	OrList, OrListItem
 }
 
 export default {
@@ -44,5 +45,7 @@ export default {
 		app.component('or-avatar', OrAvatar);
 		app.component('or-chips', OrChips);
 		app.component('or-select', OrSelect);
+		app.component('or-list', OrList);
+		app.component('or-list-item', OrListItem);
 	}
 }
