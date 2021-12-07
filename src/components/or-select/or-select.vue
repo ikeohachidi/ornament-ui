@@ -57,5 +57,6 @@ onMounted(() => {
 .or-select {
 	@apply flex border border-gray-100 rounded-md bg-gray-50 transition-all duration-500;
 	@apply transition duration-300 hover:border-gray-200;
+	@apply focus:border-transparent focus:outline-none focus:ring-1;
 }
 </style>
