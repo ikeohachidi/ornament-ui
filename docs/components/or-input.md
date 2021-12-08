@@ -1,30 +1,14 @@
 # OrInput
-Creates a customized input element
+An input element to take a users input
+
+**Basic**
+<or-input v-model="text" placeholder="Some text here" />
 
 ```html
-<or-input v-model="text" placeholder="some text here"/>
+<or-input v-model="text" placeholder="Some text here"/>
 ```
-**Output**
-<or-input v-model="text" placeholder="some text here"/>
-
 
 # Props
-| Prop | Default | Values |
-|--|--|--|
-| size | "sm" | "sm", "md", "lg"
-
-
-<script lang="ts">
-
-import { defineComponent, ref } from 'vue';
-
-export default defineComponent({
-    setup() {
-        const text = ref('');
-
-        return {
-            text
-        }
-    }
-})
-</script>
+| Prop | Default | Type | Values |
+|--|--|--|--|
+| size | "sm" | string | "sm", "md", "lg"

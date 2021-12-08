@@ -1,32 +1,22 @@
 # OrButton
-
 Renders a button on screen that can be used for forms and in whatever contexts you'd like.
 
-
-## Overview 
+**Basic**
+<or-button>Button</or-button>
 
 ```html
-<or-button>Some text here</or-button>
+<or-button>Button</or-button>
 ```
-**Output**
-<or-button>Some text here</or-button>
 
-# Props
-| Prop | Default | Values |
-|--|--|--|
-| size | "sm" | "sm", "md", "lg"
+**Loading**
+<or-button :is-loading="true">Button</or-button>
 
-<script lang="ts">
+```html
+<or-button :is-loading="true">Button</or-button>
+```
 
-import { defineComponent, ref } from 'vue';
-
-export default defineComponent({
-    setup() {
-        const text = ref('');
-
-        return {
-            text
-        }
-    }
-})
-</script>
+## Props
+| Prop | Default | Type | Values | Description
+|--|--|--|--|--|
+| size | "sm" | string | "sm", "md", "lg" | Constrols size of component
+| isLoading | false | boolean | true, false | Button loading state
