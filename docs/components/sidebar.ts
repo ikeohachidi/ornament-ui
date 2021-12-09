@@ -8,6 +8,10 @@ const sidebar: SidebarItem = {
 			link: '/components/or-accordion'
 		},
 		{
+			text: 'Avatar',
+			link: '/components/or-avatar'
+		},
+		{
 			text: 'Button',
 			link: '/components/or-button'
 		},
