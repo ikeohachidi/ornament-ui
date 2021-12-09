@@ -23,6 +23,4 @@ Will be updated as more ideas come up
 - [x] Tab
 
 #### Motivation
-    - Wanted to learn Vue 3
-    - Wanted components built on tailwind
-    - Boredom
+- Always wanted my own
