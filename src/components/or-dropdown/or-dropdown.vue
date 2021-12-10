@@ -1,5 +1,5 @@
 <template>
-	<div class="or-dropdown-wrapper" v-click-away="hideDropdownList">
+	<div class="or-dropdown-wrapper" ref="orDropdown">
 		<div class="or-dropdown-value" @click="toggleDropdownList">
 			<span class="text-gray-400 text-sm pointer-events-none" v-if="selectedOptions.length === 0 && !isSelectedOptionValid">
 				{{ placeholder }}
@@ -59,14 +59,10 @@
 	</div>
 </template>
 <script lang="ts">
-import { directive } from "vue3-click-away";
 import ListOptions from '@/mixins/list-option';
 
 export default {
 	mixins: [ ListOptions ],
-	directives: {
-		ClickAway: directive
-	}
 }
 </script>
 
@@ -74,6 +70,7 @@ export default {
 import { computed, onMounted, ref, unref } from 'vue';
 
 import useDropPosition from "@/utilities/use-drop-position";
+import useClickAway from "@/utilities/use-clickaway";
 
 const props = withDefaults(defineProps<{
 	options?: object[],
@@ -95,6 +92,7 @@ const emit = defineEmits<{
 	(e: 'change', value: object[] | object): void
 }>()
 
+const orDropdown = ref<HTMLElement>();
 const selectedOptions = ref<object[]>([]);
 
 const selectedOption = ref<object>({});
@@ -162,6 +160,8 @@ const toggleOption = (option: object): void => {
 }
 
 onMounted(() => {
+	if (orDropdown.value) useClickAway(orDropdown.value, hideDropdownList);
+
 	if (props.multi) {
 		(selectedOptions.value as object[]) = (unref(props.modelValue) as object[]);
 		return
