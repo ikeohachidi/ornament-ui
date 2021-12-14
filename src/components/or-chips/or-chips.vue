@@ -4,7 +4,7 @@
 			<slot name="item" :value="value">
 				{{ value }}
 			</slot>
-			<span class="close" @click="removeItem(index)">
+			<span class="close" v-if="hasRemove" @click="removeItem(index)">
 				<i class="ri-close-line"></i>
 			</span>
 		</li>
@@ -18,7 +18,7 @@ const props = withDefaults(defineProps<{
 	hasRemove?: boolean
 }>(), {
 	modelValue: [],
-	hasRemove: true
+	hasRemove: false 
 })
 
 const emits = defineEmits<{
@@ -43,7 +43,7 @@ const removeItem = (index: number) => {
 
 .or-chip {
 	@apply text-sm;
-	@apply bg-gray-100 border border-gray-300 rounded-full py-1 pl-3 pr-2 ml-2 mb-2;
+	@apply bg-gray-100 border border-gray-300 rounded-full py-1 px-3 ml-2 mb-2;
 	@apply inline-flex items-center justify-between;
 
 	&:first-of-type {
