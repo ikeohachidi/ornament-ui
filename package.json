@@ -12,8 +12,7 @@
     "@vuepress/bundler-vite": "^2.0.0-beta.27",
     "@vuepress/theme-default": "^2.0.0-beta.27",
     "remixicon": "^2.5.0",
-    "vue": "^3.2.16",
-    "vue3-click-away": "^1.2.1"
+    "vue": "^3.2.16"
   },
   "devDependencies": {
     "@babel/core": "^7.15.8",
