@@ -20,6 +20,10 @@ const sidebar: SidebarItem = {
 			link: '/components/or-checkbox'
 		},
 		{
+			text: 'Chips',
+			link: '/components/or-chips'
+		},
+		{
 			text: 'Input',
 			link: '/components/or-input'
 		},
