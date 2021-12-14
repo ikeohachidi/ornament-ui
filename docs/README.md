@@ -7,9 +7,6 @@ actions:
     -   text: Get started
         link: '/guide/getting-started/'
         type: primary
-    -   text: Components
-        link: '/components/'
-        type: secondary
 features:
     -   title: Forever growing list of components
         details: Expect the list of component to keep on growing as frontend components don't ever stop growing.
