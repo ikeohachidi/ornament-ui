@@ -7,3 +7,15 @@
 	--color-gray: #e8e8e8;
 	font-family: 'ibm plex sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
+
+h1 {
+	@apply text-3xl font-bold;
+}
+
+h2 {
+	@apply text-2xl font-bold;
+}
+
+h3 {
+	@apply text-xl font-bold;
+}
