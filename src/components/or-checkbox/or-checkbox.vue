@@ -19,11 +19,10 @@
 import { computed, onMounted,ref } from 'vue';
 
 const props = defineProps<{
-	modelValue: unknown | unknown[];
-	checkedValue: unknown;
-	uncheckedValue: unknown;
-	value?: unknown;
-	isSwitch: boolean;
+	modelValue: unknown;
+	value: unknown;
+	uncheckedValue?: unknown;
+	isSwitch?: boolean;
 }>()
 
 const modelType = computed(() => {
@@ -54,9 +53,9 @@ const updateArrayModel = (element: HTMLInputElement) => {
 			}
 		}
 
-		arr.push(props.checkedValue ?? props.value);
+		arr.push(props.value);
 	} else {
-		const index = arr.findIndex(item => JSON.stringify(item) === JSON.stringify(props.checkedValue ?? props.value));
+		const index = arr.findIndex(item => JSON.stringify(item) === JSON.stringify(props.value));
 
 		if (index >= 0) {
 			arr.splice(index, 1);
@@ -76,7 +75,7 @@ const updatePrimitiveModel = (element: HTMLInputElement) => {
 	let value;
 
 	if (element.checked) {
-		value = props.checkedValue ?? props.uncheckedValue;
+		value = props.value;
 	} else {
 		value = props.uncheckedValue ?? '';
 	}
@@ -91,8 +90,8 @@ const onCheckboxValueChange = (event: InputEvent) => {
 }
 
 onMounted(() => {
-	if (modelType.value === 'primitive' && props.modelValue === (props.checkedValue ?? props.value)) {
-		if (checkboxElement.value) {
+	if (modelType.value === 'primitive') {
+		if (checkboxElement.value && props.modelValue === (props.value)) {
 			checkboxElement.value.checked = true;
 		}
 
@@ -101,7 +100,7 @@ onMounted(() => {
 
 	// modelType is an array
 	const index = (props.modelValue as unknown[])
-		.findIndex(item => JSON.stringify(item) === JSON.stringify(props.checkedValue ?? props.value));
+		.findIndex(item => JSON.stringify(item) === JSON.stringify(props.value));
 
 	if (index >= 0 && checkboxElement.value) {
 		checkboxElement.value.checked = true;
@@ -137,7 +136,7 @@ $size: 20px;
 }
 
 .or-checkbox-label {
-	@apply flex justify-center items-center;
+	@apply flex items-center;
 }
 
 .or-switch {
