@@ -19,6 +19,8 @@ const useDefaultSlots = () => {
 
 		return defaultSlot
 	}
+
+	return []
 }
 
 export default useDefaultSlots;
