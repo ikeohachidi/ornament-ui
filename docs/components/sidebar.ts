@@ -31,6 +31,14 @@ const sidebar: SidebarItem = {
 			text: 'Input',
 			link: '/components/or-input'
 		},
+		{
+			text: 'InputTags',
+			link: '/components/or-input-tags'
+		},
+		{
+			text: 'List',
+			link: '/components/or-list'
+		},
 	]
 }
 
