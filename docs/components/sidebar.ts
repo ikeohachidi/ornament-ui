@@ -24,6 +24,10 @@ const sidebar: SidebarItem = {
 			link: '/components/or-chips'
 		},
 		{
+			text: 'Dropdown',
+			link: '/components/or-dropdown'
+		},
+		{
 			text: 'Input',
 			link: '/components/or-input'
 		},
