@@ -7,7 +7,7 @@
 		v-bind="$attrs"
 		@change="onCheckboxValueChange"
 	>
-	<label v-if="isSwitch" class="or-switch"  :for="inputElementId"></label>
+	<label v-if="isSwitch" class="or-switch" :for="inputElementId"></label>
 
 	<label class="or-checkbox-label" v-else :for="inputElementId">
 		<span class="or-checkbox"></span>
