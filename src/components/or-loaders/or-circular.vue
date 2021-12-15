@@ -17,7 +17,7 @@ const props = withDefaults(defineProps<{
 }>(), {
 	dimension: 30,
 	borderWidth: 3,
-	topText: 'hello dark',
+	topText: '',
 	bottomText: ''
 })
 
@@ -32,7 +32,7 @@ const loaderStyle = computed(() => {
 
 <style lang="scss" scoped>
 .or-loader-wrapper {
-	@apply relative flex flex-col items-center;
+	@apply relative inline-flex flex-col items-center;
 }
 
 .or-loader {

@@ -18,7 +18,7 @@ const props = withDefaults(defineProps<{
 }>(), {
 	dimension: 15,
 	boxColor: '#1F2937',
-	topText: 'hello dark',
+	topText: '',
 	bottomText: '',
 	count: 4,
 	rounded: false 
