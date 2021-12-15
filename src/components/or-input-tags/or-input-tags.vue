@@ -145,7 +145,7 @@ onMounted(() => {
 }
 
 .or-input-tags-options {
-    @apply absolute left-0;
+    @apply absolute z-10 left-0;
 
     &.show-top {
         @apply bottom-full; 
@@ -157,7 +157,7 @@ onMounted(() => {
     @apply w-full rounded-md overflow-hidden shadow-sm;
 
     li {
-        @apply p-2 cursor-pointer;
+        @apply p-2 cursor-pointer bg-white;
         @apply transition duration-500;
         @apply hover:bg-gray-50;
     }
