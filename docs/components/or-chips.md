@@ -12,10 +12,10 @@ Pass an array of strings
 ```
 
 Chips entries can also be removed by setting the `has-remove` prop to true.
-<or-chips v-model="languages" has-remove />
+<or-chips v-model="languages" :has-remove="true"/>
 
 ```html
-<or-chips v-model="languages" has-remove />
+<or-chips v-model="languages" :has-remove="true"/>
 ```
 
 <script>
