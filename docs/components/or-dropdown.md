@@ -53,8 +53,8 @@ export default defineComponent({
             { firstName: 'Endurance', lastName: 'Egbe' },
         ]);
 
-        const selectedLanguages = ref(['Javascript', 'C#', 'Elixir'])
-        const languages = ref(['Javascript', 'C#', 'Elixir'])
+        const selectedLanguages = ref([]);
+        const languages = ref(['Javascript', 'C#', 'Elixir']);
 
         return {
             selectedUser,

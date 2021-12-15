@@ -36,15 +36,14 @@ import { defineComponent, ref } from 'vue';
 export default defineComponent({
     setup() {
         const selectedUser = ref();
-
         const users = ref([
             { firstName: 'Murphy', lastName: 'Ochuba' },
             { firstName: 'John', lastName: 'Ansa' },
             { firstName: 'Endurance', lastName: 'Egbe' },
         ]);
 
-        const selectedLanguages = ref(['Javascript', 'C#', 'Elixir'])
-        const languages = ref(['Javascript', 'C#', 'Elixir'])
+        const selectedLanguages = ref(['Javascript', 'C#', 'Elixir']);
+        const languages = ref([]);
 
         return {
             selectedUser,
