@@ -108,7 +108,7 @@ const isSelectedOptionValid = computed(() => {
 
 const filterTerm = ref<string>('');
 const filteredOptions = computed(() => {
-	return props.options.filter(option => JSON.stringify(option).includes(filterTerm.value))
+	return props.options.filter(option => JSON.stringify(option).toLowerCase().includes(filterTerm.value.toLowerCase()))
 })
 
 const isItemSelected = (item: object): boolean => {
