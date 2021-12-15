@@ -18,7 +18,6 @@
 
 <script setup lang="ts">
 import useDefaultSlots from "@/utilities/use-default-slots";
-import { onMounted } from "@vue/runtime-core";
 
 interface ListItem {
 	title: string;
@@ -32,10 +31,6 @@ const props = withDefaults(defineProps<{
 })
 
 const slots = useDefaultSlots();
-
-onMounted(() => {
-	console.log(slots)
-})
 </script>
 
 <style lang="scss" scoped>
