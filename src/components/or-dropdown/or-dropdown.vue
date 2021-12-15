@@ -29,9 +29,9 @@
 			<li class="or-dropdown-filter">
 				<or-input v-model="filterTerm" placeholder="Filter items" v-if="hasFilter">
 					<template #before>
-						<spa class="text-base text-gray-400">
+						<span class="text-base text-gray-400">
 							<i class="ri-search-2-line mr-3"></i>
-						</spa>
+						</span>
 					</template>
 					<template #after>
 						<span class="text-base text-gray-400 cursor-pointer" @click="filterTerm = ''">
@@ -58,6 +58,7 @@
 		</ul>
 	</div>
 </template>
+
 <script lang="ts">
 import ListOptions from '@/mixins/list-option';
 
