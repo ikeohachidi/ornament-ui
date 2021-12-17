@@ -24,8 +24,6 @@ const prop = withDefaults(defineProps<{
 	options: unknown[];
 	size?: Size
 }>(), {
-	modelValue: null,
-	options: [],
 	size: Size.SM
 })
 

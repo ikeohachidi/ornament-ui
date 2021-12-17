@@ -57,9 +57,7 @@ type ItemClickEvent = {
 
 const props = withDefaults(defineProps<{
     menuItems: MenuItem[];
-}>(), {
-    menuItems: []
-})
+}>(), {})
 
 const emit = defineEmits<{
     (e: 'item-clicked', value: ItemClickEvent): void;
@@ -69,7 +67,7 @@ const oneItemHasIcon = computed<boolean>(() => {
     return props.menuItems?.some(menuItem => menuItem.icon) as boolean;
 })
 
-const toggleChildrenView = (event: PointerEvent, item: ItemClickEvent) => {
+const toggleChildrenView = (event: MouseEvent, item: ItemClickEvent) => {
     const target = event.target as HTMLElement;
 
     target.classList.toggle('collapse-children');

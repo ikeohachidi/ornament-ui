@@ -82,7 +82,7 @@ const updatePrimitiveModel = (element: HTMLInputElement) => {
 	emit('update:modelValue', value);
 }
 
-const onCheckboxValueChange = (event: InputEvent) => {
+const onCheckboxValueChange = (event: Event) => {
 	const element = event.target as HTMLInputElement; 
 	
 	updatePrimitiveModel(element);

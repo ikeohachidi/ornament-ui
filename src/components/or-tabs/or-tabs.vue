@@ -6,8 +6,8 @@
 			:key="titleIndex"
 			@click="setActiveSlot(titleIndex)"
 		>
-			<template v-if="defaultSlots[titleIndex].children.title">
-				<component :is="defaultSlots[titleIndex].children.title"/>
+			<template v-if="getSlotTitle(titleIndex)">
+				<component :is="getSlotTitle(titleIndex)"/>
 			</template>
 			<template v-else>
 				{{ title }}
@@ -22,9 +22,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, useSlots, VNode } from "@vue/runtime-core";
+import { ref, computed, useSlots, VNode, onMounted } from "vue";
+import { OrTab } from '.';
 import { Position } from '@/types/Position';
-import { onMounted } from "vue";
 
 const slots = useSlots();
 
@@ -49,6 +49,12 @@ const defaultSlots = computed<VNode[]>(() => {
 
 	return []
 })
+
+const getSlotTitle = (index: number) => {
+	if (!defaultSlots.value[index] || !(defaultSlots.value[index].children as typeof OrTab).title) return;
+
+	return (defaultSlots.value[index].children as typeof OrTab).title;
+}
 
 const setActiveSlot = (titleIndex: number): void => {
 	activeSlotIndex.value = titleIndex;

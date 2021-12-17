@@ -17,7 +17,6 @@ const props = withDefaults(defineProps<{
 	modelValue: unknown[],
 	hasRemove?: boolean
 }>(), {
-	modelValue: [],
 	hasRemove: false 
 })
 

@@ -47,7 +47,7 @@ const getSize = computed(() => {
 	return Sizes.sm;
 })
 
-const onTextInput = (event: InputEvent): void => {
+const onTextInput = (event: Event): void => {
 	const { value } = (event.target as HTMLInputElement);
 
 	emit('update:modelValue', value)

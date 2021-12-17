@@ -11,7 +11,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, CSSProperties } from 'vue'
 import { Size, RadiusSize } from '@/types/Size'
 import { Position } from '@/types/Position'
 
@@ -47,7 +47,7 @@ const wrapperStyle = computed(() => {
 
 	return {
 		'flexDirection': direction,
-	}
+	} as CSSProperties
 })
 
 const imgBoxStyle = computed(() => {
