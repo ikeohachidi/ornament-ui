@@ -1,10 +1,10 @@
 <template>
-	<div class="or-avatar-wrapper" :style="[wrapperStyle]">
-		<div class="or-avatar-img" :style="[imgBoxStyle]">
+	<div class="or-avatar-wrapper flex center" :style="[wrapperStyle]">
+		<div class="or-avatar-img flex center jc-center" :style="[imgBoxStyle]">
 			<img :src="img" :alt="text + ' avatar'" v-if="img">
 			<p v-else>{{ initials }}</p>
 		</div>
-		<p class="or-avatar-text">
+		<p class="or-avatar-text p-1 m-0">
 			<slot name="text">{{ text }}</slot>
 		</p>
 	</div>	
@@ -67,21 +67,16 @@ const initials = computed(() => {
 </script>
 
 <style scoped lang="scss">
-.or-avatar-wrapper {
-	@apply flex items-center;
-}
-
 .or-avatar-img {
-	@apply flex items-center justify-center overflow-hidden uppercase;
-	@apply bg-gray-300 text-white;
+	background-color: var(--color-gray-1);
+	color: #fff;
+	text-transform: uppercase;
 
 	img {
-		@apply h-full w-full;
-		@apply object-cover object-center;
+		height: 100%;
+		width: 100%;
+		object-fit: cover;
+		object-position: center;
 	}
-}
-
-.or-avatar-text {
-	@apply p-3;
 }
 </style>
