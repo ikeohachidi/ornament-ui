@@ -1,7 +1,7 @@
 :root {
 	--color-primary: #1F2937;
-	--color-gray-1: #505050;
-	--color-gray-2: #e9e9e9;
+	--color-gray-1: #cccccc;
+	--color-gray-2: #e6ebee3b;
 	--border-color-1: #ebebeb;
 	--hover-ring-color: var(--color-primary);
 	--radius-1: 4px;
@@ -10,4 +10,9 @@
 
 body {
 	font-family: 'Public Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+ul {
+	padding: 0;
+	list-style: none;
 }

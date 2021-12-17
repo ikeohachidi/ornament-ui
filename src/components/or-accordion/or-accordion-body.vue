@@ -1,5 +1,5 @@
 <template>
-    <p class="or-accordion-title" @click="toggleAccordion">
+    <p class="or-accordion-title m-0 p-2 flex center between" @click="toggleAccordion">
         <span>
             <slot name="title" :title="title">
                 {{ title }}
@@ -13,7 +13,7 @@
         </span>
     </p>
     <div class="or-accordion-body" :class="{'active': isComponentActive ? true : false}">
-        <div>
+        <div class="p-3">
             <slot>
             </slot>
         </div>
@@ -43,20 +43,18 @@ const toggleAccordion = () => {
 
 <style lang="scss" scoped>
 .or-accordion-title {
-    @apply border-b border-gray-200 p-3 cursor-pointer;
-    @apply flex items-center justify-between; 
+    cursor: pointer;
+    border-bottom: 1px solid var(--color-gray-1);
 }
 
 .or-accordion-body {
-    @apply overflow-y-hidden transition-all  bg-gray-50;
-    @apply max-h-0;
+    overflow-y: auto;
+    max-height: 0;
+    background: var(--color-gray-2);
+    transition: .9s;
 
     &.active {
-        @apply max-h-96;
-    }
-
-    > div {
-        @apply p-3;
+        max-height: 200px;
     }
 }
 </style>
