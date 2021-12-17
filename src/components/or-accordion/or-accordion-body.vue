@@ -1,5 +1,5 @@
 <template>
-    <p class="or-accordion-title m-0 p-2 flex center between" @click="toggleAccordion">
+    <p class="or-accordion-title m-0 p-2 flex center jc-between" @click="toggleAccordion">
         <span>
             <slot name="title" :title="title">
                 {{ title }}
