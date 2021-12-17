@@ -14,7 +14,9 @@
     "fluent",
     "tailwind"
   ],
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "main": "./dist/ornament.umd.js",
   "module": "./dist/ornament.es.js",
   "exports": {
@@ -33,6 +35,7 @@
   "dependencies": {
     "@vuepress/bundler-vite": "^2.0.0-beta.27",
     "@vuepress/theme-default": "^2.0.0-beta.27",
+    "kwik-css": "^0.1.3",
     "remixicon": "^2.5.0",
     "vue": "^3.2.16"
   },
@@ -42,9 +45,7 @@
     "@vuepress/cli": "^2.0.0-beta.27",
     "autoprefixer": "^10.3.7",
     "babel-loader": "^8.2.2",
-    "postcss": "^8.3.9",
     "sass": "^1.43.2",
-    "tailwindcss": "^2.2.17",
     "typescript": "^4.4.3",
     "vite": "^2.6.4",
     "vue-loader": "^16.8.1",
