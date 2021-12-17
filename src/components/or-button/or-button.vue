@@ -27,13 +27,18 @@ const getSize = computed(() => {
 
 <style lang="scss" scoped>
 button {
-	@apply or-bg-primary or-border-radius; 
-	@apply inline-flex justify-center;
-	@apply text-white text-base border-0 cursor-pointer hover:bg-blue-800 transition-all duration-100;
+	background: var(--color-primary);
+	border: 1px solid var(--color-primary);
+	font-size: 1rem;
+	border-radius: var(--radius-1);
+	color: #fff;
+	cursor: pointer;
+	transition: .2s;
+	display: inline-flex;
+	justify-content: center;
 
 	&:disabled {
 		background-color: var(--color-gray);
-		@apply py-3;
 	}
 }
 </style>
