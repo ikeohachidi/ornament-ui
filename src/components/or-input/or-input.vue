@@ -1,9 +1,11 @@
 <template>
-	<div class="or-input-wrapper" :class="[getSize]">
+	<div class="or-input-wrapper flex center" :class="[getSize]">
 		<slot name="before">
+			<i v-if="beforeIcon" :class="`ri-${beforeIcon}`"></i>
 		</slot>
-		<input type="text" class="or-input w-full" v-bind="$attrs" ref="input" @input="onTextInput">
+		<input type="text" class="or-input grow" v-bind="$attrs" ref="input" @input="onTextInput">
 		<slot name="after">
+			<i v-if="afterIcon" :class="`ri-${afterIcon}`"></i>
 		</slot>
 	</div>
 </template>
@@ -21,9 +23,11 @@ import { Size, Sizes } from '@/types/Size';
 const props = withDefaults(defineProps<{
 	modelValue?: string
 	size?: Size
+	afterIcon?: string
+	beforeIcon?: string
 }>(), {
 	modelValue: '',
-	size: Size.SM 
+	size: Size.SM
 })
 
 const watch_modelValue = watch(
@@ -62,25 +66,32 @@ onMounted(() => {
 })
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .or-input-wrapper {
-	@apply flex border border-gray-100 rounded-md bg-gray-50 transition-all duration-500;
-	@apply transition duration-300 hover:border-gray-200;
-}
+	border: 1px solid var(--border-color-1);
+	border-radius: var(--radius-1);
+	box-shadow: none;
+	transition: .2s;
 
-.or-input-wrapper:focus-within {
-	@apply ring-1;
-}
+	&:focus-within {
+		box-shadow: inset 0px 0px 0px 1px var(--color-primary);
+	}
 
-.or-input-wrapper * {
-	@apply flex-1;
-}
+	&:hover {
+		box-shadow: inset 0px 0px 0px 1px var(--hover-ring-color);
+	}
 
-.or-input {
-	@apply bg-gray-50 border-0;
-}
+	.or-input {
+		font-size: 1rem;
+		border: none;
 
-.or-input:focus {
-	@apply outline-none border-0;
+		&::placeholder {
+			font-size: 1rem;
+		}
+
+		&:focus {
+			outline: none;
+		}
+	}
 }
 </style>

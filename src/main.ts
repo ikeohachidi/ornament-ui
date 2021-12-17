@@ -1,6 +1,7 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 
+import 'kwik-css';
 import './main.css';
 import 'remixicon/fonts/remixicon.css'
 
