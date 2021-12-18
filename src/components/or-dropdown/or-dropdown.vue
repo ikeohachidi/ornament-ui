@@ -1,18 +1,18 @@
 <template>
 	<div class="or-dropdown-wrapper" ref="orDropdown">
-		<div class="or-dropdown-value" @click="toggleDropdownList">
-			<span class="text-gray-400 text-sm pointer-events-none" v-if="selectedOptions.length === 0 && !isSelectedOptionValid">
+		<div class="or-dropdown-value p-1 center" @click="toggleDropdownList">
+			<span v-if="selectedOptions.length === 0 && !isSelectedOptionValid">
 				{{ placeholder }}
 			</span>
-			<div class="text-gray-600 w-full" v-else>
+			<div v-else>
 				<template v-if="multi">
-					<span :class="{'chip': chips}" v-for="(option, optionIndex) in selectedOptions" :key="optionIndex">
-						<slot name="value" :selected="option">
-							{{ getOptionLabel(option) }}
-						</slot>
-						<span v-if="!chips">
-							{{ optionIndex < selectedOptions.length - 1 ? ', ' : '' }}
-						</span>
+					<or-chips v-if="chips" v-model="selectedOptions" class="or-chips-wrapper">
+						<template #item="{ value }">
+							{{ value }}
+						</template>
+					</or-chips>
+					<span v-else v-for="(option, optionIndex) in selectedOptions" :key="optionIndex">
+						{{ option }} {{ optionIndex < selectedOptions.length - 1 ? ', ' : '' }}
 					</span>
 				</template>
 				<span v-else>
@@ -21,7 +21,7 @@
 					</slot>
 				</span>
 			</div>
-			<span class="ml-auto text-gray-400">
+			<span class="ml-auto">
 				<i class="ri-arrow-down-s-line"></i>
 			</span>
 		</div>
@@ -29,14 +29,10 @@
 			<li class="or-dropdown-filter">
 				<or-input v-model="filterTerm" placeholder="Filter items" v-if="hasFilter">
 					<template #before>
-						<span class="text-base text-gray-400">
-							<i class="ri-search-2-line mr-3"></i>
-						</span>
+						<i class="ri-search-2-line mr-1"></i>
 					</template>
 					<template #after>
-						<span class="text-base text-gray-400 cursor-pointer" @click="filterTerm = ''">
-							<i class="ri-close-line ml-3"></i>
-						</span>
+						<i class="ri-close-line ml-3" @click="filterTerm = ''"></i>
 					</template>
 				</or-input>
 			</li>
@@ -48,12 +44,17 @@
 				@click="toggleOption(option)"
 
 			>
-				<input type="checkbox" class="mr-2" v-model="selectedOptions" :value="option" v-if="multi">
-				<input type="radio" class="mr-2" v-model="selectedOption" :value="option" v-else>
-
-				<slot name="option" class="option" :option="option" :index="optionIndex">
-					{{ getOptionLabel(option) }}
-				</slot>
+				<or-checkbox v-model="selectedOptions" :value="option" v-if="multi">
+					<slot name="option" class="option" :option="option" :index="optionIndex">
+						<span class="ml-2">{{ getOptionLabel(option) }}</span>
+					</slot>
+				</or-checkbox>
+				<template v-else>
+					<input type="radio" class="mr-2" v-model="selectedOption" :value="option">
+					<slot name="option" class="option" :option="option" :index="optionIndex">
+						{{ getOptionLabel(option) }}
+					</slot>
+				</template>
 			</li>
 		</ul>
 	</div>
@@ -77,14 +78,12 @@ const props = withDefaults(defineProps<{
 	options?: object[],
 	modelValue?: object[] | object,
 	multi?: boolean,
-	chips: boolean;
+	chips?: boolean;
 	hasFilter?: boolean;
 	placeholder: string
 }>(), {
 	options: () => ([]),
 	modelValue: () => ([]),
-	multi: false,
-	chips: false,
 	hasFilter: true
 })
 
