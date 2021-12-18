@@ -7,10 +7,10 @@
 		v-bind="$attrs"
 		@change="onCheckboxValueChange"
 	>
-	<label v-if="isSwitch" class="or-switch" :for="inputElementId"></label>
+	<label v-if="isSwitch" class="or-switch center jc-center" :for="inputElementId"></label>
 
-	<label class="or-checkbox-label" v-else :for="inputElementId">
-		<span class="or-checkbox"></span>
+	<label class="or-checkbox-label center" v-else :for="inputElementId">
+		<span class="or-checkbox center jc-center"></span>
 		<slot></slot>
 	</label>
 </template>
@@ -113,11 +113,12 @@ onMounted(() => {
 $size: 20px;
 
 .or-checkbox-input {
-	@apply hidden;
+	display: none;
 
 	&:checked + {
 		.or-checkbox-label .or-checkbox {
-			@apply or-bg-primary;
+			background-color: var(--color-primary);
+			box-shadow: none;
 		}
 
 		.or-checkbox-label .or-checkbox:before {
@@ -125,51 +126,62 @@ $size: 20px;
 		}
 
 		.or-switch {
-			@apply or-bg-primary;
+			background-color: var(--color-primary);
 		}
 
 		.or-switch:before {
-			@apply bg-white;
-			left: calc(96% - ($size - 6px));
+			background-color: #fff;
+			left: calc(96% - ($size - 5px));
 		}
 	} 
 }
 
-.or-checkbox-label {
-	@apply flex items-center;
-}
-
 .or-switch {
+	cursor: pointer;
 	height: $size;
 	width: $size * 2;
-	@apply border rounded-full border-gray-200 inline-block relative bg-gray-100;
-	@apply flex content-center items-center;
-	@apply transition-all;
+	border-radius: 999px;
+	box-shadow: 0px 0px 0px 1px var(--color-gray-2);
+	display: inline-block;
+	position: relative;
+	background: var(--color-gray-3);
+	transition: .2s;
 
 	&:before {
 		content: "";
 		height: $size - 6px;
 		width: $size - 6px;
-		@apply rounded-full bg-white inline-block absolute;
+		border-radius: 999px;
+		background-color: #fff;
+		display: inline-block;
+		position: absolute;
+		top: 3px;
 		left: 3px;
 		transition: left .2s linear;
 	}
 }
 
 .or-checkbox {
+	cursor: pointer;
 	height: $size;
 	width: $size;
-	@apply bg-white border border-gray-200 inline-block mr-1 relative;
-	@apply flex items-center justify-center;
+	background: #fff;
+	position: relative;
+	margin-right: 2px;
+	border-radius: var(--radius-1);
+	box-shadow: 0px 0px 0px 1px var(--color-gray-1);
+	transition: .2s;
 
 	&:before {
 		display: inline-block;
-		height: 6px;
-		width: 10px;
-		top: 4px;
+		height: 4px;
+		width: 8px;
+		position: absolute;
+		top: 5px;
 		border: 2px solid #fff;
-		transform: rotateZ(-52deg);
-		@apply border-r-0 border-t-0 absolute;
+		border-right: none;
+		border-top: none;
+		transform: rotateZ(-45deg);
 	}
 }
 </style>

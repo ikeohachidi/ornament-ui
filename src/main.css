@@ -1,8 +1,10 @@
 :root {
 	--color-primary: #1F2937;
 	--color-gray-1: #cccccc;
-	--color-gray-2: #e6ebee3b;
+	--color-gray-2: #e6ebee77;
+	--color-gray-3: #e6ebee3b;
 	--border-color-1: #ebebeb;
+	--text-color-1: rgb(60, 60, 63);
 	--hover-ring-color: var(--color-primary);
 	--radius-1: 4px;
 	--radius-2: 6px;

@@ -1,12 +1,10 @@
 <template>
-	<ul class="or-chips">
-		<li v-for="(value, index) in modelValue" class="or-chip" :key="index">
+	<ul class="or-chips flex">
+		<li v-for="(value, index) in modelValue" class="or-chip center py-1 px-2 ml-2 mb-2" :key="index">
 			<slot name="item" :value="value">
 				{{ value }}
 			</slot>
-			<span class="close" v-if="hasRemove" @click="removeItem(index)">
-				<i class="ri-close-line"></i>
-			</span>
+			<i class="close ri-close-line ml-1" v-if="removeable" @click="removeItem(index)"></i>
 		</li>
 	</ul>
 </template>
@@ -15,9 +13,9 @@
 
 const props = withDefaults(defineProps<{
 	modelValue: unknown[],
-	hasRemove?: boolean
+	removeable?: boolean
 }>(), {
-	hasRemove: false 
+	removeable: false 
 })
 
 const emits = defineEmits<{
@@ -35,22 +33,18 @@ const removeItem = (index: number) => {
 
 <style scoped lang="scss">
 .or-chip {
-	.close {
-		@apply cursor-pointer;
-	}
-}
+	background-color: var(--color-gray-2);
+	border: 1px solid var(--color-gray-3);
+	border-radius: 999px;
+	color: var(--text-color-1);
 
-.or-chip {
-	@apply text-sm;
-	@apply bg-gray-100 border border-gray-300 rounded-full py-1 px-3 ml-2 mb-2;
-	@apply inline-flex items-center justify-between;
+	.close {
+		cursor: pointer;
+		color: var(--color-gray-1);
+	}
 
 	&:first-of-type {
-		@apply ml-0;
-	}
-
-	.close {
-		@apply text-gray-500;
+		margin-left: 0;
 	}
 }
 </style>

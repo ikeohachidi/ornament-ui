@@ -174,31 +174,51 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .or-dropdown-wrapper {
-	@apply relative;
+	position: relative;
 }
 
 .or-dropdown-value {
-	@apply border border-gray-100 bg-gray-50 rounded-md px-3 py-1 flex items-center cursor-pointer;
-	@apply transition duration-300 hover:border-gray-200;
+	border: 1px solid var(--color-gray-2);
+	border-radius: var(--radius-1);
+	background: var(--color-gray-3);
+	box-shadow: none;
+	cursor: pointer;
+	transition: .2s;
+	&:hover {
+		box-shadow: var(--outline-border);
+	}
 
-	.chip {
-		@apply ml-2 py-1 px-2 bg-gray-200 rounded-full text-sm text-gray-600;
+	::v-deep(.or-chips-wrapper) {
+		margin: 0;
+
+		.or-chip {
+			margin: 0 5px; 
+			font-size: 14px;
+
+			&:first-of-type {
+				margin-left: 0px;
+			}
+		}
 
 		&:first-of-type {
-			@apply ml-0;
+			margin-left: 0;
 		}
 	}
 }
 
 .or-dropdown-list {
+	position: absolute;
+	left: 0;
+	right: 0;
+	background-color: #fff;
+	border: 1px solid var(--color-gray-2);
+	border-radius: var(--radius-2);
+	padding: 20px;
+	box-shadow: var(--shadow-sm);
 	visibility: hidden;
 	opacity: 0;
 	transform: translateY(30px);
 	transition: 0s visibility, .2s opacity, .2s transform;
-	max-height: 200px;
-
-	@apply absolute w-full z-10 overflow-y-auto;
-	@apply shadow-sm rounded-md p-4 my-2 border border-gray-50 bg-white;
 }
 
 .or-dropdown-list.show {
@@ -208,19 +228,28 @@ onMounted(() => {
 }
 
 .or-dropdown-filter {
-	@apply mb-2;
+	margin-bottom: 1em;
 }
 
 .or-dropdown-item {
-	@apply p-2 cursor-pointer text-gray-600;
-	@apply hover:bg-gray-50  transition-all duration-300;
+	cursor: pointer;
+	padding: 0.7em;
+	margin: 5px 0;
+	background-color: transparent;
+	color: var(--text-color-1);
+	border-radius: var(--radius-1);
+	transition: .2s;
+
+	&:hover {
+		background-color: var(--color-gray-3);
+	}
 }
 
 .or-dropdown-item input[type="radio"] {
-	@apply hidden; 
+	display: none;
 }
 
 .or-dropdown-item.active {
-	@apply bg-gray-50;
+	background-color: var(--color-gray-3);
 }
 </style>
