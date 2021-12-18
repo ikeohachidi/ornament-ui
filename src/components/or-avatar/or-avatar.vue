@@ -70,6 +70,7 @@ const initials = computed(() => {
 .or-avatar-img {
 	background-color: var(--color-gray-1);
 	color: #fff;
+	overflow: hidden;
 	text-transform: uppercase;
 
 	img {
