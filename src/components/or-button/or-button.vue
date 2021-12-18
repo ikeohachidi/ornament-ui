@@ -38,7 +38,9 @@ button {
 	justify-content: center;
 
 	&:disabled {
-		background-color: var(--color-gray);
+		background-color: var(--color-gray-2);
+		border: 1px solid var(--color-gray-1);
+		padding: 0.8em;
 	}
 }
 </style>
