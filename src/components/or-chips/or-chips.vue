@@ -18,8 +18,9 @@ const props = withDefaults(defineProps<{
 	removeable: false 
 })
 
-const emits = defineEmits<{
+const emit = defineEmits<{
 	(event: "update:modelValue", value: unknown): void;
+	(event: "item-removed", value: number): void;
 }>()
 
 const removeItem = (index: number) => {
@@ -27,7 +28,8 @@ const removeItem = (index: number) => {
 
 	model.splice(index, 1);
 
-	emits("update:modelValue", model);
+	emit("item-removed", index);
+	emit("update:modelValue", model);
 }
 </script>
 
