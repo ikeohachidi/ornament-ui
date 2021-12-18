@@ -35,17 +35,28 @@ const slots = useDefaultSlots();
 
 <style lang="scss" scoped>
 .or-list {
-	@apply border border-gray-200 overflow-hidden rounded-md;
+	border: 1px solid var(--color-gray-2);
+	overflow: hidden;
+	border-radius: var(--radius-1);
 
 	.or-list-item {
-		@apply border-b border-gray-200 p-3;
+		border-bottom: 1px solid var(--color-gray-2);
+		padding: 1em;
 
 		&:last-of-type {
-			@apply border-b-0;
+			border-bottom: none;
+		}
+
+		p:first-of-type {
+			margin-top: 0;
+			margin-bottom: 0.5em;
 		}
 
 		p:last-of-type {
-			@apply text-gray-600 text-sm mt-2;
+			color: var(--text-color-2);
+			font-size: 14px;
+			margin-top: 1em;
+			margin-bottom: 0;
 		}
 	}
 }
