@@ -4,10 +4,13 @@
         type="radio" 
         :id="inputElementId" 
         v-bind="$attrs"
+		v-model="modelValue"
+		:value="value"
+		ref="radioElement"
         @change="onRadioValueChange"
     >
     <label class="or-radio-label" :for="inputElementId">
-        <slot></slot>
+		<span class="or-radio-label-text"><slot></slot></span>
     </label>
 </template>
 
