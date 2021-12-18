@@ -12,6 +12,6 @@ const props = defineProps<{
 
 <style scoped>
 .or-tab {
-    @apply p-3;
+    padding: 1em;
 }
 </style>

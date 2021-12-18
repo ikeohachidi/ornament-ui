@@ -80,23 +80,32 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .or-tab-headers {
-	@apply flex border-b border-gray-200 text-gray-800;
+	display: flex;
+	border-bottom: 1px solid var(--color-gray-2);
+	color: var(--text-color-2) ;
 
 	&.right {
-		@apply justify-end;
+		justify-content: flex-end;
 	}
 
 	&.center {
-		@apply justify-center;
+		justify-content: center;
 	}
 
 	span {
-		@apply inline-block px-3 py-2 border-0 border-b-2 border-transparent cursor-pointer; 
-		@apply hover:bg-gray-100 hover:border-indigo-200;
-		@apply transition duration-200;
+		display: inline-block;
+		padding: 0.5em 1em;
+		cursor: pointer;
+		border-bottom: 2px solid transparent;
+		transition: .2s;
+		&:hover {
+			background-color: var(--color-gray-3);
+			border-bottom: 2px solid var(--color-gray-2);
+		}
 
 		&.active {
-			@apply or-border-primary or-text-primary;
+			border-color: var(--color-primary);
+			color: var(--text-color-1)
 		}
 	}
 }
