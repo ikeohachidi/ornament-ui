@@ -53,8 +53,22 @@ onMounted(() => {
 
 <style scoped lang="scss">
 .or-select {
-	@apply flex border border-gray-100 rounded-md bg-gray-50 transition-all duration-500;
-	@apply transition duration-300 hover:border-gray-200;
-	@apply focus:border-transparent focus:outline-none focus:ring-1;
+	display: flex;
+	border: 1px solid var(--border-color-1);
+	border-radius: var(--radius-1);
+	background: var(--color-gray-3);
+	transition: .2s;
+	font-size: 1em;
+
+	&:hover {
+		box-shadow: inset 0px 0px 0px 1px var(--color-primary);
+	}
+	&:focus {
+		outline: none;
+	}
+
+	option {
+		border-radius: var(--radius-1);
+	}
 }
 </style>
