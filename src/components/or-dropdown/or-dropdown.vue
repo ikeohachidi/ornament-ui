@@ -174,6 +174,8 @@ onMounted(() => {
 <style lang="scss" scoped>
 .or-dropdown-wrapper {
 	position: relative;
+	min-width: var(--input-min-width);
+	width: 100%;
 }
 
 .or-dropdown-value {

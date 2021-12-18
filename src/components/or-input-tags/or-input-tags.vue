@@ -127,39 +127,67 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .or-input-tags-wrapper {
-    @apply relative flex flex-row flex-wrap border border-gray-100 rounded-md text-sm bg-gray-50 p-1;
-    @apply transition duration-300 hover:border-gray-200;
+	position: relative;
+	border: 1px solid var(--color-gray-2);
+	border-radius: var(--radius-1);
+	background: var(--color-gray-3);
+	transition: .5s;
+	min-width: var(--input-min-width);
+	width: 100%;
+
+	&:hover {
+		box-shadow: var(--outline-border);
 }
 
-.or-input-tag {
-    @apply flex items-center ml-2 py-0 pl-3 pr-1 bg-gray-200 rounded-full text-sm text-gray-600;
-}
+	::v-deep(.or-chips-wrapper) {
+		margin: 0;
 
-.or-input-tag:first-of-type {
-    @apply ml-0;
+		.or-chip {
+			margin: 0 5px;
+
+			&:first-of-type {
+				margin-left: 0;
+}
+		}
+	}
 }
 
 .or-input-tags-input {
-    @apply ml-2 bg-gray-50 flex items-center;
-    @apply focus:outline-none;
+	background-color: var(--color-gray-3);
+	display: flex;
+	align-items: center;
+	margin-left: 10px;
+	border: none;
+	font-size: 16px;
+	&:focus {
+		outline: none;
+	}
 }
 
 .or-input-tags-options {
-    @apply absolute z-10 left-0;
+	z-index: 10;
+	position: absolute;
+	left: 0;
+	right: 0;
+	border-radius: var(--radius-1);
+	overflow: hidden;
+	box-shadow: var(--shadow-sm);
 
     &.show-top {
-        @apply bottom-full; 
+		bottom: 100%;
     }
     &.show-bottom {
-        @apply top-full; 
+		top: 100%;
     }
 
-    @apply w-full rounded-md overflow-hidden shadow-sm;
-
     li {
-        @apply p-2 cursor-pointer bg-white;
-        @apply transition duration-500;
-        @apply hover:bg-gray-50;
+		padding: 1em;
+		cursor: pointer;
+		background-color: #fff;
+		transition: .2s;
+		&:hover {
+			background-color: var(--color-gray-3);
+		}
     }
 }
 </style>
