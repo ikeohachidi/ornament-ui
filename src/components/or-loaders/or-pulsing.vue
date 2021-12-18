@@ -36,19 +36,20 @@ const loaderStyle = computed(() => {
 
 <style lang="scss" scoped>
 .or-loader-wrapper {
-	@apply flex;
+	display: flex;
 }
 
 .or-pulsing {
-	@apply or-bg-primary mr-2;
-	animation: pulse;
+	background-color: var(--color-primary);
+	margin-right: 0.5em;
+	animation-name: pulse;
 	animation-duration: .7s;
 	animation-iteration-count: infinite;
 	animation-fill-mode: both;
 	animation-direction: alternate-reverse;
 
 	&:last-of-type {
-		@apply mr-0;
+		margin-right: 0;
 	}
 }
 

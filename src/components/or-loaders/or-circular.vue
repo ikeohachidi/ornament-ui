@@ -32,24 +32,37 @@ const loaderStyle = computed(() => {
 
 <style lang="scss" scoped>
 .or-loader-wrapper {
-	@apply relative inline-flex flex-col items-center;
+	position: relative;
+	display: inline-flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 .or-loader {
-	@apply border-2 rounded-full border-gray-200;
-	@apply animate-spin;
+	border: 2px solid var(--color-gray-3);
+	border-radius: 999px;
 	border-top-color: var(--color-primary);
+	animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+	from {
+		transform: rotateZ(0deg);
+	}	
+	to {
+		transform: rotateZ(360deg);
+	}
 }
 
 .or-loader-text {
-	@apply text-center;
+	text-align: center;
 
 	&.top {
-		@apply mb-2;
+		margin-bottom: 0.5em;
 	}
 
 	&.bottom {
-		@apply mt-2;
+		margin-top: 0.5em;
 	}
 }
 </style>
