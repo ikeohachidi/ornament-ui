@@ -1,5 +1,8 @@
 # Ornament UI (Unstable)
-A UI component library for Vue 3 built with Tailwind, developed on Vite
+**Note:** Thanks for trying this out. Please take notice that this project is still in active development and will be buggy and also subject
+to some changes down the line
+
+A UI component library for Vue 3.
 
 See it in action [Ornament Docs](https://ornament.netlify.com)
 
