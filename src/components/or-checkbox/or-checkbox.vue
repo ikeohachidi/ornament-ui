@@ -165,11 +165,11 @@ $size: 20px;
 	cursor: pointer;
 	height: $size;
 	width: $size;
-	background: #fff;
+	background: var(--color-gray-3);
 	position: relative;
-	margin-right: 2px;
+	margin-right: 4px;
 	border-radius: var(--radius-1);
-	box-shadow: 0px 0px 0px 1px var(--color-gray-1);
+	box-shadow: 0px 0px 0px 1px var(--color-gray-2);
 	transition: .2s;
 
 	&:before {
