@@ -14,14 +14,6 @@ export default defineUserConfig<DefaultThemeOptions, ViteBundlerOptions>({
   bundlerConfig: {
     vuePluginOptions: {},
     viteOptions: {
-      css: {
-        postcss: {
-            plugins: [
-              require('tailwindcss'),
-              require('autoprefixer')
-            ]
-        }
-      },
       resolve: {
         alias: [
           {
