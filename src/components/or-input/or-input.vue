@@ -69,6 +69,7 @@ onMounted(() => {
 <style lang="scss" scoped>
 .or-input-wrapper {
 	border: 1px solid var(--border-color-1);
+	background-color: var(--color-gray-3);
 	border-radius: var(--radius-1);
 	box-shadow: none;
 	transition: .2s;
@@ -84,6 +85,7 @@ onMounted(() => {
 	.or-input {
 		font-size: 1rem;
 		border: none;
+		background-color: transparent;
 
 		&::placeholder {
 			font-size: 1rem;

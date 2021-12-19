@@ -7,7 +7,7 @@
 		v-bind="$attrs"
 		@change="onCheckboxValueChange"
 	>
-	<label v-if="isSwitch" class="or-switch center jc-center" :for="inputElementId"></label>
+	<label v-if="switch" class="or-switch center jc-center" :for="inputElementId"></label>
 
 	<label class="or-checkbox-label center" v-else :for="inputElementId">
 		<span class="or-checkbox center jc-center"></span>
@@ -22,7 +22,7 @@ const props = defineProps<{
 	modelValue: unknown;
 	value: unknown;
 	uncheckedValue?: unknown;
-	isSwitch?: boolean;
+	switch?: boolean;
 }>()
 
 const modelType = computed(() => {
@@ -167,7 +167,7 @@ $size: 20px;
 	width: $size;
 	background: var(--color-gray-3);
 	position: relative;
-	margin-right: 4px;
+	margin: 3px 4px 3px 0;
 	border-radius: var(--radius-1);
 	box-shadow: 0px 0px 0px 1px var(--color-gray-2);
 	transition: .2s;
