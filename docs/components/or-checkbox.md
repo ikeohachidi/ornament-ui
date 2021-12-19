@@ -17,13 +17,13 @@ a primitive will update the value, essentially making the `or-checkbox` componen
 ```
 
 ### Switch
-The appearance of the checkbox can also be changed to look like a switch with the `is-switch` prop.
-<or-checkbox v-model="users" value="Gloria" :is-switch="true">Gloria</or-checkbox>
+The appearance of the checkbox can also be changed to look like a switch with the `switch` prop.
+<or-checkbox v-model="users" value="Gloria" :switch="true">Gloria</or-checkbox>
 
 **Value:** {{ users }}
 
 ```html
-<or-checkbox v-model="users" value="Gloria" :is-switch="true">Gloria</or-checkbox>
+<or-checkbox v-model="users" value="Gloria" :switch="true">Gloria</or-checkbox>
 ```
 
 <script>

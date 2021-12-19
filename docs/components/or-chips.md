@@ -11,11 +11,11 @@ Pass an array of strings
 <or-chips v-model="users" />
 ```
 
-Chips entries can also be removed by setting the `has-remove` prop to true.
-<or-chips v-model="languages" :has-remove="true"/>
+Chips entries can also be removed by setting the `removeable` prop to true.
+<or-chips v-model="languages" removeable/>
 
 ```html
-<or-chips v-model="languages" :has-remove="true"/>
+<or-chips v-model="languages" removeable/>
 ```
 
 <script>

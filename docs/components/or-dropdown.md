@@ -34,10 +34,10 @@ The example above showed the dropdown options as is without any kind of formatti
 ## Multiple selection (Chips)
 The dropdown can also accept multiple selection by setting the `multi` prop to `true`
 
-<or-dropdown :options="languages" v-model="selectedLanguages" placeholder="Select language" :multi="true" />
+<or-dropdown :options="languages" v-model="selectedLanguages" placeholder="Select language" chips multi />
 
 ```html
-<or-dropdown :options="languages" v-model="selectedLanguages" placeholder="Select language" :multi="true" />
+<or-dropdown :options="languages" v-model="selectedLanguages" placeholder="Select language" chips multi/>
 ```
 
 <script>
