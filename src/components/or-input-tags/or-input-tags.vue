@@ -154,7 +154,7 @@ onMounted(() => {
 }
 
 .or-input-tags-input {
-	background-color: var(--color-gray-3);
+	background-color: transparent;
 	display: flex;
 	align-items: center;
 	margin-left: 10px;

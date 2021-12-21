@@ -231,6 +231,10 @@ onMounted(() => {
 
 .or-dropdown-filter {
 	margin-bottom: 1em;
+
+	&::v-deep(input) {
+		background-color: transparent;
+	}
 }
 
 .or-dropdown-item {
