@@ -2,7 +2,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 
 import 'kwik-css';
-import './main.css';
+import './main.scss';
 import 'remixicon/fonts/remixicon.css'
 
 import OrPlugin from './plugin';
