@@ -1,11 +1,54 @@
 # OrButton
-Renders a button on screen that can be used for forms and in whatever contexts you'd like.
+A button is usually use to initialize some business logic when it's clicked.
 
-**Basic**
-<or-button>Button</or-button>
+Ornament has 3 button modes
+- Solid
+- Outline
+- Text
+
+And the buttons come in 4 different colors
+- Primary
+- Success
+- Danger
+- Info
+
+**Solid Buttons**
+<or-button>Primary Button</or-button>
+<or-button class="success ml-2">Success Button</or-button>
+<or-button class="danger ml-2">Danger Button</or-button>
+<or-button class="info ml-2">Info Button</or-button>
 
 ```html
-<or-button>Button</or-button>
+<or-button>Primary Button</or-button>
+<or-button class="success">Success Button</or-button>
+<or-button class="danger">Danger Button</or-button>
+<or-button class="info">Info Button</or-button>
+```
+
+**Outline Buttons**
+<or-button class="outline">Primary Button</or-button>
+<or-button class="outline success ml-2">Success Button</or-button>
+<or-button class="outline danger ml-2">Danger Button</or-button>
+<or-button class="outline info ml-2">Info Button</or-button>
+
+```html
+<or-button class="outline">Primary Button</or-button>
+<or-button class="outline success">Success Button</or-button>
+<or-button class="outline danger">Danger Button</or-button>
+<or-button class="outline info">Info Button</or-button>
+```
+
+**Text Buttons**
+<or-button class="text">Primary Button</or-button>
+<or-button class="text success ml-2">Success Button</or-button>
+<or-button class="text danger ml-2">Danger Button</or-button>
+<or-button class="text info ml-2">Info Button</or-button>
+
+```html
+<or-button class="text">Primary Button</or-button>
+<or-button class="text success">Success Button</or-button>
+<or-button class="text danger">Danger Button</or-button>
+<or-button class="text info">Info Button</or-button>
 ```
 
 **Loading**
