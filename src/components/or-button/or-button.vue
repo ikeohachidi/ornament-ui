@@ -11,6 +11,7 @@ import { Size, Sizes } from '@/types/Size';
 
 const props = withDefaults(defineProps<{
 	isLoading?: boolean;
+	type: 'text' | 'outline'
 	size?: Size;
 }>(), {
 	isLoading: false,
@@ -26,6 +27,9 @@ const getSize = computed(() => {
 </script>
 
 <style lang="scss" scoped>
+@import "@/scss/color.scss";
+$profiles: danger, success, info;
+
 button {
 	background: var(--color-primary);
 	border: 1px solid var(--color-primary);
@@ -42,5 +46,44 @@ button {
 		border: 1px solid var(--color-gray-1);
 		padding: 0.8em;
 	}
+
+	@each $profile in $profiles {
+		&.#{$profile} {
+			border: none;
+			background-color: var(--color-#{$profile});
+			color: #fff;
+		}
+
+		&.outline.#{$profile}, &.text.#{$profile} {
+			color: var(--color-#{$profile});
+		}
+
+		&.outline.#{$profile} {
+			color: var(--color-#{$profile});
+			border: 1px solid var(--color-#{$profile});
+		}
+	}
+
+	&.outline {
+		color: var(--text-color-1);
+		background: transparent;
+	}
+
+	&.text {
+		color: var(--text-color-1);
+		border: none;
+		background-color: transparent;
+
+		&.danger:hover {
+			background-color: #e74d3c18;
+		}
+		&.success:hover {
+			background-color: #2ecc7118;
+		}
+		&.info:hover {
+			background-color: #3498db18;
+		}
+	}
+
 }
 </style>
