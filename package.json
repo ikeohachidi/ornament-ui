@@ -29,6 +29,7 @@
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
     "serve": "vite preview",
+    "test": "jest src",
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs"
   },
@@ -41,13 +42,18 @@
   },
   "devDependencies": {
     "@babel/core": "^7.15.8",
+    "@types/jest": "^27.0.3",
     "@vitejs/plugin-vue": "^1.9.3",
+    "@vue/test-utils": "^2.0.0-rc.18",
     "@vuepress/cli": "^2.0.0-beta.27",
     "autoprefixer": "^10.3.7",
     "babel-loader": "^8.2.2",
+    "jest": "^26.6.3",
     "sass": "^1.43.2",
+    "ts-jest": "^26.5.6",
     "typescript": "^4.4.3",
     "vite": "^2.6.4",
+    "vue-jest": "^5.0.0-alpha.10",
     "vue-loader": "^16.8.1",
     "vue-tsc": "^0.3.0"
   }

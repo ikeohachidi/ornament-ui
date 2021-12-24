@@ -10,6 +10,7 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "baseUrl": ".",
+    "types": ["vite/client", "@types/jest"],
     "paths": {
       "@/*": ["src/*"]
     },
