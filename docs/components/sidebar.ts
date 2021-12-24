@@ -43,6 +43,10 @@ const sidebar: SidebarItem = {
 			text: 'Loader',
 			link: '/components/or-loaders'
 		},
+		{
+			text: 'Tab',
+			link: '/components/or-tabs'
+		},
 	]
 }
 
