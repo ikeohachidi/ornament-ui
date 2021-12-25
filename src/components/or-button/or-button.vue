@@ -40,12 +40,6 @@ button {
 	display: inline-flex;
 	justify-content: center;
 
-	&:disabled {
-		background-color: var(--color-gray-2);
-		border: 1px solid var(--color-gray-1);
-		padding: 0.8em;
-	}
-
 	@each $profile in $profiles {
 		&.#{$profile} {
 			border: none;
@@ -84,5 +78,13 @@ button {
 		}
 	}
 
+	&:disabled {
+		background-color: var(--color-gray-2);
+		border: 1px solid var(--color-gray-1);
+		padding: 0.8em;
+		&:disabled:hover {
+			background-color: var(--color-gray-2) !important;
+		}
+	}
 }
 </style>
