@@ -11,7 +11,6 @@ import { Size, Sizes } from '@/types/Size';
 
 const props = withDefaults(defineProps<{
 	isLoading?: boolean;
-	type: 'text' | 'outline'
 	size?: Size;
 }>(), {
 	isLoading: false,
