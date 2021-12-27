@@ -1,5 +1,5 @@
 <template>
-    <p class="or-accordion-title m-0 p-2 flex center jc-between" @click="toggleAccordion">
+    <p data-testid="title" class="or-accordion-title m-0 p-2 flex center jc-between" @click="toggleAccordion">
         <span>
             <slot name="title" :title="title">
                 {{ title }}
@@ -21,7 +21,7 @@
 </template>
 
 <script setup lang="ts">
-import { useAttrs, computed } from "@vue/runtime-core";
+import { useAttrs, computed } from "vue";
 
 const props = defineProps<{
     title: string;
