@@ -4,7 +4,7 @@
 			<img :src="img" :alt="text + ' avatar'" v-if="img">
 			<p v-else>{{ initials }}</p>
 		</div>
-		<p class="or-avatar-text p-1 m-0">
+		<p class="or-avatar-text p-1 m-0" v-if="showText && text">
 			<slot name="text">{{ text }}</slot>
 		</p>
 	</div>	
@@ -18,17 +18,19 @@ import { Position } from '@/types/Position'
 const props = withDefaults(defineProps<{
 	dimension: number;
 	rounded: boolean;
-	img: string;
-	cornerRadius: Size;
-	textPosition: Position;
-	text: string;
+	img?: string;
+	cornerRadius?: Size;
+	textPosition?: Position;
+	text?: string;
+	showText?: boolean;
 }>(), {
 	dimension: 40,
 	rounded: false,
 	img: '',
 	cornerRadius: Size.SM,
 	textPosition: Position.BOTTOM,
-	text: ''
+	text: '',
+	showText: true
 })
 
 const wrapperStyle = computed(() => {
