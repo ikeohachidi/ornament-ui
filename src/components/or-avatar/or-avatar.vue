@@ -16,8 +16,8 @@ import { Size, RadiusSize } from '@/types/Size'
 import { Position } from '@/types/Position'
 
 const props = withDefaults(defineProps<{
-	dimension: number;
-	rounded: boolean;
+	dimension?: number;
+	rounded?: boolean;
 	img?: string;
 	cornerRadius?: Size;
 	textPosition?: Position;
