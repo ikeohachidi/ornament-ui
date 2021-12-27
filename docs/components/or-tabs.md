@@ -28,6 +28,31 @@ import { OrTab, OrTabs } from 'ornament-ui';
 </or-tabs>
 ```
 
+**Customize Headers**
+<or-tabs>
+    <or-tab title="West">
+        <template #title>
+        <span class="flex">
+            <i class="ri ri-home-line"></i>Text for the west
+        </span>
+        </template>
+    </or-tab>
+    <or-tab title="East">
+        <p>Text for the east</p>
+    </or-tab>
+</or-tabs>
+
+```html
+<or-tabs>
+    <or-tab title="West">
+        <p>Text for the west</p>
+    </or-tab>
+    <or-tab title="East">
+        <p>Text for the east</p>
+    </or-tab>
+</or-tabs>
+```
+
 ## Props
 | Prop | Default | Type | Values | Description
 |--|--|--|--|--|
