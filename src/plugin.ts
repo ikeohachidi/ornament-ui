@@ -23,6 +23,7 @@ export {
 	OrInputTags,
 	OrTab, OrTabs,
 	OrAccordion,
+	OrAccordionBody,
 	OrSidebar,
 	OrRadio,
 	OrAvatar,
