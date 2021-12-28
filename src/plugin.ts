@@ -18,6 +18,8 @@ import OrToast from './components/or-toast';
 
 export {
 	OrButton,
+	OrCheckbox,
+	OrRadio,
 	OrDropdown,
 	OrInput,
 	OrInputTags,
@@ -25,7 +27,6 @@ export {
 	OrAccordion,
 	OrAccordionBody,
 	OrSidebar,
-	OrRadio,
 	OrAvatar,
 	OrChips,
 	OrSelect,
