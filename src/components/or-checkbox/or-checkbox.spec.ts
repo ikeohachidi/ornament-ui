@@ -2,6 +2,7 @@ import { mount } from "@vue/test-utils";
 import { OrCheckbox } from "@/plugin";
 
 const wrapper = mount(OrCheckbox, {
+	attachTo: document.body,
 	props: {
 		modelValue: ["orange", "pepper"],
 		value: "orange"
