@@ -90,11 +90,8 @@ const onCheckboxValueChange = (event: Event) => {
 }
 
 onMounted(() => {
-	if (modelType.value === 'primitive') {
-		if (checkboxElement.value && props.modelValue === (props.value)) {
-			checkboxElement.value.checked = true;
-		}
-
+	if (checkboxElement.value && props.modelValue === (props.value)) {
+		checkboxElement.value.checked = true;
 		return;
 	}
 
