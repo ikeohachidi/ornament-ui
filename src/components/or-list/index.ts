@@ -1,3 +1,7 @@
 import OrList from './or-list.vue';
+import OrListItem from './or-list-item.vue';
 
-export default OrList
+export {
+	OrList,
+	OrListItem
+}
