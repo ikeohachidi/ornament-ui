@@ -1,6 +1,6 @@
 <template>
 	<div class="or-dropdown-wrapper" ref="orDropdown">
-		<div class="or-dropdown-value p-1 center" @click="toggleDropdownList">
+		<div data-testid="options-trigger" class="or-dropdown-value p-1 center" @click="toggleDropdownList">
 			<span v-if="selectedOptions.length === 0 && !isSelectedOptionValid">
 				{{ placeholder }}
 			</span>
@@ -27,7 +27,7 @@
 		</div>
 		<ul class="or-dropdown-list" ref="dropdownList" :style="dropdownPosition">
 			<li class="or-dropdown-filter">
-				<or-input v-model="filterTerm" placeholder="Filter items" v-if="hasFilter">
+				<or-input ref="filterInput" v-model="filterTerm" placeholder="Filter items" v-if="hasFilter">
 					<template #before>
 						<i class="ri-search-2-line mr-1"></i>
 					</template>
