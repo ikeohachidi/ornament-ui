@@ -1,6 +1,6 @@
 <template>
-	<div class="or-input-tags-wrapper p-1 flex wrap" @click="focusInput">
-		<or-chips v-model="tags" class="or-chips-wrapper" removeable @item-removed="removeTag">
+	<div data-testid="wrapper" class="or-input-tags-wrapper p-1 flex wrap" @click="focusInput">
+		<or-chips ref="chips" v-model="tags" class="or-chips-wrapper" removeable @item-removed="removeTag">
 			<template #item="{value}">
 				<slot name="option" :option="value">
 					{{ getOptionLabel(value) }}
@@ -9,6 +9,7 @@
 		</or-chips>
 		<input 
 			type="text" 
+			data-testid="filter-input"
 			class="or-input-tags-input"
 			@keydown.enter="addTag"
 			@keydown.tab="addTag"
@@ -39,6 +40,7 @@ export default {
 </script>
 
 <script setup lang="ts">
+// TODO: allow addition of non options
 import { computed, onMounted, ref, unref } from 'vue';
 
 import useDropPosition from "@/utilities/use-drop-position";
