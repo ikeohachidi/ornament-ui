@@ -212,6 +212,7 @@ onMounted(() => {
 	left: 0;
 	right: 0;
 	z-index: 10;
+	list-style: none;
 	background-color: #fff;
 	border: 1px solid var(--color-gray-2);
 	border-radius: var(--radius-2);
