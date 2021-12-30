@@ -17,6 +17,11 @@ const factory = (props = {}, slots = {}) => {
 }
 
 describe("OrCheckbox", () => {
+	it('sets proper elment checked state on mounted', () => {
+		const wrapper = factory();
+		expect((wrapper.find('[data-testid="or-checkbox"]').element as HTMLInputElement).checked).toBeTruthy();
+	})
+
 	it('renders slot content', () => {
 		const wrapper = factory();
 		expect(wrapper.html()).toContain('fruits');

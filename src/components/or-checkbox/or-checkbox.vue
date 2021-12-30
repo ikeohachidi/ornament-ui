@@ -2,6 +2,7 @@
 	<input 
 		class="or-checkbox-input"
 		type="checkbox" 
+		data-testid="or-checkbox"
 		:id="inputElementId"
 		ref="checkboxElement"
 		v-bind="$attrs"
