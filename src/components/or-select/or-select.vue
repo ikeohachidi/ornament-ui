@@ -17,8 +17,8 @@ interface PropType extends ListOption {
 	modelValue: unknown;
 	options: unknown[];
 	size?: Size;
-	optionLabel: string;
-	optionValue: string;
+	optionLabel?: string;
+	optionValue?: string;
 }
 
 const prop = withDefaults(defineProps<PropType>(), {

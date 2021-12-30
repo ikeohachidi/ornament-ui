@@ -1,8 +1,8 @@
 const primitives = ['number', 'string', 'boolean'];
 
 interface ListOption {
-	optionLabel: string;
-	optionValue: string;
+	optionLabel?: string;
+	optionValue?: string;
 }
 
 const useListOption = <T extends ListOption, U>(props: T) => {
