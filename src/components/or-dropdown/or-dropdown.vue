@@ -41,7 +41,7 @@
 				:class="{'active': multi ? isItemSelected(option) : JSON.stringify(selectedOption) == JSON.stringify(option) }"
 				v-for="(option, optionIndex) in filteredOptions"
 				:key="optionIndex"
-				@click="toggleOption(option)"
+				@click="toggleOption(getOptionValue(option))"
 
 			>
 				<or-checkbox v-model="selectedOptions" :value="option" v-if="multi">
