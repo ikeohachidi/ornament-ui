@@ -1,5 +1,5 @@
 <template>
-	<select class="or-select" v-model="currentValue" @change="onSelectChange" :class="[getSize]">
+	<select class="or-select" v-model="value" v-bind="$attrs" :class="[getSize]">
 		<option v-for="(option, index) in options" :key="index" :value="getOptionValue(option)">
 			<slot name="option" :option="option">
 				{{ getOptionLabel(option) }}
@@ -8,46 +8,41 @@
 	</select>
 </template>
 
-<script lang="ts">
-import ListOptions from '@/mixins/list-option';
-export default {
-	mixins: [ ListOptions ]
-}
-</script>
-
 <script setup lang="ts">
-import { computed, onMounted, ref, unref } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 import { Size, Sizes } from '@/types/Size';
+import { ListOption, useListOption } from '@/utilities/use-list-option';
 
-const prop = withDefaults(defineProps<{
+interface PropType extends ListOption {
 	modelValue: unknown;
 	options: unknown[];
-	size?: Size
-}>(), {
-	size: Size.SM
+	size?: Size;
+	optionLabel: string;
+	optionValue: string;
+}
+
+const prop = withDefaults(defineProps<PropType>(), {
+	size: Size.SM,
 })
 
 const emit = defineEmits<{
 	(event: 'update:modelValue', value: unknown): void;
 }>()
 
-const currentValue = ref<unknown>(null);
+const value = ref();
+watch(value, (v) => { emit('update:modelValue', v) });
 
-const onSelectChange = (): void => {
-	emit('update:modelValue', currentValue.value);
-}
+const { getOptionValue, getOptionLabel } = useListOption(prop);
 
 const getSize = computed(() => {
-    if (prop.size === Size.MD) { return Sizes.md }
-    if (prop.size === Size.LG) { return Sizes.lg }
+	if (prop.size === Size.MD) { return Sizes.md }
+	if (prop.size === Size.LG) { return Sizes.lg }
 
-    return Sizes.sm;
+	return Sizes.sm;
 })
 
 onMounted(() => {
-	if (prop.modelValue) {
-		currentValue.value = unref(prop.modelValue);
-	}
+	value.value = prop.modelValue;
 })
 </script>
 
