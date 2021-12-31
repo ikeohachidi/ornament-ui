@@ -1,6 +1,6 @@
 <template>
 	<ul class="or-vertical-menu-children">
-		<li class="or-vertical-menu-child" v-for="(node, nodeIndex) in nodes" :key="`${nodeIndex}-uniqueKey()`">
+		<li data-testid="single-node" class="or-vertical-menu-child" v-for="(node, nodeIndex) in nodes" :key="`${nodeIndex}-uniqueKey()`">
 			<div class="flex center p-1" @click.exact="toggleChildrenVisibility">
 				<i :class="`ri-${node.icon} ri-1x`" v-if="node.icon"></i>
 				<span v-if="node.text" class="inline-block ml-1">{{ node.text }}</span>
