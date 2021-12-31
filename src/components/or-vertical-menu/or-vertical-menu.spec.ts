@@ -21,37 +21,36 @@ const menu = [
 	}
 ]
 
-const slots = {
-	header: '<p>Header Slot</p>',
-	footer: '<p>Footer Slot</p>',
+const factory = (props = {}, slots = {}) => {
+	return mount(OrVerticalMenu, {
+		props: {
+			menu,
+			...props
+		},
+		slots
+	})
 }
 
-const wrapper = mount(OrVerticalMenu, {
-	props: {
-		menu
-	},
-	slots
-})
-
 describe('OrVerticalMenu', () => {
-	it('display content', () => {
+	it('DOM has content', () => {
+		const wrapper = factory();
 		expect(wrapper.html()).toContain('Primary');
 		expect(wrapper.html()).toContain('Security');
 	})
 
-	it('toggles display of hidden children when parent is clicked', async () => {
-		const groupParent = wrapper.find('.or-group-parent');
-		const groupParentChildren = wrapper.find('.or-group-parent + ul');
-
-		await groupParent.trigger('click');
-		expect(groupParentChildren.classes()).toContain('show');
-
-		await groupParent.trigger('click');
-		expect(groupParentChildren.classes()).toContain('show');
+	it('doesn\'t render slot content wrapper element when slots aren\'t given', () => {
+		const wrapper = factory();
+		expect(wrapper.find('.or-vertical-menu-header').exists()).toBeFalsy();
+		expect(wrapper.find('.or-vertical-menu-footer').exists()).toBeFalsy();
 	})
 
-	it('displays position slot content', () => {
-		expect(wrapper.find('.or-menu-header').html()).toContain(slots.header);
-		expect(wrapper.find('.or-menu-footer').html()).toContain(slots.footer);
+	it('displays slots content', () => {
+		const slots = {
+			header: '<p>Header Slot</p>',
+			footer: '<p>Footer Slot</p>',
+		};
+		const wrapper = factory({}, slots);
+		expect(wrapper.find('.or-vertical-menu-header').html()).toContain(slots.header);
+		expect(wrapper.find('.or-vertical-menu-footer').html()).toContain(slots.footer);
 	})
 })
