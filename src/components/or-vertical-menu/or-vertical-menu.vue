@@ -21,7 +21,7 @@
 
 <script setup lang="ts">
 import { computed, useSlots } from 'vue';
-import MenuNode from './menu-node.vue';
+import { MenuNode } from '.';
 
 interface Group {
 	name?: string;
