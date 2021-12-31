@@ -1,9 +1,12 @@
 import { shallowMount } from "@vue/test-utils";
 import { MenuNode } from "."; 
 
+const action = jest.fn();
+
 const nodes = [
 	{ 
 		text: 'Affiong Udosikai',
+		action,
 		children: [
 			{
 				text: 'Emiakpor Ebiri'
@@ -42,5 +45,10 @@ describe('MenuNode', () => {
 
 		await nodeParent.trigger('click');
 		expect(nodeChild.classes()).toContain('hidden');
+	})
+
+	it('fires node action when clicked', async () => {
+		await wrapper.find('[data-testid="single-node"] > div').trigger('click');
+		expect(action).toHaveBeenCalled();
 	})
 })
