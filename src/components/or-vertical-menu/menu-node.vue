@@ -5,7 +5,7 @@
 				<i :class="`ri-${node.icon} ri-1x`" v-if="node.icon"></i>
 				<span v-if="node.text" class="inline-block ml-1">{{ node.text }}</span>
 
-				<i class="ri-arrow-drop-up-line dropdown-icon ml-auto" v-if="node.children"></i>
+				<i class="ri-arrow-drop-up-line ri-lg dropdown-icon ml-auto" v-if="node.children"></i>
 			</div>
 			<menu-node :nodes="node.children" v-if="node.children" class="ml-3 hidden"/>	
 		</li>
