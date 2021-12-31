@@ -13,6 +13,8 @@
 </template>
 
 <script setup lang="ts">
+import { Events } from '.';
+import useEvent from '@/utilities/use-shared-event';
 
 interface Node {
 	text?: string;
@@ -26,6 +28,8 @@ const props = defineProps<{
 }>()
 
 const onNodeClick = (node: Node, event: InputEvent) => {
+	useEvent(Events.NODE_CLICK).push(node);
+
 	if (node.action) node.action();
 
 	const element = event.target as HTMLElement;

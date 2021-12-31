@@ -20,8 +20,9 @@
 </template>
 
 <script setup lang="ts">
-import { computed, useSlots } from 'vue';
-import { MenuNode } from '.';
+import { computed, onMounted, useSlots } from 'vue';
+import { MenuNode, Events } from '.';
+import useEvent from '@/utilities/use-shared-event';
 
 interface Group {
 	name?: string;
@@ -42,6 +43,16 @@ const props = withDefaults(defineProps<{
 }>(), {
 	menu: () => ([])
 })
+
+const emits = defineEmits<{
+	(e: Events.NODE_CLICK, value: Child): void
+}>()
+
+onMounted(() => {
+	useEvent(Events.NODE_CLICK)
+		.listen((node: Child) => { emits(Events.NODE_CLICK, node) })
+})
+
 
 const slots = useSlots();
 
