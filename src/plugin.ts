@@ -7,7 +7,7 @@ import OrInput from './components/or-input';
 import OrInputTags from './components/or-input-tags';
 import { OrTab, OrTabs } from './components/or-tabs';
 import { OrAccordion, OrAccordionBody } from './components/or-accordion';
-import OrSidebar from './components/or-sidebar';
+import OrVerticalMenu from './components/or-vertical-menu';
 import OrRadio from './components/or-radio';
 import OrAvatar from './components/or-avatar';
 import OrChips from './components/or-chips';
@@ -26,7 +26,7 @@ export {
 	OrTab, OrTabs,
 	OrAccordion,
 	OrAccordionBody,
-	OrSidebar,
+	OrVerticalMenu,
 	OrAvatar,
 	OrChips,
 	OrSelect,
@@ -46,7 +46,7 @@ export default {
 		app.component('or-tabs', OrTabs);
 		app.component('or-accordion', OrAccordion);
 		app.component('or-accordion-body', OrAccordionBody);
-		app.component('or-sidebar', OrSidebar);
+		app.component('or-vertical-menu', OrVerticalMenu);
 		app.component('or-radio', OrRadio);
 		app.component('or-checkbox', OrCheckbox);
 		app.component('or-avatar', OrAvatar);
