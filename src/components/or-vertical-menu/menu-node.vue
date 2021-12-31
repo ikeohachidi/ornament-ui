@@ -1,7 +1,7 @@
 <template>
 	<ul class="or-vertical-menu-children">
 		<li data-testid="single-node" class="or-vertical-menu-child" v-for="(node, nodeIndex) in nodes" :key="`${nodeIndex}-uniqueKey()`">
-			<div class="flex center p-1" @click.exact="toggleChildrenVisibility">
+			<div class="flex center p-1" @click.exact="onNodeClick(node, $event)">
 				<i :class="`ri-${node.icon} ri-1x`" v-if="node.icon"></i>
 				<span v-if="node.text" class="inline-block ml-1">{{ node.text }}</span>
 
@@ -14,17 +14,20 @@
 
 <script setup lang="ts">
 
-interface Child {
+interface Node {
 	text?: string;
 	icon?: string;
+	action: () => unknown;
 	children: Child[];
 }
 
 const props = defineProps<{
-	nodes: Child[]
+	nodes: Node[]
 }>()
 
-const toggleChildrenVisibility = (event: InputEvent) => {
+const onNodeClick = (node: Node, event: InputEvent) => {
+	if (node.action) node.action();
+
 	const element = event.target as HTMLElement;
 	if (!element) return;
 
