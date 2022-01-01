@@ -47,6 +47,10 @@ const sidebar: SidebarItem = {
 			text: 'Tab',
 			link: '/components/or-tabs'
 		},
+		{
+			text: 'VerticalMenu',
+			link: '/components/or-vertical-menu'
+		},
 	]
 }
 
