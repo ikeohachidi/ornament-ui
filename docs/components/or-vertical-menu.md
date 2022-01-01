@@ -26,25 +26,16 @@ import { OrVerticalMenu } from 'ornament-ui';
 Where `menu` is
 ```javascript
 const menu = [
-    {
-        name: 'Management',
+    { 
+        text: 'Users',
         children: [
-            { 
-                icon: 'user-3-line', 
-                text: 'Users',
-                children: [
-                    { icon: 'user-unfollow-line', text: 'Blocked Users' },
-                ]
-            },
-            { icon: 'bank-card-line', text: 'Payments' },
+            { icon: 'user-unfollow-line', text: 'Blocked Users' },
         ]
     },
     {
-        children: [
-            { icon: 'settings-2-line', text: 'Settings' },
-            { icon: 'logout-box-r-line', text: 'Settings' },
-        ]
-    }
+        icon: 'bank-card-line',
+        text: 'Payments'
+    },
 ]
 ```
 
@@ -93,8 +84,6 @@ This is done on purpose since the vertical menu can serve many purposes.
 
 A Navigation menu can be quickly achieved with this component with the following lines of code 
 
-<or-vertical-menu :menu="menu" :active-node-func="isNodeActive" @node-click="pushRoute" />
-
 ```html
 <or-vertical-menu :menu="menu" :active-node-func="isNodeActive" @node-click="pushRoute" />
 ```
@@ -122,9 +111,9 @@ const pushRoute = (node: Node) => route.push({ path: node.route });
 | Prop | Default | Type | Values | Description
 |--|--|--|--|--|
 | menu | [] | Object | {} | An array with the structure respresent the sidebar 
-| height | 'full' | number | numbers | specifies the height of the vertical menu, if none is given it tries to take the full height of it's container
-| width | 'full' | number | numbers | specifies the width of the vertical menu, if none is given it tries to take the full width of it's container
-| activeNodeFunc | (node) => false | Function | Function | A function which determins if the active node class is added to an item. It's off by default
+| height | 'full' | number | numbers | specifies the height of the vertical menu, if none is given it tries to take the full height of it's container.
+| width | 'full' | number | numbers | specifies the width of the vertical menu, if none is given it tries to take the full width of it's container.
+| activeNodeFunc | (node) => false | Function | Function | A function which determins if the node gets a UI visual indicator, returns false by default.
 
 ## Slots
 | Name | Scoped slots | Description
@@ -145,24 +134,19 @@ export default defineComponent({
     setup() {
         const menu = [
             { 
-                name: 'Management',
+                text: 'Users',
                 children: [
-                    { 
-                        icon: 'user-3-line', 
-                        text: 'Users',
-                        children: [
-                            { icon: 'user-unfollow-line', text: 'Blocked Users' },
-                        ]
-                    },
-                    { icon: 'bank-card-line', text: 'Payments' },
+                    { icon: 'user-unfollow-line', text: 'Deleted Users' },
+                    { icon: 'user-unfollow-line', text: 'Blocked Users' },
                 ]
             },
             {
+                text: 'Payments',
                 children: [
-                    { icon: 'settings-2-line', text: 'Settings' },
-                    { icon: 'logout-box-r-line', text: 'Settings' },
+                    { icon: 'arrow-up-line', text: 'Deposits' },
+                    { icon: 'arrow-down-line', text: 'Withdrawals' },
                 ]
-	        }
+            },
         ]
 
         return { menu }
