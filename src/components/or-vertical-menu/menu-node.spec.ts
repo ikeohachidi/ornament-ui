@@ -22,14 +22,20 @@ const nodes = [
 		]
 	}
 ]
-const wrapper = shallowMount(MenuNode, {
-	props: {
-		nodes
-	}
-})
+
+const factory = (props = {}, slots = {}) => {
+	return shallowMount(MenuNode, {
+		props: {
+			nodes,
+			...props
+		},
+		slots
+	})
+}
 
 describe('MenuNode', () => {
 	it('should have nodes rendered in DOM', () => {
+		const wrapper = factory();
 		nodes.forEach(node => {
 			expect(wrapper.html()).toContain(node.text);
 			expect(wrapper.html()).toContain(node.children[0].text);
@@ -37,6 +43,7 @@ describe('MenuNode', () => {
 	})
 
 	it('should toggle visibility of children content when parent is clicked', async () => {
+		const wrapper = factory();
 		const nodeParent = wrapper.find('[data-testid="single-node"] > div');
 		const nodeChild = wrapper.find('[data-testid="single-node"] > ul');
 
@@ -48,7 +55,21 @@ describe('MenuNode', () => {
 	})
 
 	it('fires node action when clicked', async () => {
+		const wrapper = factory();
 		await wrapper.find('[data-testid="single-node"] > div').trigger('click');
 		expect(action).toHaveBeenCalled();
+	})
+
+	it('should render node-content slot with menu items', () => {
+		const wrapper = factory({}, {
+			"node-content": `
+				<template #node-content="{ node }">
+					content {{ node.text }}
+				</template>
+			`
+		})
+		nodes.forEach(node => {
+			expect(wrapper.html()).toContain(`content ${node.text}`)
+		})
 	})
 })

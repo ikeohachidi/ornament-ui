@@ -10,7 +10,11 @@
 					<span v-if="item.name">{{ item.name }}</span>
 				</div>
 
-				<menu-node :nodes="item.children" v-if="item.children" />	
+				<menu-node :nodes="item.children" v-if="item.children">	
+					<template #node-content="props">
+						<slot name="node-content" v-bind="props"></slot>
+					</template>
+				</menu-node>
 			</li>
 		</ul>
 		<div class="or-vertical-menu-footer" v-if="hasFooterSlot">
@@ -44,6 +48,10 @@ const hasFooterSlot = computed(() => {
 
 const hasHeaderSlot = computed(() => {
 	return 'header' in slots;
+})
+
+const nodeContentSlot = computed(() => {
+	return 'node-content' in slots
 })
 
 onMounted(() => {

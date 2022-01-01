@@ -2,12 +2,18 @@
 	<ul class="or-vertical-menu-children">
 		<li data-testid="single-node" class="or-vertical-menu-child" v-for="(node, nodeIndex) in nodes" :key="`${nodeIndex}-uniqueKey()`">
 			<div class="flex center p-1" @click.exact="onNodeClick(node, $event)">
-				<i :class="`ri-${node.icon} ri-1x`" v-if="node.icon"></i>
-				<span v-if="node.text" class="inline-block ml-1">{{ node.text }}</span>
+				<slot name="node-content" :node="node">
+					<i :class="`ri-${node.icon} ri-1x`" v-if="node.icon"></i>
+					<span v-if="node.text" class="inline-block ml-1">{{ node.text }}</span>
+				</slot>
 
 				<i class="ri-arrow-drop-up-line ri-lg dropdown-icon ml-auto" v-if="node.children"></i>
 			</div>
-			<menu-node :nodes="node.children" v-if="node.children" class="ml-3 hidden"/>	
+			<menu-node :nodes="node.children" v-if="node.children" class="ml-3 hidden">
+				<template #node-content="props">
+					<slot name="node-content" v-bind="props"></slot>
+				</template>
+			</menu-node>
 		</li>
 	</ul>
 </template>
@@ -15,13 +21,6 @@
 <script setup lang="ts">
 import { Events, Node } from '.';
 import useEvent from '@/utilities/use-shared-event';
-
-interface Node {
-	text?: string;
-	icon?: string;
-	action: () => unknown;
-	children: Child[];
-}
 
 const props = defineProps<{
 	nodes: Node[]
