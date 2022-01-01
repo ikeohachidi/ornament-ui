@@ -86,12 +86,45 @@ The content of each node can be further customized using the `node-content` slot
 </or-vertical-menu>
 ```
 
+## Recipe
+**Navigation Menu**
+By default the vertical menu doesn't do any routing neither does it have an the clicked item have any visual cue.
+This is done on purpose since the vertical menu can serve many purposes.
+
+A Navigation menu can be quickly achieved with this component with the following lines of code 
+
+<or-vertical-menu :menu="menu" :active-node-func="isNodeActive" @node-click="pushRoute" />
+
+```html
+<or-vertical-menu :menu="menu" :active-node-func="isNodeActive" @node-click="pushRoute" />
+```
+
+```javascript
+import { useRouter } from 'vue-router';
+
+const route = useRouter();
+
+const menu = [
+    {
+        text: 'users',
+        children: [
+            { text: 'List', route: 'users/list' },
+            { text: 'Edit', route: 'users/edit', pushRoute: (node) =>  }
+        ]
+    }
+]
+
+const isNodeActive = (node: Node) => route.name.toLowerCase() === node.text.toLowerCase();
+const pushRoute = (node: Node) => route.push({ path: node.route });
+```
+
 ## Props
 | Prop | Default | Type | Values | Description
 |--|--|--|--|--|
 | menu | [] | Object | {} | An array with the structure respresent the sidebar 
 | height | 'full' | number | numbers | specifies the height of the vertical menu, if none is given it tries to take the full height of it's container
 | width | 'full' | number | numbers | specifies the width of the vertical menu, if none is given it tries to take the full width of it's container
+| activeNodeFunc | (node) => false | Function | Function | A function which determins if the active node class is added to an item. It's off by default
 
 ## Slots
 | Name | Scoped slots | Description
