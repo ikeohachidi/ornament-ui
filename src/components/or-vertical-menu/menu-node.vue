@@ -19,7 +19,7 @@
 </template>
 
 <script setup lang="ts">
-import { useAttrs, computed } from 'vue';
+import { useAttrs } from 'vue';
 import { Events, Node } from '.';
 import useEvent from '@/utilities/use-shared-event';
 

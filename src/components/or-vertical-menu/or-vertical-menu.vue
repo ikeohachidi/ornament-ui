@@ -47,10 +47,6 @@ const hasHeaderSlot = computed(() => {
 	return 'header' in slots;
 })
 
-const nodeContentSlot = computed(() => {
-	return 'node-content' in slots
-})
-
 const style = computed<CSSProperties>(() => {
 	return {
 		width: props.width >= 0 ? `${props.width}px` : '100%',
