@@ -10,7 +10,7 @@
 					<span v-if="item.name">{{ item.name }}</span>
 				</div>
 
-				<menu-node :nodes="item.children" v-if="item.children">	
+				<menu-node :nodes="item.children" v-if="item.children" v-bind="props">	
 					<template #node-content="props">
 						<slot name="node-content" v-bind="props"></slot>
 					</template>
@@ -32,10 +32,13 @@ const props = withDefaults(defineProps<{
 	menu: Group[];
 	width?: number | 'full';
 	height?: number | 'full';
+	showActiveNode?: boolean;
+	activeNodeFunc?: (node: Node) => boolean;
 }>(), {
 	menu: () => ([]),
 	width: 300,
-	height: 'full'
+	height: 'full',
+	showActiveNode: false
 })
 
 const emits = defineEmits<{
