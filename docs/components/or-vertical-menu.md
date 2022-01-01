@@ -49,32 +49,25 @@ const menu = [
 ```
 
 **Anatomy of the menu prop**
+The `menu` prop is of a `Node` type which looks like
 ```javascript
-const menu = [
-    {
-        icon: '', // optional
-        name: '', // optional
-        children: [
-            {
-                icon: '', // optional
-                text: '', // optional
-                collapsed: true, // optional 
-                action: (node) => void, // optional
-                children: [] // optional
-            }
-        ] 
-    }
-]
+interface Node {
+	text?: string;
+	icon?: string;
+	collapsed?: boolean;
+	action: (node: Node) => unknown;
+	children: Node[];
+}
 ```
+
 The first level of the `menu` props should have a `name` property not a `text`. As this first level is used to group menu items. 
 
 **Breakdown**
-- `icon`: ornament uses remixicon by default so pass any remix icon class here.
-- `name`: Name of group **Note** This is only used on the first level of the menu.
-- `text`: Every child node should have this as it serves information like a title. 
-- `collapsed`: By default all child nodes are collapsed. The `collapsed` property serves to manually show a node.
+- `icon`: ornament uses remixicon by default so pass any remix icon class here **Note: Omit the "or" from the class**.
+- `text`: Every child node should have this as it gives information about an item. 
+- `collapsed`: By default all child nodes are hidden. The `collapsed` property serves to manually show a node.
 - `action`: a callback function that runs when the node is clicked. It's first argument is the node itself.
-- `children`: Every node has this and it can be as nested as you want it to be.
+- `children`: Every node can have this and it can be as as deeply nested 
 
 
 ## Customization
