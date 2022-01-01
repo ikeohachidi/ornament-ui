@@ -3,7 +3,7 @@ import { OrVerticalMenu } from '@/plugin';
 
 const menu = [
 	{
-		name: 'Primary',
+		text: 'Primary',
 		children: [
 			{ icon: 'user-fill', text: 'User', onClick: () => {} },
 			{ icon: 'shield-line', text: 'Security', children: [
@@ -13,7 +13,8 @@ const menu = [
 		]
 	},
 	{
-		name: '',
+		text: '',
+		icon: 'user-2-fill',
 		children: [
 			{ icon: 'user-fill', text: 'User', onClick: () => {} },
 			{ icon: 'shield-line', text: 'Security' }
@@ -34,8 +35,10 @@ const factory = (props = {}, slots = {}) => {
 describe('OrVerticalMenu', () => {
 	it('DOM has content', () => {
 		const wrapper = factory();
-		expect(wrapper.html()).toContain('Primary');
-		expect(wrapper.html()).toContain('Security');
+		menu.forEach(node => {
+			expect(wrapper.html()).toContain(node.text);
+			if (node.icon) expect(wrapper.html()).toContain(node.text);
+		})
 	})
 
 	it('doesn\'t render slot content wrapper element when slots aren\'t given', () => {
