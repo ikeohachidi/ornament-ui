@@ -47,6 +47,17 @@ describe('OrVerticalMenu', () => {
 		expect(wrapper.find('.or-vertical-menu-footer').exists()).toBeFalsy();
 	})
 
+	it('sets menu dimensions', async () => {
+		const wrapper = factory();
+		const menuEl = wrapper.find('.or-vertical-menu');
+
+		expect(menuEl.attributes()['style']).toContain('height: 100%');
+
+		await wrapper.setProps({ width: 'full', height: 400 });
+		expect(wrapper.attributes()['style']).toContain('height: 400px');
+		expect(wrapper.attributes()['style']).toContain('width: 100%');
+	})
+
 	it('displays slots content', () => {
 		const slots = {
 			header: '<p>Header Slot</p>',
