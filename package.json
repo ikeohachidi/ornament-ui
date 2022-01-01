@@ -30,6 +30,7 @@
     "build": "vue-tsc --noEmit && vite build",
     "serve": "vite preview",
     "test": "jest src",
+    "test:watch": "jest --watch",
     "docs:dev": "vuepress dev docs",
     "docs:build": "vuepress build docs"
   },
