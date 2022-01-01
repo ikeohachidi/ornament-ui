@@ -1,8 +1,9 @@
 # Ornament UI
-**Note:** Thanks for trying this out. Please take notice that this project is still in active development and doesn't have a v1 yet. As such you can
-expect it'll be buggy. If you find any bugs or just want a feature please create an issue. **Thanks** 
 
 A UI component library for Vue 3.
+
+**Note:** Thanks for trying this out. Please take notice that this project is still in active development and doesn't have a v1 yet. As such you can
+expect it'll be buggy. If you find any bugs or just want a feature please create an issue. **Thanks** 
 
 See it in action [Ornament Docs](https://ornament.netlify.com)
 
