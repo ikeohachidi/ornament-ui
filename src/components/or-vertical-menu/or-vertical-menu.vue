@@ -25,13 +25,12 @@ const props = withDefaults(defineProps<{
 	menu: Group[];
 	width?: number | 'full';
 	height?: number | 'full';
-	showActiveNode?: boolean;
 	activeNodeFunc?: (node: Node) => boolean;
 }>(), {
 	menu: () => ([]),
 	width: 300,
 	height: 'full',
-	showActiveNode: false
+	activeNodeFunc: (node: Node) => false
 })
 
 const emits = defineEmits<{

@@ -1,7 +1,7 @@
 <template>
 	<ul class="or-vertical-menu-children">
 		<li data-testid="single-node" class="or-vertical-menu-child" v-for="(node, nodeIndex) in nodes" :key="`${nodeIndex}-uniqueKey()`">
-			<div class="flex center p-1" :class="{ 'active': $attrs.showActiveNode && $attrs.activeNodeFunc(node) }" @click.exact="onNodeClick(node, $event)">
+			<div class="flex center p-1" :class="{ 'active': isNodeActive(node) }" @click.exact="onNodeClick(node, $event)">
 				<slot name="node-content" :node="node">
 					<i :class="`ri-${node.icon} ri-1x inline-block mr-1`" v-if="node.icon"></i>
 					<span v-if="node.text">{{ node.text }}</span>
@@ -29,8 +29,7 @@ const props = defineProps<{
 
 const attrs = useAttrs();
 
-const showActiveNode = computed(() => attrs.showActiveNode);
-const activeNodeFunc = computed(() => attrs.showActiveNode);
+const isNodeActive = (node: Node): boolean => attrs.activeNodeFunc(node);
 
 const onNodeClick = (node: Node, event: InputEvent) => {
 	useEvent(Events.NODE_CLICK).push(node);
