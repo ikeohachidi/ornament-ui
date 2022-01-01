@@ -15,29 +15,6 @@ import { OrVerticalMenu } from 'ornament-ui';
 
 
 ## Usage
-The component takes a `menu` prop which should have the following structure 
-```javascript
-const menu = [
-    {
-        icon: '', // optional
-        name: '', // optional
-        children: [
-            {
-                icon: '', // optional
-                text: '', // optional
-                action: () => void, // optional
-                children: [] // optional
-            }
-        ] 
-    }
-]
-```
-The first level of the `menu` props should have a `name` property not a `text`. As this first level is used to group menu items. 
-
-The `children` are recursive and can go as deep as you'd like.
-
-The `action` property is a function which is fired when that particular node is clicked on the menu.
-
 <or-vertical-menu :menu="menu">
 </or-vertical-menu>
 
@@ -70,6 +47,35 @@ const menu = [
     }
 ]
 ```
+
+**Anatomy of the menu prop**
+```javascript
+const menu = [
+    {
+        icon: '', // optional
+        name: '', // optional
+        children: [
+            {
+                icon: '', // optional
+                text: '', // optional
+                showContent: true, // optional 
+                action: (node) => void, // optional
+                children: [] // optional
+            }
+        ] 
+    }
+]
+```
+The first level of the `menu` props should have a `name` property not a `text`. As this first level is used to group menu items. 
+
+**Breakdown**
+- `icon`: ornament uses remixicon by default so pass any remix icon class here.
+- `name`: Name of group **Note** This is only used on the first level of the menu.
+- `text`: Every child node should have this as it serves information like a title. 
+- `showContent`: By default all child nodes are collapsed. The `showContent` property serves to manually show a node.
+- `action`: a callback function that runs when the node is clicked. It's first argument is the node itself.
+- `children`: Every node has this and it can be as nested as you want it to be.
+
 
 ## Customization
 The content of each node can be further customized using the `node-content` slot.
