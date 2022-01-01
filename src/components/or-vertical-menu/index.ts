@@ -16,8 +16,7 @@ interface Child {
 interface Node {
 	text?: string;
 	icon?: string;
-	action: () => unknown;
-	children: Child[];
+	action: (node: Node) => unknown;
 }
 
 enum Events {

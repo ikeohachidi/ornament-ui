@@ -29,7 +29,7 @@ const props = defineProps<{
 const onNodeClick = (node: Node, event: InputEvent) => {
 	useEvent(Events.NODE_CLICK).push(node);
 
-	if (node.action) node.action();
+	if (node.action) node.action(node);
 
 	const element = event.target as HTMLElement;
 	if (!element) return;
