@@ -29,7 +29,7 @@ const props = defineProps<{
 
 const attrs = useAttrs();
 
-const isNodeActive = (node: Node): boolean => attrs.activeNodeFunc(node);
+const isNodeActive = (node: Node): boolean => attrs.activeNodeFunc ? attrs.activeNodeFunc!(node) : false;
 
 const onNodeClick = (node: Node, event: InputEvent) => {
 	useEvent(Events.NODE_CLICK).push(node);
