@@ -49,32 +49,25 @@ const menu = [
 ```
 
 **Anatomy of the menu prop**
+The `menu` prop is of a `Node` type which looks like
 ```javascript
-const menu = [
-    {
-        icon: '', // optional
-        name: '', // optional
-        children: [
-            {
-                icon: '', // optional
-                text: '', // optional
-                collapsed: true, // optional 
-                action: (node) => void, // optional
-                children: [] // optional
-            }
-        ] 
-    }
-]
+interface Node {
+	text?: string;
+	icon?: string;
+	collapsed?: boolean;
+	action: (node: Node) => unknown;
+	children: Node[];
+}
 ```
+
 The first level of the `menu` props should have a `name` property not a `text`. As this first level is used to group menu items. 
 
 **Breakdown**
-- `icon`: ornament uses remixicon by default so pass any remix icon class here.
-- `name`: Name of group **Note** This is only used on the first level of the menu.
-- `text`: Every child node should have this as it serves information like a title. 
-- `collapsed`: By default all child nodes are collapsed. The `collapsed` property serves to manually show a node.
+- `icon`: ornament uses remixicon by default so pass any remix icon class here **Note: Omit the "or" from the class**.
+- `text`: Every child node should have this as it gives information about an item. 
+- `collapsed`: By default all child nodes are hidden. The `collapsed` property serves to manually show a node.
 - `action`: a callback function that runs when the node is clicked. It's first argument is the node itself.
-- `children`: Every node has this and it can be as nested as you want it to be.
+- `children`: Every node can have this and it can be as as deeply nested 
 
 
 ## Customization
@@ -93,12 +86,45 @@ The content of each node can be further customized using the `node-content` slot
 </or-vertical-menu>
 ```
 
+## Recipe
+**Navigation Menu**
+By default the vertical menu doesn't do any routing neither does it have an the clicked item have any visual cue.
+This is done on purpose since the vertical menu can serve many purposes.
+
+A Navigation menu can be quickly achieved with this component with the following lines of code 
+
+<or-vertical-menu :menu="menu" :active-node-func="isNodeActive" @node-click="pushRoute" />
+
+```html
+<or-vertical-menu :menu="menu" :active-node-func="isNodeActive" @node-click="pushRoute" />
+```
+
+```javascript
+import { useRouter } from 'vue-router';
+
+const route = useRouter();
+
+const menu = [
+    {
+        text: 'users',
+        children: [
+            { text: 'List', route: 'users/list' },
+            { text: 'Edit', route: 'users/edit', pushRoute: (node) =>  }
+        ]
+    }
+]
+
+const isNodeActive = (node: Node) => route.name.toLowerCase() === node.text.toLowerCase();
+const pushRoute = (node: Node) => route.push({ path: node.route });
+```
+
 ## Props
 | Prop | Default | Type | Values | Description
 |--|--|--|--|--|
 | menu | [] | Object | {} | An array with the structure respresent the sidebar 
 | height | 'full' | number | numbers | specifies the height of the vertical menu, if none is given it tries to take the full height of it's container
 | width | 'full' | number | numbers | specifies the width of the vertical menu, if none is given it tries to take the full width of it's container
+| activeNodeFunc | (node) => false | Function | Function | A function which determins if the active node class is added to an item. It's off by default
 
 ## Slots
 | Name | Scoped slots | Description

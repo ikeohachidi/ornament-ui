@@ -4,18 +4,11 @@
 			<slot name="header"></slot>
 		</div>
 		<ul class="or-vertical-menu-body">
-			<li v-for="(item, itemIndex) in menu" :key="itemIndex">
-				<div class="or-vertical-menu-group-name">
-					<i :class="`ri-${item.icon}`" v-if="item.icon"></i>
-					<span v-if="item.name">{{ item.name }}</span>
-				</div>
-
-				<menu-node :nodes="item.children" v-if="item.children" v-bind="props">	
-					<template #node-content="props">
-						<slot name="node-content" v-bind="props"></slot>
-					</template>
-				</menu-node>
-			</li>
+			<menu-node :nodes="menu" v-bind="props">
+				<template #node-content="props">
+					<slot name="node-content" v-bind="props"></slot>
+				</template>
+			</menu-node>
 		</ul>
 		<div class="or-vertical-menu-footer" v-if="hasFooterSlot">
 			<slot name="footer"></slot>
@@ -32,13 +25,12 @@ const props = withDefaults(defineProps<{
 	menu: Group[];
 	width?: number | 'full';
 	height?: number | 'full';
-	showActiveNode?: boolean;
 	activeNodeFunc?: (node: Node) => boolean;
 }>(), {
 	menu: () => ([]),
 	width: 300,
 	height: 'full',
-	showActiveNode: false
+	activeNodeFunc: (node: Node) => false
 })
 
 const emits = defineEmits<{
@@ -84,7 +76,7 @@ onMounted(() => {
 .or-vertical-menu-body, 
 .or-vertical-menu-header, 
 .or-vertical-menu-footer {
-	padding: 10px;
+	padding: 20px 10px;
 	width: 100%;
 	box-sizing: border-box;
 }
@@ -92,7 +84,6 @@ onMounted(() => {
 .or-vertical-menu-body {
 	overflow-y: auto;
 	margin: 0;
-	padding: 20px 10px;
 	li {
 		margin-bottom: 10px;
 
