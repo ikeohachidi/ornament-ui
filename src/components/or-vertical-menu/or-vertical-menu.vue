@@ -1,5 +1,5 @@
 <template>
-	<div class="or-vertical-menu">
+	<div class="or-vertical-menu" :style="style">
 		<div class="or-vertical-menu-header" v-if="hasHeaderSlot">
 			<slot name="header"></slot>
 		</div>
@@ -24,16 +24,18 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, useSlots } from 'vue';
+import { computed, CSSProperties, onMounted, useSlots } from 'vue';
 import { MenuNode, Events, Group, Node } from '.';
 import useEvent from '@/utilities/use-shared-event';
 
 const props = withDefaults(defineProps<{
 	menu: Group[];
-	fixedHeader?: boolean;
-	fixedFooter?: boolean;
+	width?: number | 'full';
+	height?: number | 'full';
 }>(), {
-	menu: () => ([])
+	menu: () => ([]),
+	width: 300,
+	height: 'full'
 })
 
 const emits = defineEmits<{
@@ -54,6 +56,13 @@ const nodeContentSlot = computed(() => {
 	return 'node-content' in slots
 })
 
+const style = computed<CSSProperties>(() => {
+	return {
+		width: props.width >= 0 ? `${props.width}px` : '100%',
+		height: props.height >= 0 ? `${props.height}px` : '100%',
+	}
+})
+
 onMounted(() => {
 	useEvent(Events.NODE_CLICK)
 		.listen((node: Node) => { emits(Events.NODE_CLICK, node) })
@@ -65,10 +74,22 @@ onMounted(() => {
 .or-vertical-menu {
 	background-color: var(--color-primary);
 	color: #fff;
-	border-radius: 6px;
+	display: flex;
+	flex-direction: column;
+}
+
+.or-vertical-menu-body, 
+.or-vertical-menu-header, 
+.or-vertical-menu-footer {
+	padding: 10px;
+	width: 100%;
+	box-sizing: border-box;
 }
 
 .or-vertical-menu-body {
+	overflow-y: auto;
+	margin: 0;
+	padding: 20px 10px;
 	li {
 		margin-bottom: 10px;
 
@@ -77,11 +98,8 @@ onMounted(() => {
 		}
 	}
 }
-
-.or-vertical-menu-body, 
-.or-vertical-menu-header, 
-.or-vertical-menu-footer {
-	padding: 10px;
+.or-vertical-menu-body {
+	flex-grow: 1;
 }
 
 .or-vertical-menu-group-name {
