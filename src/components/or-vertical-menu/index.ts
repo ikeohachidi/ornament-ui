@@ -16,6 +16,7 @@ interface Child {
 interface Node {
 	text?: string;
 	icon?: string;
+	showContent?: boolean;
 	action: (node: Node) => unknown;
 }
 
