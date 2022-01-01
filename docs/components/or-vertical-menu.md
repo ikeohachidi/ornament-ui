@@ -97,6 +97,8 @@ The content of each node can be further customized using the `node-content` slot
 | Prop | Default | Type | Values | Description
 |--|--|--|--|--|
 | menu | [] | Object | {} | An array with the structure respresent the sidebar 
+| height | 'full' | number | numbers | specifies the height of the vertical menu, if none is given it tries to take the full height of it's container
+| width | 'full' | number | numbers | specifies the width of the vertical menu, if none is given it tries to take the full width of it's container
 
 ## Slots
 | Name | Scoped slots | Description
