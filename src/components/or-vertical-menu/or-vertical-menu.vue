@@ -21,20 +21,8 @@
 
 <script setup lang="ts">
 import { computed, onMounted, useSlots } from 'vue';
-import { MenuNode, Events } from '.';
+import { MenuNode, Events, Group, Node } from '.';
 import useEvent from '@/utilities/use-shared-event';
-
-interface Group {
-	name?: string;
-	icon?: string;
-	children?: Child[];
-}
-
-interface Child {
-	text?: string;
-	icon?: string;
-	children: Child[];
-}
 
 const props = withDefaults(defineProps<{
 	menu: Group[];
@@ -45,14 +33,8 @@ const props = withDefaults(defineProps<{
 })
 
 const emits = defineEmits<{
-	(e: Events.NODE_CLICK, value: Child): void
+	(e: Events.NODE_CLICK, value: Node): void
 }>()
-
-onMounted(() => {
-	useEvent(Events.NODE_CLICK)
-		.listen((node: Child) => { emits(Events.NODE_CLICK, node) })
-})
-
 
 const slots = useSlots();
 
@@ -62,6 +44,11 @@ const hasFooterSlot = computed(() => {
 
 const hasHeaderSlot = computed(() => {
 	return 'header' in slots;
+})
+
+onMounted(() => {
+	useEvent(Events.NODE_CLICK)
+		.listen((node: Node) => { emits(Events.NODE_CLICK, node) })
 })
 </script>
 

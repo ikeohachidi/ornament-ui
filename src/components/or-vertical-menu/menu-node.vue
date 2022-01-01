@@ -13,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-import { Events } from '.';
+import { Events, Node } from '.';
 import useEvent from '@/utilities/use-shared-event';
 
 interface Node {
