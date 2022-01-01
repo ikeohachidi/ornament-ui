@@ -3,8 +3,8 @@
 		<li data-testid="single-node" class="or-vertical-menu-child" v-for="(node, nodeIndex) in nodes" :key="`${nodeIndex}-uniqueKey()`">
 			<div class="flex center p-1" :class="{ 'active': $attrs.showActiveNode && $attrs.activeNodeFunc(node) }" @click.exact="onNodeClick(node, $event)">
 				<slot name="node-content" :node="node">
-					<i :class="`ri-${node.icon} ri-1x`" v-if="node.icon"></i>
-					<span v-if="node.text" class="inline-block ml-1">{{ node.text }}</span>
+					<i :class="`ri-${node.icon} ri-1x inline-block mr-1`" v-if="node.icon"></i>
+					<span v-if="node.text">{{ node.text }}</span>
 				</slot>
 
 				<i class="ri-arrow-drop-up-line ri-lg dropdown-icon ml-auto" v-if="node.children"></i>
