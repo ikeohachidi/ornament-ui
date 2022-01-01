@@ -97,6 +97,16 @@ The content of each node can be further customized using the `node-content` slot
 | Prop | Default | Type | Values | Description
 | menu | [] | Object | {} | An array with the structure respresent the sidebar 
 
+## Slots
+| Name | Scoped slots | Description
+| header | null | Content to be placed at head of menu container
+| footer | null | Content to be placed at foot of menu container
+| node-content | node | Can be used to further customise the display of nodes in the menu
+
+## Events
+| Name | Values | Description
+| node-clicked | node | Emitted everytime a node is clicked
+
 <script>
 import { defineComponent } from 'vue';
 
