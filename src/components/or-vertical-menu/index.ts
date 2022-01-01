@@ -10,7 +10,7 @@ interface Group {
 interface Node {
 	text?: string;
 	icon?: string;
-	showContent?: boolean;
+	collapsed?: boolean;
 	action: (node: Node) => unknown;
 	children: Node[];
 }

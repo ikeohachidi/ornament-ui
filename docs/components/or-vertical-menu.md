@@ -58,7 +58,7 @@ const menu = [
             {
                 icon: '', // optional
                 text: '', // optional
-                showContent: true, // optional 
+                collapsed: true, // optional 
                 action: (node) => void, // optional
                 children: [] // optional
             }
@@ -72,7 +72,7 @@ The first level of the `menu` props should have a `name` property not a `text`. 
 - `icon`: ornament uses remixicon by default so pass any remix icon class here.
 - `name`: Name of group **Note** This is only used on the first level of the menu.
 - `text`: Every child node should have this as it serves information like a title. 
-- `showContent`: By default all child nodes are collapsed. The `showContent` property serves to manually show a node.
+- `collapsed`: By default all child nodes are collapsed. The `collapsed` property serves to manually show a node.
 - `action`: a callback function that runs when the node is clicked. It's first argument is the node itself.
 - `children`: Every node has this and it can be as nested as you want it to be.
 

@@ -9,7 +9,7 @@
 
 				<i class="ri-arrow-drop-up-line ri-lg dropdown-icon ml-auto" v-if="node.children"></i>
 			</div>
-			<menu-node :nodes="node.children" v-if="node.children" class="ml-3" :class="{'hidden': !node.showContent}">
+			<menu-node :nodes="node.children" v-if="node.children" class="ml-3" :class="{'hidden': !node.collapsed}">
 				<template #node-content="props">
 					<slot name="node-content" v-bind="props"></slot>
 				</template>
