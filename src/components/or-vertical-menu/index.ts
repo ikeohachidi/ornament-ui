@@ -4,13 +4,7 @@ import MenuNode from './menu-node.vue';
 interface Group {
 	name?: string;
 	icon?: string;
-	children?: Child[];
-}
-
-interface Child {
-	text?: string;
-	icon?: string;
-	children: Child[];
+	children?: Node[];
 }
 
 interface Node {
@@ -18,6 +12,7 @@ interface Node {
 	icon?: string;
 	showContent?: boolean;
 	action: (node: Node) => unknown;
+	children: Node[];
 }
 
 enum Events {
@@ -26,7 +21,6 @@ enum Events {
 
 export {
 	Group,
-	Child,
 	Node,
 	Events,
 	MenuNode
