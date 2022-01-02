@@ -79,7 +79,8 @@ The content of each node can be further customized using the `node-content` slot
 
 ## Recipe
 **Navigation Menu**
-By default the vertical menu doesn't do any routing neither does it have an the clicked item have any visual cue.
+
+By default the vertical menu doesn't do any routing neither does it have give the clicked item any visual cue(background color or text color change).
 This is done on purpose since the vertical menu can serve many purposes.
 
 A Navigation menu can be quickly achieved with this component with the following lines of code 
