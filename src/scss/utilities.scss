@@ -1,0 +1,11 @@
+@mixin min-height-size($parent) {
+	#{$parent + '.sm'} {
+		min-height: 37px;
+	}
+	#{$parent + 'md'} {
+		min-height: 53px;
+	}
+	#{$parent + '.lg'} {
+		min-height: 69px;
+	}
+}

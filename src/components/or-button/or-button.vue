@@ -1,5 +1,5 @@
 <template>
-	<button v-bind="$attrs" :class="[getSize]" :disabled="isLoading">
+	<button v-bind="$attrs" :class="[size, getSize]">
 		<or-pulsing-loader v-if="isLoading" box-color="#b0b0b0" :dimension="9" :rounded="true"/>
 		<slot v-else></slot>
 	</button>
@@ -27,7 +27,11 @@ const getSize = computed(() => {
 
 <style lang="scss" scoped>
 @import "@/scss/color.scss";
+@import "@/scss/utilities.scss";
+
 $profiles: danger, success, info;
+
+@include min-height-size("button");
 
 button {
 	background: var(--color-primary);
@@ -39,6 +43,8 @@ button {
 	transition: .2s;
 	display: inline-flex;
 	justify-content: center;
+	align-items: center;
+
 
 	@each $profile in $profiles {
 		&.#{$profile} {
@@ -81,7 +87,6 @@ button {
 	&:disabled {
 		background-color: var(--color-gray-2);
 		border: 1px solid var(--color-gray-1);
-		padding: 0.8em;
 		&:disabled:hover {
 			background-color: var(--color-gray-2) !important;
 		}
