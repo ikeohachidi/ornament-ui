@@ -174,8 +174,8 @@ onMounted(() => {
 <style lang="scss" scoped>
 .or-dropdown-wrapper {
 	position: relative;
-	min-width: var(--input-min-width);
-	width: 100%;
+	display: inline-flex;
+	width: var(--input-min-width)
 }
 
 .or-dropdown-value {
@@ -185,6 +185,8 @@ onMounted(() => {
 	box-shadow: none;
 	cursor: pointer;
 	transition: .2s;
+	width: 100%;
+
 	&:hover {
 		box-shadow: var(--outline-border);
 	}
@@ -212,36 +214,40 @@ onMounted(() => {
 	left: 0;
 	right: 0;
 	z-index: 10;
+	margin: 5px 0;
 	list-style: none;
 	background-color: #fff;
 	border: 1px solid var(--color-gray-2);
 	border-radius: var(--radius-2);
-	padding: 20px;
 	box-shadow: var(--shadow-sm);
 	visibility: hidden;
 	opacity: 0;
-	transform: translateY(30px);
+	transform: translateY(10px);
 	transition: 0s visibility, .2s opacity, .2s transform;
-}
 
-.or-dropdown-list.show {
-	visibility: visible;
-	opacity: 1;
-	transform: translateY(0px);
+	&.show {
+		visibility: visible;
+		opacity: 1;
+		transform: translateY(0px);
+	}
 }
 
 .or-dropdown-filter {
-	margin-bottom: 1em;
+	padding: 10px;
+
+	& > div {
+		width: 100%;
+	}
 
 	&::v-deep(input) {
 		background-color: transparent;
 	}
 }
 
+
 .or-dropdown-item {
 	cursor: pointer;
 	padding: 0.7em;
-	margin: 5px 0;
 	background-color: transparent;
 	color: var(--text-color-1);
 	border-radius: var(--radius-1);
@@ -257,6 +263,6 @@ onMounted(() => {
 }
 
 .or-dropdown-item.active {
-	background-color: var(--color-gray-3);
+	background-color: var(--color-gray-2);
 }
 </style>
