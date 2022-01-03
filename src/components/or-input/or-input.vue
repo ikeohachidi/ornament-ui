@@ -1,7 +1,7 @@
 <template>
-	<div class="or-input-wrapper" :class="[size]">
+	<div class="or-input-wrapper" v-bind="$attrs" :class="[size]">
 		<slot name="before">
-			<span class="or-input-position-icons">
+			<span class="or-input-position-icons" :class="[getSize]">
 				<i v-if="beforeIcon" :class="`ri-${beforeIcon}`"></i>
 			</span>
 		</slot>
