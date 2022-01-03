@@ -6,7 +6,7 @@ const props = {
 	afterIcon: 'home-line'
 };
 
-const factoryWrapper = (props = {}, slots = {}) => {
+const factory = (props = {}, slots = {}) => {
 	return mount(OrInput, {
 		props,
 		slots,
@@ -14,7 +14,7 @@ const factoryWrapper = (props = {}, slots = {}) => {
 }
 
 describe("OrInput", () => {
-	let wrapper = factoryWrapper(props)
+	let wrapper = factory(props)
 
 	it('emits update event', async () => {
 		await wrapper.find('.or-input').setValue('sm');
@@ -23,7 +23,7 @@ describe("OrInput", () => {
 
 	it('displays side icons', () => {
 		Object.values(props).forEach(icon => {
-			expect(wrapper.html()).toContain(`class="ri-${icon}"`);
+			expect(wrapper.html()).toContain(`ri-${icon}`);
 		})
 	})
 
@@ -33,10 +33,17 @@ describe("OrInput", () => {
 			after: '<p>pepper</p>',
 		};
 
-		wrapper = factoryWrapper(props, slots)
+		wrapper = factory(props, slots)
 
 		Object.values(slots).forEach(slot => {
 			expect(wrapper.html()).toContain(slot);
 		})
+	})
+
+	it('should clear values when clear icon is clicked', async () => {
+		const wrapper = factory({ clear: true })
+		await wrapper.find('[data-testid="after-icon"]').trigger('click')
+
+		expect(wrapper.emitted('update:modelValue')![0]).toEqual([''])
 	})
 })
