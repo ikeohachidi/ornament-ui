@@ -5,9 +5,9 @@ export enum Size {
 }
 
 export const Sizes = {
-	sm: 'p-1',
-	md: 'p-2',
-	lg: 'p-3',
+	sm: 'px-1',
+	md: 'px-2',
+	lg: 'px-3',
 }
 
 export const RadiusSize = {
