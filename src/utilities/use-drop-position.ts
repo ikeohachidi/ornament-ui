@@ -1,11 +1,11 @@
 type cssProperty = {[property: string]: string | number};
 
 const topStyle: cssProperty = {
-    bottom: '101%'
+    bottom: '100%'
 }
 
 const bottomStyle: cssProperty = {
-    top: '101%'
+    top: '100%'
 }
 
 /**
