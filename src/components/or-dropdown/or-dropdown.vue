@@ -1,58 +1,46 @@
 <template>
 	<div class="or-dropdown-wrapper" ref="orDropdown">
 		<div data-testid="options-trigger" class="or-dropdown-value p-1 center" @click="toggleDropdownList">
-			<span v-if="selectedOptions.length === 0 && !isSelectedOptionValid">
-				{{ placeholder }}
-			</span>
-			<div v-else>
-				<template v-if="multi">
-					<or-chips v-if="chips" v-model="selectedOptions" class="or-chips-wrapper">
-						<template #item="{ value }">
-							{{ value }}
-						</template>
-					</or-chips>
-					<span v-else v-for="(option, optionIndex) in selectedOptions" :key="optionIndex">
-						{{ option }} {{ optionIndex < selectedOptions.length - 1 ? ', ' : '' }}
-					</span>
-				</template>
-				<span v-else>
-					<slot name="value" :selected="selectedOption">
-						{{ getOptionLabel(selectedOption) }}
-					</slot>
+			<template v-if="multi">
+				<or-chips v-if="chips" v-model="selectedOptions" class="or-chips-wrapper">
+					<template #item="{ value }">
+						{{ value }}
+					</template>
+				</or-chips>
+				<span v-else v-for="(option, optionIndex) in selectedOptionsDisplay" :key="optionIndex">
+					{{ option }} {{ optionIndex < selectedOptions.length - 1 ? ', ' : '' }}
 				</span>
-			</div>
-			<span class="ml-auto">
-				<i class="ri-arrow-down-s-line"></i>
+			</template>
+			<span v-else>
+				<slot name="value" :selected="selectedOption">
+					{{ selectedOptionDisplay }}
+				</slot>
 			</span>
+			<i class="ri-arrow-down-s-line ml-auto"></i>
 		</div>
 		<ul class="or-dropdown-list" ref="dropdownList" :style="dropdownPosition">
 			<li class="or-dropdown-filter">
-				<or-input ref="filterInput" v-model="filterTerm" placeholder="Filter items" v-if="hasFilter">
-					<template #before>
-						<i class="ri-search-2-line mr-1"></i>
-					</template>
-					<template #after>
-						<i class="ri-close-line ml-3" @click="filterTerm = ''"></i>
-					</template>
-				</or-input>
+				<or-input placeholder="Filter items" ref="filterInput" v-model="filterTerm" v-if="hasFilter" beforeIcon="search-2-line" clear />
+			</li>
+			<li v-if="hasNoFilterResults" class="or-dropdown-item">
+				{{ noResults }}
 			</li>
 			<li 
 				class="or-dropdown-item"
-				:class="{'active': multi ? isItemSelected(option) : JSON.stringify(selectedOption) == JSON.stringify(option) }"
-				v-for="(option, optionIndex) in filteredOptions"
+				:class="{'active': multi ? isItemSelected(filteredOptions[optionIndex]) : JSON.stringify(findOption(selectedOption)) == JSON.stringify(option) }"
+				v-for="(option, optionIndex) in optionsLabelsDisplay"
+				v-else
 				:key="optionIndex"
-				@click="toggleOption(getOptionValue(option))"
-
+				@click="toggleOption(optionIndex)"
 			>
-				<or-checkbox v-model="selectedOptions" :value="option" v-if="multi">
+				<template v-if="multi">
 					<slot name="option" class="option" :option="option" :index="optionIndex">
-						<span class="ml-2">{{ getOptionLabel(option) }}</span>
+						<span class="ml-1">{{ option }}</span>
 					</slot>
-				</or-checkbox>
+				</template>
 				<template v-else>
-					<input type="radio" class="mr-2" v-model="selectedOption" :value="option">
 					<slot name="option" class="option" :option="option" :index="optionIndex">
-						{{ getOptionLabel(option) }}
+						{{ option }}
 					</slot>
 				</template>
 			</li>
@@ -60,31 +48,29 @@
 	</div>
 </template>
 
-<script lang="ts">
-import ListOptions from '@/mixins/list-option';
-
-export default {
-	mixins: [ ListOptions ],
-}
-</script>
-
 <script setup lang="ts">
 import { computed, onMounted, ref, unref } from 'vue';
 
 import useDropPosition from "@/utilities/use-drop-position";
 import useClickAway from "@/utilities/use-clickaway";
+import { Option, ListOption, useListOption } from '@/utilities/use-list-option';
 
-const props = withDefaults(defineProps<{
-	options?: object[],
+interface Props extends ListOption {
+	options: Option[],
 	modelValue?: object[] | object,
 	multi?: boolean,
 	chips?: boolean;
 	hasFilter?: boolean;
-	placeholder: string
-}>(), {
+	noResults?: string;
+	optionValue?: keyof Option;
+	optionLabel?: keyof Option;
+}
+
+const props = withDefaults(defineProps<Props>(), {
 	options: () => ([]),
 	modelValue: () => ([]),
-	hasFilter: true
+	hasFilter: true,
+	noResults: 'No results.',
 })
 
 const emit = defineEmits<{
@@ -92,34 +78,26 @@ const emit = defineEmits<{
 	(e: 'change', value: object[] | object): void
 }>()
 
+const { getOptionValue, getOptionLabel, findOption } = useListOption(props);
+
 const orDropdown = ref<HTMLElement>();
 const selectedOptions = ref<object[]>([]);
+const selectedOptionsDisplay = computed(() => selectedOptions.value.map(option => getOptionLabel(option)));
 
 const selectedOption = ref<object>({});
-const isSelectedOptionValid = computed(() => {
-	const constructor = selectedOption.value.constructor;
+const selectedOptionDisplay = computed(() => getOptionLabel(selectedOption.value));
 
-	if (constructor === Array) return (selectedOption.value as Array<unknown>).length > 0;
-
-	if (constructor === Object) return Object.keys((selectedOption.value as Record<string, unknown>)).length > 0;
-
-	return String(selectedOption.value).length > 0
-})
-
+const hasNoFilterResults = computed(() => filterTerm.value !== '' && filteredOptions.value.length === 0) 
 const filterTerm = ref<string>('');
 const filteredOptions = computed(() => {
 	return props.options.filter(option => JSON.stringify(option).toLowerCase().includes(filterTerm.value.toLowerCase()))
 })
 
-const isItemSelected = (item: object): boolean => {
-	return getItemIndex(item) > -1;
-}
+const optionsLabelsDisplay = computed(() => filteredOptions.value.map(option => getOptionLabel(option)));
 
-const getItemIndex = (item: object): number => {
-	const index = selectedOptions.value.findIndex(option => JSON.stringify(option) === JSON.stringify(item))
+const isItemSelected = (item: object): boolean => getItemIndex(item) > -1;
 
-	return index;
-}
+const getItemIndex = (item: object): number => selectedOptions.value.findIndex(option => JSON.stringify(option) === JSON.stringify(item));
 
 const dropdownList = ref<HTMLDivElement>();
 const dropdownPosition = computed(() => {
@@ -138,7 +116,9 @@ const hideDropdownList = (): void => {
 	dropdownList.value?.classList.remove('show');
 }
 
-const toggleOption = (option: object): void => {
+const toggleOption = (optionIndex: number): void => {
+	const option = filteredOptions.value[optionIndex];
+
 	if (props.multi) {
 
 		if (isItemSelected(option)) {
@@ -148,15 +128,17 @@ const toggleOption = (option: object): void => {
 		} else {
 			selectedOptions.value.push(option)
 		}
+		const values = selectedOptions.value.map(option => getOptionValue(option))
 
-		emit('change', selectedOptions.value);
-		emit('update:modelValue', selectedOptions.value);
+		emit('change', values);
+		emit('update:modelValue', values);
 		return
 	}
 
+	const value = getOptionValue(filteredOptions.value[optionIndex]);
 	selectedOption.value = option;
-	emit('change', selectedOptions.value);
-	emit('update:modelValue', selectedOption.value);
+	emit('change', value);
+	emit('update:modelValue', value);
 }
 
 onMounted(() => {
@@ -167,7 +149,7 @@ onMounted(() => {
 		return
 	}
 
-	selectedOption.value = unref(props.modelValue);
+	selectedOption.value = findOption(unref(props.modelValue));
 })
 </script>
 
