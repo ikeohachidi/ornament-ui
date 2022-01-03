@@ -1,5 +1,5 @@
 <template>
-	<select class="or-select" v-model="value" v-bind="$attrs" :class="[getSize]">
+	<select class="or-select" v-model="value" v-bind="$attrs" :class="[size, getSize]">
 		<option v-for="(option, index) in options" :key="index" :value="getOptionValue(option)">
 			<slot name="option" :option="option">
 				{{ getOptionLabel(option) }}
@@ -47,6 +47,9 @@ onMounted(() => {
 </script>
 
 <style scoped lang="scss">
+@import "@/scss/utilities.scss";
+
+@include min-height-size(".or-select");
 .or-select {
 	display: flex;
 	border: 1px solid var(--border-color-1);
