@@ -1,13 +1,13 @@
 <template>
 	<div class="or-input-wrapper" v-bind="$attrs" :class="[size]">
 		<slot name="before">
-			<span class="or-input-position-icons" :class="[getSize]">
-				<i v-if="beforeIcon" :class="`ri-${beforeIcon}`"></i>
+			<span class="or-input-position-icons" :class="[getSize]" v-if="beforeIcon">
+				<i  :class="`ri-${beforeIcon}`"></i>
 			</span>
 		</slot>
 		<input type="text" class="or-input grow" v-bind="$attrs" ref="input" @input="onTextInput" :class="[getSize]">
 		<slot name="after">
-			<span data-testid="after-icon" class="or-input-position-icons" :class="[getSize]" @click="onAfterSlotClick">
+			<span data-testid="after-icon" class="or-input-position-icons" :class="[getSize]" @click="onAfterSlotClick" v-if="clear || afterIcon">
 				<template v-if="clear">
 					<i :class="`ri-close-line ri-${size}`"></i>
 				</template>
