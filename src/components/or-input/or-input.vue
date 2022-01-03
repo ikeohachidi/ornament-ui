@@ -1,13 +1,13 @@
 <template>
 	<div class="or-input-wrapper" v-bind="$attrs" :class="[size]">
 		<slot name="before">
-			<span class="or-input-position-icons" :class="[getSize]" v-if="beforeIcon">
+			<span class="or-input-position-icons before" :class="[getSize]" v-if="beforeIcon">
 				<i  :class="`ri-${beforeIcon}`"></i>
 			</span>
 		</slot>
-		<input type="text" class="or-input grow" v-bind="$attrs" ref="input" @input="onTextInput" :class="[getSize]">
+		<input type="text" class="or-input" v-bind="$attrs" ref="input" @input="onTextInput" :class="[getSize]">
 		<slot name="after">
-			<span data-testid="after-icon" class="or-input-position-icons" :class="[getSize]" @click="onAfterSlotClick" v-if="clear || afterIcon">
+			<span data-testid="after-icon" class="or-input-position-icons after" :class="[getSize]" @click="onAfterSlotClick" v-if="clear || afterIcon">
 				<template v-if="clear">
 					<i :class="`ri-close-line ri-${size}`"></i>
 				</template>
@@ -90,6 +90,18 @@ onMounted(() => {
 	display: inline-flex;
 	margin: auto; 
 	color: #b8bac2;
+	&.after {
+		padding-left: 0;
+	}
+	&.before {
+		padding-right: 0;
+	}
+}
+
+.or-input {
+	display: inline-flex;
+	width: 100%;
+	flex-grow: 1;
 }
 
 .or-input-wrapper {
