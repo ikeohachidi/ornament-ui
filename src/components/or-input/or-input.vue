@@ -1,11 +1,20 @@
 <template>
-	<div class="or-input-wrapper flex center" :class="[getSize]">
+	<div class="or-input-wrapper" :class="[size]">
 		<slot name="before">
-			<i v-if="beforeIcon" :class="`ri-${beforeIcon}`"></i>
+			<span class="or-input-position-icons">
+				<i v-if="beforeIcon" :class="`ri-${beforeIcon}`"></i>
+			</span>
 		</slot>
-		<input type="text" class="or-input grow" v-bind="$attrs" ref="input" @input="onTextInput">
+		<input type="text" class="or-input grow" v-bind="$attrs" ref="input" @input="onTextInput" :class="[getSize]">
 		<slot name="after">
-			<i v-if="afterIcon" :class="`ri-${afterIcon}`"></i>
+			<span data-testid="after-icon" class="or-input-position-icons" :class="[getSize]" @click="onAfterSlotClick">
+				<template v-if="clear">
+					<i :class="`ri-close-line ri-${size}`"></i>
+				</template>
+				<template v-else>
+					<i v-if="afterIcon" :class="`ri-${afterIcon} ri-${size}`"></i>
+				</template>
+			</span>
 		</slot>
 	</div>
 </template>
@@ -21,13 +30,14 @@ import { onMounted, ref, computed, watch } from "vue";
 import { Size, Sizes } from '@/types/Size';
 
 const props = withDefaults(defineProps<{
-	modelValue?: string
-	size?: Size
-	afterIcon?: string
-	beforeIcon?: string
+	modelValue?: string;
+	size?: Size;
+	afterIcon?: string;
+	beforeIcon?: string;
+	clear?: boolean;
 }>(), {
 	modelValue: '',
-	size: Size.SM
+	size: Size.SM,
 })
 
 const watch_modelValue = watch(
@@ -57,6 +67,11 @@ const onTextInput = (event: Event): void => {
 	emit('update:modelValue', value)
 }
 
+const onAfterSlotClick = (): void => {
+	console.log('emitting')
+	if (props.clear) emit('update:modelValue', '');
+}
+
 onMounted(() => {
 	if (input.value) {
 		input.value.value = props.modelValue;
@@ -67,7 +82,18 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
+@import "@/scss/utilities.scss";
+
+@include min-height-size(".or-input-wrapper");
+
+.or-input-position-icons {
+	display: inline-flex;
+	margin: auto; 
+	color: #b8bac2;
+}
+
 .or-input-wrapper {
+	display: inline-flex;
 	border: 1px solid var(--border-color-1);
 	background-color: var(--color-gray-3);
 	border-radius: var(--radius-1);
