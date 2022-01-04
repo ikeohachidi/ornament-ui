@@ -15,7 +15,7 @@ const useListOption = <T extends ListOption>(props: T) => {
 		 * @returns the value of the key specified in props.optionValue 
 		 */
 		getOptionValue: function<T>(option: T): T {
-			if (!primitives.includes(typeof option)) {
+			if (option && !primitives.includes(typeof option)) {
 				return props.optionValue ? (option as Record<string, unknown>)[props.optionValue] as T : option;
 			}
 
@@ -27,7 +27,7 @@ const useListOption = <T extends ListOption>(props: T) => {
 		 * @returns the value of the key specified in props.optionLabel
 		 */
 		getOptionLabel: function(option: unknown): unknown {
-			if (!primitives.includes(typeof option)) {
+			if (option && !primitives.includes(typeof option)) {
 				const optionObject = option as Record<string, unknown>;
 				return (props.optionLabel && props.optionLabel in optionObject) ? optionObject[props.optionLabel] : option;
 			}
