@@ -31,13 +31,13 @@ The example above showed the dropdown options as is without any kind of formatti
 ```
 
 
-## Multiple selection (Chips)
+## Multiple selection 
 The dropdown can also accept multiple selection by setting the `multi` prop to `true`
 
-<or-dropdown :options="languages" v-model="selectedLanguages" placeholder="Select language" chips multi />
+<or-dropdown :options="languages" v-model="selectedLanguages" :multi="true" />
 
 ```html
-<or-dropdown :options="languages" v-model="selectedLanguages" placeholder="Select language" chips multi/>
+<or-dropdown :options="languages" v-model="selectedLanguages" :multi="true"/>
 ```
 
 <script>
@@ -71,5 +71,5 @@ export default defineComponent({
 |--|--|--|--|--|
 | options | true | [] | Array | The items to be displayed on the dropdown
 | multi | false | false | Boolean | Determines if the dropdown will allow multiple selection ot items, displayed with comma separation
-| chips | false | false | Boolean | selected items will displayed in a chip
+| chips | false | false | Boolean | Selected items will be displayed in a chip
 | hasFilter | false | true | Boolean | If set to true an input will displayed in the dropdown which will be used to filter select items
