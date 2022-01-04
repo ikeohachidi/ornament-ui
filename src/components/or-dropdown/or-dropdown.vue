@@ -33,16 +33,12 @@
 				:key="optionIndex"
 				@click="toggleOption(optionIndex)"
 			>
-				<template v-if="multi">
-					<slot name="option" class="option" :option="option" :index="optionIndex">
-						<span class="ml-1">{{ option }}</span>
-					</slot>
-				</template>
-				<template v-else>
-					<slot name="option" class="option" :option="option" :index="optionIndex">
-						{{ option }}
-					</slot>
-				</template>
+				<slot name="option" class="option" :option="option" :index="optionIndex">
+					<span class="or-dropdown-item-multi-icon" v-if="multi">
+						<i class="ri-check-line"></i>
+					</span>
+					<span class="ml-1">{{ option }}</span>
+				</slot>
 			</li>
 		</ul>
 	</div>
@@ -235,6 +231,18 @@ onMounted(() => {
 	border-radius: var(--radius-1);
 	transition: .2s;
 
+	.or-dropdown-item-multi-icon {
+		color: var(--color-gray-1)
+	}
+
+	&.active {
+		background-color: var(--color-gray-2);
+
+		.or-dropdown-item-multi-icon {
+			color: var(--color-primary)
+		}
+	}
+
 	&:hover {
 		background-color: var(--color-gray-3);
 	}
@@ -242,9 +250,5 @@ onMounted(() => {
 
 .or-dropdown-item input[type="radio"] {
 	display: none;
-}
-
-.or-dropdown-item.active {
-	background-color: var(--color-gray-2);
 }
 </style>
