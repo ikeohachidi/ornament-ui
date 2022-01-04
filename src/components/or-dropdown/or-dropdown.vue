@@ -53,7 +53,7 @@ import { Option, ListOption, useListOption } from '@/utilities/use-list-option';
 
 interface Props extends ListOption {
 	options: Option[],
-	modelValue?: object[] | object,
+	modelValue: object[] | object,
 	multi?: boolean,
 	chips?: boolean;
 	hasFilter?: boolean;
@@ -64,7 +64,6 @@ interface Props extends ListOption {
 
 const props = withDefaults(defineProps<Props>(), {
 	options: () => ([]),
-	modelValue: () => ([]),
 	hasFilter: true,
 	noResults: 'No results.',
 })
@@ -95,7 +94,7 @@ const selectedOptions = ref<object[]>([]);
 /**
  * values for single selection 
  */
-const selectedOption = ref<object>({});
+const selectedOption = ref<object>();
 
 const hasNoFilterResults = computed(() => filterTerm.value !== '' && filteredOptions.value.length === 0) 
 const filterTerm = ref<string>('');
