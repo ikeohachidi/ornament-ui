@@ -53,7 +53,7 @@ import { Option, ListOption, useListOption } from '@/utilities/use-list-option';
 
 interface Props extends ListOption {
 	options: Option[],
-	modelValue: object[] | object,
+	modelValue: object[] | string,
 	multi?: boolean,
 	chips?: boolean;
 	hasFilter?: boolean;
