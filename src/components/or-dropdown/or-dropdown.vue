@@ -7,13 +7,13 @@
 						{{ value }}
 					</template>
 				</or-chips>
-				<span v-else v-for="(option, optionIndex) in selectedOptionsDisplay" :key="optionIndex">
-					{{ option }} {{ optionIndex < selectedOptions.length - 1 ? ', ' : '' }}
+				<span v-else v-for="(option, optionIndex) in displayLabels.selectedOptions" :key="optionIndex">
+					{{ option }}{{ optionIndex < selectedOptions.length - 1 ? ', ' : '' }}
 				</span>
 			</template>
 			<span v-else>
 				<slot name="value" :selected="selectedOption">
-					{{ selectedOptionDisplay }}
+					{{ displayLabels.selectedOption }}
 				</slot>
 			</span>
 			<i class="ri-arrow-down-s-line ml-auto"></i>
@@ -28,7 +28,7 @@
 			<li 
 				class="or-dropdown-item"
 				:class="{'active': multi ? isItemSelected(filteredOptions[optionIndex]) : JSON.stringify(findOption(selectedOption)) == JSON.stringify(option) }"
-				v-for="(option, optionIndex) in optionsLabelsDisplay"
+				v-for="(option, optionIndex) in displayLabels.filteredOptions"
 				v-else
 				:key="optionIndex"
 				@click="toggleOption(optionIndex)"
@@ -76,20 +76,32 @@ const emit = defineEmits<{
 
 const { getOptionValue, getOptionLabel, findOption } = useListOption(props);
 
-const orDropdown = ref<HTMLElement>();
-const selectedOptions = ref<object[]>([]);
-const selectedOptionsDisplay = computed(() => selectedOptions.value.map(option => getOptionLabel(option)));
+/**
+ * return values transformed with getOptionLabel 
+ */
+const displayLabels = computed(() => {
+	return {
+		selectedOptions: selectedOptions.value.map(option => getOptionLabel(option)),
+		selectedOption: getOptionLabel(selectedOption.value),
+		filteredOptions: filteredOptions.value.map(option => getOptionLabel(option))
+	}
+})
 
+const orDropdown = ref<HTMLElement>();
+/**
+ * contains values when multi selection is enabled 
+ */
+const selectedOptions = ref<object[]>([]);
+/**
+ * values for single selection 
+ */
 const selectedOption = ref<object>({});
-const selectedOptionDisplay = computed(() => getOptionLabel(selectedOption.value));
 
 const hasNoFilterResults = computed(() => filterTerm.value !== '' && filteredOptions.value.length === 0) 
 const filterTerm = ref<string>('');
 const filteredOptions = computed(() => {
 	return props.options.filter(option => JSON.stringify(option).toLowerCase().includes(filterTerm.value.toLowerCase()))
 })
-
-const optionsLabelsDisplay = computed(() => filteredOptions.value.map(option => getOptionLabel(option)));
 
 const isItemSelected = (item: object): boolean => getItemIndex(item) > -1;
 
@@ -200,8 +212,8 @@ onMounted(() => {
 	box-shadow: var(--shadow-sm);
 	visibility: hidden;
 	opacity: 0;
-	transform: translateY(10px);
-	transition: 0s visibility, .2s opacity, .2s transform;
+	transform: translateY(5px);
+	transition: 0s visibility, .1s opacity, .1s transform;
 
 	&.show {
 		visibility: visible;
@@ -230,9 +242,10 @@ onMounted(() => {
 	color: var(--text-color-1);
 	border-radius: var(--radius-1);
 	transition: .2s;
+	color: var(--text-color-2);
 
 	.or-dropdown-item-multi-icon {
-		color: var(--color-gray-1)
+		color: var(--color-gray-2)
 	}
 
 	&.active {
