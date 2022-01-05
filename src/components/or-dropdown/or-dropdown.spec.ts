@@ -33,12 +33,11 @@ const factory = (props = {}, slots = {}) => {
 	})
 }
 
-const wrapper = factory();
-const filterInputEl =  wrapper.findComponent({ ref: 'filterInput' });
-const optionsTriggerEl = wrapper.find('[data-testid="options-trigger"]');
-const optionsListEl = wrapper.find('.or-dropdown-list');
-
-describe('OrDropdown', () => {
+describe('OrDropdown Single Select', () => {
+	const wrapper = factory();
+	const filterInputEl =  wrapper.findComponent({ ref: 'filterInput' });
+	const optionsTriggerEl = wrapper.find('[data-testid="options-trigger"]');
+	const optionsListEl = wrapper.find('.or-dropdown-list');
 
 	it('has options in dom', () => {
 		options.forEach(option => {
@@ -104,5 +103,35 @@ describe('OrDropdown', () => {
 		await wrapper.find('.or-dropdown-item').trigger('click');
 		expect(wrapper.emitted('update:modelValue')![0]).toEqual([options[0].firstname])
 	})
-	// TODO: test for multi selection
+})
+
+describe('OrDropdown Multi Selection', () => {
+	const wrapper = factory({
+		options,
+		multi: true,
+		modelValue: [options[0]]
+	});
+
+	it('sets default value on mounted', async () => {
+		expect(wrapper.find('.or-dropdown-value').html()).toContain(options[0].label);
+		expect(wrapper.find('.or-dropdown-value').html()).toContain(options[0].value);
+	})
+
+	it('emits all multiple selected items', async () => {
+		const items = wrapper.findAll('.or-dropdown-item').slice(1);
+
+		for (const item of items) {
+			await item.trigger('click');
+		}
+
+		expect(wrapper.emitted('update:modelValue')![items.length - 1]).toEqual([options])
+	})
+
+	it('displays texts with optionLabel prop', async () => {
+		await wrapper.setProps({ optionLabel: 'label' });
+		options.forEach(option => {
+			expect(wrapper.html()).toContain(option.label);
+			expect(wrapper.html()).not.toContain(option.value);
+		})
+	})
 })

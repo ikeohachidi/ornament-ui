@@ -53,7 +53,7 @@ import { Option, ListOption, useListOption } from '@/utilities/use-list-option';
 
 interface Props extends ListOption {
 	options: Option[],
-	modelValue: object[] | string,
+	modelValue: object[] | object | string,
 	multi?: boolean,
 	chips?: boolean;
 	hasFilter?: boolean;
@@ -152,7 +152,14 @@ onMounted(() => {
 	if (orDropdown.value) useClickAway(orDropdown.value, hideDropdownList);
 
 	if (props.multi) {
-		(selectedOptions.value as object[]) = (unref(props.modelValue) as object[]);
+		if (!props.modelValue) return
+
+		if (props.modelValue.constructor === Array) {
+			(selectedOptions.value as object[]) = unref(props.modelValue) as object[]
+		} else {
+			(selectedOptions.value as object[]) = [(unref(props.modelValue) as object)];
+		}
+		
 		return
 	}
 
