@@ -1,7 +1,6 @@
 import { mount } from "@vue/test-utils";
 import { OrCheckbox, OrChips, OrDropdown, OrInput } from "@/plugin";
 
-// yes i know F+ isn't an actual grade 
 const options = [
 	{ label: 'Excellent', value: 'A+' },
 	{ label: 'Good', value: 'B+' },
@@ -102,6 +101,26 @@ describe('OrDropdown Single Select', () => {
 
 		await wrapper.find('.or-dropdown-item').trigger('click');
 		expect(wrapper.emitted('update:modelValue')![0]).toEqual([options[0].firstname])
+	})
+
+	it('formats items to slot specs', () => {
+		const slotWrapper = factory({ modelValue: options[0] }, {
+			value: `
+				<template #value="{ selected }">
+					{{ selected.label }}
+				</template>
+			`,
+			option: `
+				<template #option="{ option }">
+					{{ option.label }}
+				</template>
+			`
+		})
+
+		options.forEach(option => {
+			expect(slotWrapper.html()).toContain(option.label);
+			expect(slotWrapper.html()).not.toContain(option.value);
+		})
 	})
 })
 
