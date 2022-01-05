@@ -1,6 +1,6 @@
 <template>
 	<button v-bind="$attrs" :class="[size, getSize]">
-		<or-pulsing-loader v-if="isLoading" box-color="#b0b0b0" :dimension="9" :rounded="true"/>
+		<or-pulsing-loader ref="loader" v-if="isLoading" box-color="#b0b0b0" :dimension="9" :rounded="true"/>
 		<slot v-else></slot>
 	</button>
 </template>

@@ -25,6 +25,6 @@ describe('OrButton', () => {
 
 	it('disables button and shows loading indicator', async() => {
 		await wrapper.setProps({ isLoading: true });
-		expect(Object.keys(wrapper.attributes()).includes('disabled')).toBeTruthy();
+		expect(wrapper.findComponent({ ref: 'loader' }).exists()).toBeTruthy();
 	})
 })
