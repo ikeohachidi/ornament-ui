@@ -1,6 +1,7 @@
 const events: Record<string, {
 	push: (value: unknown) => void;
 	listen: (callback: Function) => void;
+	flush: () => void;
 	_listeners: Function[];
 }> = {};
 
@@ -25,6 +26,9 @@ const useEvent = (event: string) => {
 			},
 			listen: function(callback: Function) {
 				this._listeners.push(callback);
+			},
+			flush: function(): void {
+				this._listeners = [];
 			}
 		}
 	}
@@ -33,6 +37,7 @@ const useEvent = (event: string) => {
 	return {
 		push: (value: unknown) => e.push(value),
 		listen: (callback: Function) => e.listen(callback),
+		flush: () => e.flush()
 	}
 }
 
