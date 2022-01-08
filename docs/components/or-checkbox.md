@@ -6,14 +6,14 @@ A styled checkbox component perfect for multiple option selection. Also has a sw
 Passing an array to the v-model directive will add/remove the value of the `or-checkbox` component and passing
 a primitive will update the value, essentially making the `or-checkbox` component act like a radio
 
-<or-checkbox v-model="users" value="Francis">Francis</or-checkbox>
+<or-checkbox v-model="users" value="Francis">Francis</or-checkbox> <br>
 <or-checkbox v-model="users" value="Jerry">Jerry</or-checkbox>
 
 **Value:** {{ users }}
 
 ```html
-<or-checkbox v-model="users">Francis</or-checkbox>
-<or-checkbox v-model="users">Jerry</or-checkbox>
+<or-checkbox v-model="users" value="Francis">Francis</or-checkbox> <br>
+<or-checkbox v-model="users" value="Jerry">Jerry</or-checkbox>
 ```
 
 ### Switch
