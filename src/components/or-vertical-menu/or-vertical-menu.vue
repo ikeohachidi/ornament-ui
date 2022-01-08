@@ -19,7 +19,7 @@
 <script setup lang="ts">
 import { computed, CSSProperties, onMounted, useSlots } from 'vue';
 import { MenuNode, Events, Group, Node } from '.';
-import useEvent from '@/utilities/use-shared-event';
+import { emitter } from '@/utilities/use-shared-event';
 
 const props = withDefaults(defineProps<{
 	menu: Group[];
@@ -55,8 +55,7 @@ const style = computed<CSSProperties>(() => {
 })
 
 onMounted(() => {
-	useEvent(Events.NODE_CLICK)
-		.listen((node: Node) => { emits(Events.NODE_CLICK, node) })
+	emitter.on(Events.NODE_CLICK, (node: Node) => { emits(Events.NODE_CLICK, node) })
 })
 </script>
 

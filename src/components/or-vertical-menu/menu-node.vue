@@ -21,7 +21,7 @@
 <script setup lang="ts">
 import { useAttrs } from 'vue';
 import { Events, Node } from '.';
-import useEvent from '@/utilities/use-shared-event';
+import { emitter } from '@/utilities/use-shared-event';
 
 const props = defineProps<{
 	nodes: Node[]
@@ -32,7 +32,7 @@ const attrs = useAttrs();
 const isNodeActive = (node: Node): boolean => attrs.activeNodeFunc ? attrs.activeNodeFunc!(node) : false;
 
 const onNodeClick = (node: Node, event: InputEvent) => {
-	useEvent(Events.NODE_CLICK).push(node);
+	emitter.emit(Events.NODE_CLICK, node).catch(err => err)
 
 	if (node.action) node.action(node);
 
