@@ -49,6 +49,9 @@ type Emitter = {
 	emit: (event: string, value?: any) => Promise<void>;
 }
 
+/**
+ * emitter implements a more common api for pubsub
+ */
 const emitter: Emitter = {
 	events: {},
 	on(event: string, callback: onCallback) {
@@ -66,8 +69,8 @@ const emitter: Emitter = {
 			const index = this.events[event].findIndex(c => c === callback);
 			if (index !== -1) {
 				this.events[event].slice(index, 1);
-				return
 			}
+			return
 		}
 
 		delete this.events[event];
