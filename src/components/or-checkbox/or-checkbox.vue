@@ -10,7 +10,7 @@
 	>
 	<label v-if="switch" class="or-switch center jc-center" :for="inputElementId"></label>
 
-	<label class="or-checkbox-label center" v-else :for="inputElementId">
+	<label class="or-checkbox-label" v-else :for="inputElementId">
 		<span class="or-checkbox center jc-center"></span>
 		<slot></slot>
 	</label>
@@ -112,6 +112,11 @@ onMounted(() => {
 <style lang="scss" scoped>
 
 $size: 20px;
+
+.or-checkbox-label {
+	display: inline-flex;
+	align-items: center;
+}
 
 .or-checkbox-input {
 	display: none;
