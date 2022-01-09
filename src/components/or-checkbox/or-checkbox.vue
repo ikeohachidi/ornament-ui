@@ -17,7 +17,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted,ref } from 'vue';
+import { computed, nextTick, onMounted,ref } from 'vue';
 
 const props = defineProps<{
 	modelValue: unknown;
@@ -86,8 +86,10 @@ const updatePrimitiveModel = (element: HTMLInputElement) => {
 const onCheckboxValueChange = (event: Event) => {
 	const element = event.target as HTMLInputElement; 
 	
-	updatePrimitiveModel(element);
-	updateArrayModel(element);
+	nextTick(() => {
+		updatePrimitiveModel(element);
+		updateArrayModel(element);
+	})
 }
 
 onMounted(() => {
