@@ -33,6 +33,15 @@ describe('OrInputTags base behaviour', () => {
 	it('should should set value on click', async () => {
 		await wrapper.find('.or-input-tags-options li').trigger('click');
 		expect(wrapper.findComponent({ ref: 'chips' }).html()).toContain('pepper');
+
+		expect(wrapper.emitted('update:modelValue')![0]).toEqual([['pepper']])
+	})
+
+	it('should set value on enter keydown', async () => {
+		await inputFilterEl.setValue('or');
+		await inputFilterEl.trigger('keydown.enter');
+
+		expect((wrapper.emitted('update:modelValue')![1] as string[])[0]).toContainEqual('orange')
 	})
 
 	it('should remove last entry if backspace is pressed on empty input', async () => {
