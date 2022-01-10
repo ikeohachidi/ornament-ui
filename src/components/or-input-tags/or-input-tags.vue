@@ -103,9 +103,7 @@ const removeTag = (tagIndex: number): void => {
 }
 
 const removePreviousTag = (): void => {
-	if (tags.value.length === 0) return;
-
-	if (input.value.length === 0) {
+	if (input.value.length === 0 && tags.value.length > 0) {
 		const length = tags.value.length - 1;
 		removeTag(length);
 	}
@@ -168,6 +166,7 @@ onMounted(() => {
 	position: absolute;
 	left: 0;
 	right: 0;
+	margin: 5px 0;
 	border-radius: var(--radius-1);
 	overflow: hidden;
 	box-shadow: var(--shadow-sm);
