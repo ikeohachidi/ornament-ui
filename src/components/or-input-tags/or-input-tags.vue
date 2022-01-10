@@ -29,27 +29,22 @@
 	</div>
 </template>
 
-<script lang="ts">
-import ListOptions from '@/mixins/list-option';
-
-export default {
-	inheritAttrs: false,
-	mixins: [ ListOptions ]
-}
-
-</script>
-
 <script setup lang="ts">
 // TODO: allow addition of non options
 import { computed, onMounted, ref, unref } from 'vue';
 
 import useDropPosition from "@/utilities/use-drop-position";
+import { Option, ListOption, useListOption } from '@/utilities/use-list-option';
 
-const props = withDefaults(defineProps<{
+interface Props extends ListOption {
 	modelValue: unknown[],
 	placeholder?: string,
-	options: unknown[]
-}>(), {
+	options?: Option[],
+	optionValue?: keyof Option,
+	optionLabel?: keyof Option,
+}
+
+const props = withDefaults(defineProps<Props>(), {
 	modelValue: () => ([]),
 	placeholder: 'Enter text',
 	options: () => ([])
@@ -60,8 +55,11 @@ const emit = defineEmits<{
 }>()
 
 const tags = ref<unknown[]>([]);
+const tagsOptionValue = computed(() => tags.value.map(tag => getOptionValue(tag)))
 const input = ref('');
 const inputElement = ref<HTMLInputElement>();
+
+const { getOptionValue, getOptionLabel} = useListOption(props);
 
 const optionsElementPosition = computed(() => {
 	if (inputElement.value) {
@@ -83,20 +81,17 @@ const addOption = (option: unknown) => {
 	tags.value.push(option);
 	input.value = '';
 
-    emit('update:modelValue', tags.value);
+    emit('update:modelValue', tagsOptionValue.value);
 }
 
 const addTag = (): void => {
 	if (props.options.length === 0) {
-
-		tags.value.push(input.value);
-		input.value = '';
-
-        emit('update:modelValue', tags.value);
+		addOption(input.value)
     }
 
 	if (optionsFilter.value.length > 0) {
-		addOption(optionsFilter.value[0]);
+		// add first option
+		addOption(getOptionValue(optionsFilter.value[0]));
 	}
 
 }
@@ -104,7 +99,7 @@ const addTag = (): void => {
 const removeTag = (tagIndex: number): void => {
 	tags.value.splice(tagIndex, 1);
 
-    emit('update:modelValue', tags.value);
+    emit('update:modelValue', tagsOptionValue.value);
 }
 
 const removePreviousTag = (): void => {
