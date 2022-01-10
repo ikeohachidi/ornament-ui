@@ -1,22 +1,25 @@
 import { mount } from "@vue/test-utils";
 import { OrChips, OrInputTags } from "@/plugin";
 
-const props = {
-	modelValue: [],
-	options: [ 'orange', 'pepper' ]
+const factory = (props = {}, slots = {}) => {
+	return mount(OrInputTags, { 
+		attachTo: document.body,
+		components: {
+			'or-chips': OrChips
+		},
+		props: {
+			modelValue: [],
+			...props,
+		},
+		slots,
+	});
 }
-const wrapper = mount(OrInputTags, { 
-	attachTo: document.body,
-	components: {
-		'or-chips': OrChips
-	},
-	props,
-});
+describe('OrInputTags base behaviour', () => {
+	const options = [ 'orange', 'pepper' ];
+	const wrapper = factory({ options });
+	const componentWrapperEl = wrapper.find('[data-testid="wrapper"]');
+	const inputFilterEl = wrapper.find('[data-testid="filter-input"]');
 
-const componentWrapperEl = wrapper.find('[data-testid="wrapper"]');
-const inputFilterEl = wrapper.find('[data-testid="filter-input"]');
-
-describe('OrInputTags', () => {
 	it('should focus on input on component click', async () => {
 		await componentWrapperEl.trigger('click');
 		expect(inputFilterEl.html()).toBe(document.activeElement?.outerHTML);
@@ -37,5 +40,39 @@ describe('OrInputTags', () => {
 		await inputFilterEl.trigger('keydown.backspace');
 
 		expect(wrapper.findComponent({ ref: 'chips' })).not.toContain('pepper');
+	})
+})
+
+describe('OrInputTags options config', () => {
+	const options = [
+		{ label: 'Excellent', value: 'A+' },
+		{ label: 'Alright', value: 'B' }
+	];
+
+	it('should display options according to set optionLabel', async () => {
+		const wrapper = factory({
+			optionLabel: 'label',
+			options,
+		});
+
+		await wrapper.find('[data-testid="filter-input"]').setValue('e');
+
+		options.forEach(option => {
+			expect(wrapper.html()).toContain(option.label);
+			expect(wrapper.html()).not.toContain(option.value);
+		})
+	})
+
+	it('should emit value according to set optionValue', async () => {
+		const wrapper = factory({
+			optionValue: 'value',
+			options,
+		});
+
+		const inputEl = wrapper.find('[data-testid="filter-input"]');
+		await inputEl.setValue('e');
+		await inputEl.trigger('keydown.enter');
+
+		expect(wrapper.emitted('update:modelValue')![0]).toEqual([[options[0].value]]);
 	})
 })
