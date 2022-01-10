@@ -1,5 +1,5 @@
 <template>
-	<div data-testid="wrapper" class="or-input-tags-wrapper p-1 flex wrap" @click="focusInput">
+	<div data-testid="wrapper" class="or-input-tags-wrapper p-1" @click="focusInput">
 		<or-chips ref="chips" v-model="tags" class="or-chips-wrapper" removeable @item-removed="removeTag">
 			<template #item="{value}">
 				<slot name="option" :option="value">
@@ -124,12 +124,13 @@ onMounted(() => {
 <style lang="scss" scoped>
 .or-input-tags-wrapper {
 	position: relative;
+	display: inline-flex;
+	width: var(--input-min-width);
 	border: 1px solid var(--color-gray-2);
 	border-radius: var(--radius-1);
 	background: var(--color-gray-3);
 	transition: .5s;
 	min-width: var(--input-min-width);
-	width: 100%;
 
 	&:hover {
 		box-shadow: var(--outline-border);
