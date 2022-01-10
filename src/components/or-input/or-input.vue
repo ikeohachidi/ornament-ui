@@ -68,7 +68,6 @@ const onTextInput = (event: Event): void => {
 }
 
 const onAfterSlotClick = (): void => {
-	console.log('emitting')
 	if (props.clear) emit('update:modelValue', '');
 }
 
