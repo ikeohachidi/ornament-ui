@@ -1,5 +1,5 @@
 <template>
-	<div data-testid="wrapper" class="or-input-tags-wrapper p-1" @click="focusInput">
+	<div data-testid="wrapper" class="or-input-tags-wrapper" @click="focusInput" :class="[size]">
 		<or-chips ref="chips" v-model="tags" class="or-chips-wrapper" removeable @item-removed="removeTag">
 			<template #item="{value}">
 				<slot name="option" :option="value">
@@ -35,11 +35,13 @@ import { computed, onMounted, ref, unref } from 'vue';
 
 import useDropPosition from "@/utilities/use-drop-position";
 import { Option, ListOption, useListOption } from '@/utilities/use-list-option';
+import { Size } from '@/types/Size';
 
 interface Props extends ListOption {
 	modelValue: unknown[],
 	placeholder?: string,
 	options?: Option[],
+	size: Size,
 	optionValue?: keyof Option,
 	optionLabel?: keyof Option,
 }
@@ -47,6 +49,7 @@ interface Props extends ListOption {
 const props = withDefaults(defineProps<Props>(), {
 	modelValue: () => ([]),
 	placeholder: 'Enter text',
+	size: Size.SM,
 	options: () => ([])
 })
 
@@ -122,6 +125,10 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
+@import "@/scss/utilities.scss";
+
+@include min-height-size(".or-input-tags-wrapper");
+
 .or-input-tags-wrapper {
 	position: relative;
 	display: inline-flex;
