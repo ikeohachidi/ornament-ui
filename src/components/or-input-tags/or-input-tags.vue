@@ -132,6 +132,10 @@ onMounted(() => {
 .or-input-tags-wrapper {
 	position: relative;
 	display: inline-flex;
+	flex-wrap: wrap;
+	flex-flow: wrap;
+	align-items: center;
+	padding-left: 5px;
 	width: var(--input-min-width);
 	border: 1px solid var(--color-gray-2);
 	border-radius: var(--radius-1);
@@ -142,25 +146,12 @@ onMounted(() => {
 	&:hover {
 		box-shadow: var(--outline-border);
 	}
-
-	::v-deep(.or-chips-wrapper) {
-		margin: 0;
-
-		.or-chip {
-			margin: 0 5px;
-
-			&:first-of-type {
-				margin-left: 0;
-			}
-		}
-	}
 }
 
 .or-input-tags-input {
 	background-color: transparent;
 	display: flex;
 	align-items: center;
-	margin-left: 10px;
 	min-width: 10ch;
 	border: none;
 	font-size: 16px;
