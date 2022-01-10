@@ -2,7 +2,7 @@ const primitives = ['number', 'string', 'boolean'];
 
 interface Option {}
 interface ListOption {
-	options: Option[];
+	options?: Option[];
 	optionLabel?: keyof Option;
 	optionValue?: keyof Option;
 }
@@ -35,7 +35,7 @@ const useListOption = <T extends ListOption>(props: T) => {
 			return option;
 		},
 		findOption: (value: unknown): Option => {
-			if (props.optionValue) {
+			if (props.optionValue && props.options) {
 				const index = props.options.findIndex(option => option[props.optionValue!] === value);
 				if (index !== -1) return props.options[index]
 			}
