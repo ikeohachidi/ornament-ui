@@ -160,6 +160,7 @@ onMounted(() => {
 	display: flex;
 	align-items: center;
 	margin-left: 10px;
+	min-width: 10ch;
 	border: none;
 	font-size: 16px;
 	&:focus {
