@@ -8,6 +8,7 @@
 			</template>
 		</or-chips>
 		<input 
+			v-if="canMakeInput"
 			type="text" 
 			data-testid="filter-input"
 			class="or-input-tags-input"
@@ -42,8 +43,9 @@ interface Props extends ListOption {
 	placeholder?: string,
 	options?: Option[],
 	size: Size,
+	max: number;
 	optionValue?: keyof Option,
-	optionLabel?: keyof Option,
+	optionLabel?: keyof Option
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -61,6 +63,14 @@ const tags = ref<unknown[]>([]);
 const tagsOptionValue = computed(() => tags.value.map(tag => getOptionValue(tag)))
 const input = ref('');
 const inputElement = ref<HTMLInputElement>();
+
+const canMakeInput = computed(() => {
+	if (props.max === null || props.max === undefined) return true;
+
+	if (props.max === tags.value.length) return false;
+
+	return true;
+})
 
 const { getOptionValue, getOptionLabel} = useListOption(props);
 
@@ -81,6 +91,8 @@ const optionsFilter = computed(() => {
 })
 
 const addOption = (option: unknown) => {
+	if (!canMakeInput.value) return;
+
 	tags.value.push(option);
 	input.value = '';
 
