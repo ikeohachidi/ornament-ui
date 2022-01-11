@@ -12,7 +12,7 @@ Pass an array of strings
 ```
 
 Chips entries can also be removed by setting the `removeable` prop to true.
-<or-chips v-model="languages" removeable/>
+<or-chips v-model="languages" :removeable="true"/>
 
 ```html
 <or-chips v-model="languages" removeable/>
