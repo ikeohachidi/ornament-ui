@@ -107,7 +107,7 @@ onMounted(() => {
 		box-shadow: inset 0px 0px 0px 1px var(--color-primary);
 	}
 
-	&:hover {
+	&:not([disabled]):hover {
 		box-shadow: inset 0px 0px 0px 1px var(--hover-ring-color);
 	}
 
@@ -118,6 +118,10 @@ onMounted(() => {
 
 		&::placeholder {
 			font-size: 1rem;
+		}
+
+		&:disabled {
+			color: var(--color-gray-1);
 		}
 
 		&:focus {
