@@ -1,5 +1,5 @@
 <template>
-	<div class="or-input-wrapper" v-bind="$attrs" :class="[size]">
+	<div class="or-input-wrapper" v-bind="$attrs" :class="[size, state]">
 		<slot name="prefix">
 			<span class="or-input-position" :class="[getSize, prefix && 'prefix']" v-if="beforeIcon || prefix">
 				<i :class="`ri-${beforeIcon}`" v-if="beforeIcon"></i>
@@ -26,8 +26,10 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { onMounted, ref, computed, watch } from "vue";
+import { onMounted, ref, computed } from "vue";
 import { Size, Sizes } from '@/types/Size';
+
+type InputState = '' | 'success' | 'error' | 'info';
 
 const props = withDefaults(defineProps<{
 	modelValue?: string;
@@ -37,9 +39,11 @@ const props = withDefaults(defineProps<{
 	prefix?: string;
 	suffix?: string;
 	clear?: boolean;
+	state: InputState;
 }>(), {
 	modelValue: '',
 	size: Size.SM,
+	state: 'success'
 })
 
 const emit = defineEmits<{
@@ -106,6 +110,14 @@ onMounted(() => {
 
 	&:focus-within {
 		box-shadow: inset 0px 0px 0px 1px var(--color-primary);
+
+		&.error {
+			box-shadow: inset 0px 0px 0px 1px var(--color-danger);
+		}
+
+		&.success {
+			box-shadow: inset 0px 0px 0px 1px var(--color-success);
+		}
 	}
 
 	&:not([disabled]):hover {
@@ -114,6 +126,14 @@ onMounted(() => {
 
 	&[disabled] {
 		background-color: var(--color-gray-3);
+	}
+
+	&.error {
+		border: 1px solid var(--color-danger);
+	}
+
+	&.success {
+		border: 1px solid var(--color-success);
 	}
 
 	.or-input {

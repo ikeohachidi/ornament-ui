@@ -36,6 +36,7 @@ An input element to take a users input
 | clear | false | boolean | boolean | If true will add an "x" icon which when clicked will clear the input's component
 | afterIcon | null | remixicon class | **Note: remove the "ri" in class name**Icon to be placed before the input
 | beforeIcon | null | remixicon class | **Note: remove the "ri" in class name**Icon to be placed after the input
+| state | | 'error', 'success' | Gives an appropriate UI  indication
 
 ## Slots
 | Name | Scoped slots | Description
