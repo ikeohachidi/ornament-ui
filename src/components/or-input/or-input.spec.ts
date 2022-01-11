@@ -46,4 +46,14 @@ describe("OrInput", () => {
 
 		expect(wrapper.emitted('update:modelValue')![0]).toEqual([''])
 	})
+
+	it('should have appropriate state class', async () => {
+		await wrapper.setProps({ state: 'success' });
+
+		const inputWrapperEl = wrapper.find('.or-input-wrapper');
+		expect(inputWrapperEl.classes()).toContainEqual('success')
+
+		await wrapper.setProps({ state: 'error' });
+		expect(inputWrapperEl.classes()).toContainEqual('error')
+	})
 })
