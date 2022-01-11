@@ -40,14 +40,6 @@ const props = withDefaults(defineProps<{
 	size: Size.SM,
 })
 
-const watch_modelValue = watch(
-	() => props.modelValue,
-	(value) => {
-		if (value !== input.value!.value) {
-			input.value!.value = value;
-		}
-}) 
-
 const emit = defineEmits<{
 	(e: 'update:modelValue', value: string): void
 }>()
