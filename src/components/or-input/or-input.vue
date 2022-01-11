@@ -112,20 +112,20 @@ onMounted(() => {
 		box-shadow: inset 0px 0px 0px 1px var(--hover-ring-color);
 	}
 
+	&[disabled] {
+		background-color: var(--color-gray-3);
+	}
+
 	.or-input {
 		font-size: 1rem;
 		border: none;
 		background-color: transparent;
 
-		&:nth-child(2) {
-			padding: 0;
-		}
-
 		&::placeholder {
 			font-size: 1rem;
 		}
 
-		&:disabled {
+		&[disabled] {
 			color: var(--color-gray-1);
 		}
 
