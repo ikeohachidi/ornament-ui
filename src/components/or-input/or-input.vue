@@ -75,17 +75,14 @@ onMounted(() => {
 <style lang="scss" scoped>
 @import "@/scss/utilities.scss";
 
-@include min-height-size(".or-input-wrapper");
-
-.or-input-position-icons {
+.or-input-position {
 	display: inline-flex;
-	margin: auto; 
-	color: #b8bac2;
-	&.after {
-		padding-left: 0;
-	}
-	&.before {
-		padding-right: 0;
+	align-self: stretch;
+	align-items: center;
+	color: var(--text-color-2);
+
+	&.prefix, &.suffix {
+		background-color: var(--color-gray-2);
 	}
 }
 
@@ -95,10 +92,11 @@ onMounted(() => {
 	flex-grow: 1;
 }
 
+@include min-height-size(".or-input-wrapper");
+
 .or-input-wrapper {
 	display: inline-flex;
 	border: 1px solid var(--border-color-1);
-	background-color: var(--color-gray-3);
 	border-radius: var(--radius-1);
 	box-shadow: none;
 	transition: .2s;
@@ -115,6 +113,10 @@ onMounted(() => {
 		font-size: 1rem;
 		border: none;
 		background-color: transparent;
+
+		&:nth-child(2) {
+			padding: 0;
+		}
 
 		&::placeholder {
 			font-size: 1rem;
