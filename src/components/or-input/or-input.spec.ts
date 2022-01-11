@@ -29,8 +29,8 @@ describe("OrInput", () => {
 
 	it('hides icons and position slots', () => {
 		const slots = {
-			before: '<p>orange</p>',
-			after: '<p>pepper</p>',
+			prefix: '<p>orange</p>',
+			suffix: '<p>pepper</p>',
 		};
 
 		wrapper = factory(props, slots)
