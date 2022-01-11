@@ -1,15 +1,10 @@
 <template>
 	<div class="or-input-wrapper" v-bind="$attrs" :class="[size]">
-		<slot name="before">
-			<span class="or-input-position-icons before" :class="[getSize]" v-if="beforeIcon">
-				<i  :class="`ri-${beforeIcon}`"></i>
+		<slot name="prefix">
 			</span>
 		</slot>
 		<input type="text" class="or-input" v-bind="$attrs" ref="input" @input="onTextInput" :class="[getSize]">
-		<slot name="after">
-			<span data-testid="after-icon" class="or-input-position-icons after" :class="[getSize]" @click="onAfterSlotClick" v-if="clear || afterIcon">
-				<template v-if="clear">
-					<i :class="`ri-close-line ri-${size}`"></i>
+		<slot name="suffix">
 				</template>
 				<template v-else>
 					<i v-if="afterIcon" :class="`ri-${afterIcon} ri-${size}`"></i>
