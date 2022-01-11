@@ -1,14 +1,19 @@
 <template>
 	<div class="or-input-wrapper" v-bind="$attrs" :class="[size]">
 		<slot name="prefix">
+			<span class="or-input-position" :class="[getSize, prefix && 'prefix']" v-if="beforeIcon || prefix">
+				<i :class="`ri-${beforeIcon}`" v-if="beforeIcon"></i>
+				{{ prefix }}
 			</span>
 		</slot>
 		<input type="text" class="or-input" v-bind="$attrs" ref="input" @input="onTextInput" :class="[getSize]">
 		<slot name="suffix">
-				</template>
-				<template v-else>
-					<i v-if="afterIcon" :class="`ri-${afterIcon} ri-${size}`"></i>
-				</template>
+			<span data-testid="after-icon" class="or-input-position" :class="[getSize]" v-if="clear" @click="clearInput">
+				<i :class="`ri-close-line ri-${size}`"></i>
+			</span>
+			<span class="or-input-position" :class="[getSize, suffix && 'suffix']" v-else-if="afterIcon || suffix">
+				<i :class="`ri-${afterIcon} ri-${size}`"></i>
+				{{ suffix }}
 			</span>
 		</slot>
 	</div>
@@ -29,6 +34,8 @@ const props = withDefaults(defineProps<{
 	size?: Size;
 	afterIcon?: string;
 	beforeIcon?: string;
+	prefix?: string;
+	suffix?: string;
 	clear?: boolean;
 }>(), {
 	modelValue: '',
@@ -54,7 +61,8 @@ const onTextInput = (event: Event): void => {
 	emit('update:modelValue', value)
 }
 
-const onAfterSlotClick = (): void => {
+const clearInput = (): void => {
+	if (input.value) input.value.value = '';
 	if (props.clear) emit('update:modelValue', '');
 }
 
