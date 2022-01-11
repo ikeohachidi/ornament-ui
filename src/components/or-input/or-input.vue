@@ -39,11 +39,10 @@ const props = withDefaults(defineProps<{
 	prefix?: string;
 	suffix?: string;
 	clear?: boolean;
-	state: InputState;
+	state?: InputState;
 }>(), {
 	modelValue: '',
 	size: Size.SM,
-	state: 'success'
 })
 
 const emit = defineEmits<{
