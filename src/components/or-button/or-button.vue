@@ -1,12 +1,17 @@
 <template>
-	<button v-bind="$attrs" :class="[size, getSize]">
+	<button 
+		v-bind="$attrs" 
+		:class="[size, getSize]" 
+		ref="buttonEl"
+		:style="{ minWidth: btnSize }"
+	>
 		<or-pulsing-loader ref="loader" v-if="isLoading" box-color="#b0b0b0" :dimension="9" :rounded="true"/>
 		<slot v-else></slot>
 	</button>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { Size, Sizes } from '@/types/Size';
 
 const props = withDefaults(defineProps<{
@@ -15,6 +20,16 @@ const props = withDefaults(defineProps<{
 }>(), {
 	isLoading: false,
 	size: Size.SM 
+})
+
+const buttonEl = ref<HTMLButtonElement>();
+
+const btnSize = computed(() => {
+	if (buttonEl.value) {
+		const width = getComputedStyle(buttonEl.value).width;
+		return width;
+	}
+	return 0;
 })
 
 const getSize = computed(() => {
