@@ -1,7 +1,12 @@
 <template>
 	<div class="or-loader-wrapper">
 		<slot name="top" v-if="topText"><p class="or-loader-text top">{{ topText }}</p></slot>
-		<div class="or-loader or-loader-circular" :style="loaderStyle"></div>
+		<div 
+			class="or-loader or-loader-circular" 
+			:style="loaderStyle"
+			:class="[ticking ? 'tick' : 'smooth' ]"
+		>
+		</div>
 		<slot name="bottom" v-if="bottomText"><p class="or-loader-text bottom">{{ bottomText }}</p></slot>
 	</div>
 </template>
@@ -14,11 +19,13 @@ const props = withDefaults(defineProps<{
 	borderWidth?: number;
 	topText?: string;
 	bottomText?: string;
+	ticking?: boolean;
 }>(), {
 	dimension: 30,
 	borderWidth: 3,
 	topText: '',
-	bottomText: ''
+	bottomText: '',
+	ticking: false
 })
 
 const loaderStyle = computed(() => {
@@ -42,7 +49,14 @@ const loaderStyle = computed(() => {
 	border: 2px solid var(--color-gray-3);
 	border-radius: 999px;
 	border-top-color: var(--color-primary);
-	animation: spin 1s linear infinite;
+
+	&.smooth {
+		animation: spin 1s linear infinite;
+	}
+
+	&.tick {
+		animation: spin 1s infinite steps(4);
+	}
 }
 
 @keyframes spin {
