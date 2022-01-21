@@ -54,6 +54,9 @@ And the buttons come in 4 different colors
 **Loading**
 <or-button :is-loading="true">Button</or-button>
 
+The default loader type is `pulse` which renders the [OrPulsingLoader Component](or-loaders.html)  the other value is `circular` which would
+render the [OrCircularLoader Component](or-loaders.html)
+
 ```html
 <or-button :is-loading="true">Button</or-button>
 ```
@@ -63,3 +66,4 @@ And the buttons come in 4 different colors
 |--|--|--|--|--|
 | size | "sm" | string | "sm", "md", "lg" | Constrols size of component
 | isLoading | false | boolean | true, false | Button loading state
+| loader | pulse | string | pulse, circular | Loader type
