@@ -5,7 +5,10 @@
 		ref="buttonEl"
 		:style="{ minWidth: btnSize }"
 	>
-		<or-pulsing-loader ref="loader" v-if="isLoading" box-color="#b0b0b0" :dimension="9" :rounded="true"/>
+		<template v-if="isLoading">
+			<or-pulsing-loader ref="loader" v-if="loader === 'pulse'" box-color="#b0b0b0" :dimension="9" :rounded="true"/>
+			<or-circular-loader ref="loader" v-if="loader === 'circular'" :dimension="9" :rounded="true"/>
+		</template>
 		<slot v-else></slot>
 	</button>
 </template>
@@ -17,9 +20,11 @@ import { Size, Sizes } from '@/types/Size';
 const props = withDefaults(defineProps<{
 	isLoading?: boolean;
 	size?: Size;
+	loader: 'pulse' | 'circular',
 }>(), {
 	isLoading: false,
-	size: Size.SM 
+	size: Size.SM,
+	loader: 'pulse'
 })
 
 const buttonEl = ref<HTMLButtonElement>();
