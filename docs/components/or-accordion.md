@@ -61,6 +61,7 @@
 ```
 
 ## Props(or-accordion-body)
-| Prop | Default | Type | Values | Description
-|--|--|--|--|--|
-| title | "" | string | | Title of accordion section 
+| Prop | Default | Type | Description
+|--|--|--|--|
+| title | "" | string | Title of accordion section 
+| multiple | false | boolean | Allow multiple sections to be visible
