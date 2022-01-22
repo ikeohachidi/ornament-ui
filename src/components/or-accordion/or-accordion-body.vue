@@ -24,7 +24,7 @@
 import { useAttrs, computed } from "vue";
 
 const props = defineProps<{
-	title: string;
+	title?: string;
 }>();
 
 const attrs = useAttrs();
