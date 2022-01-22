@@ -13,11 +13,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref, useSlots, computed, VNode } from "vue";
+import { ref, useSlots, computed, VNode, onMounted } from "vue";
 
 const props = withDefaults(defineProps<{
 	multiple: boolean;
-	active: number;
+	activeSection: number;
 }>(), {
 	multiple: false
 })
@@ -49,6 +49,10 @@ const defaultSlots = computed<VNode[]>(() => {
 
 	return []
 });
+
+onMounted(() => {
+	if (props.activeSection !== undefined) activeSections.value.push(props.activeSection);
+})
 </script>
 
 <style lang="scss" scoped>
