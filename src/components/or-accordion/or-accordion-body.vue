@@ -51,7 +51,7 @@ const toggleAccordion = () => {
     overflow-y: auto;
     max-height: 0;
     background: var(--color-gray-2);
-    transition: .9s;
+    transition: .2s;
 
     &.active {
         max-height: 200px;
