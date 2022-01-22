@@ -4,6 +4,7 @@ import OrButton from './components/or-button';
 import OrDropdown from './components/or-dropdown';
 import OrCheckbox from './components/or-checkbox';
 import OrInput from './components/or-input';
+import OrInputGroup from './components/or-input-group';
 import OrInputTags from './components/or-input-tags';
 import { OrTab, OrTabs } from './components/or-tabs';
 import { OrAccordion, OrAccordionBody } from './components/or-accordion';
@@ -22,6 +23,7 @@ export {
 	OrRadio,
 	OrDropdown,
 	OrInput,
+	OrInputGroup,
 	OrInputTags,
 	OrTab, OrTabs,
 	OrAccordion,
@@ -41,6 +43,7 @@ export default {
 		app.component('or-button', OrButton);
 		app.component('or-dropdown', OrDropdown);
 		app.component('or-input', OrInput);
+		app.component('or-input-group', OrInputGroup);
 		app.component('or-input-tags', OrInputTags);
 		app.component('or-tab', OrTab);
 		app.component('or-tabs', OrTabs);
