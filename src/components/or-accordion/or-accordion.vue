@@ -28,7 +28,10 @@ const activeSections = ref<number[]>([]);
 
 const updateActiveSection = (section: number) => {
 	if (props.multiple === false) {
-		activeSections.value = [section];
+		activeSections.value.includes(section)
+			? activeSections.value = []
+			: activeSections.value = [section];
+
 		return
 	}
 
