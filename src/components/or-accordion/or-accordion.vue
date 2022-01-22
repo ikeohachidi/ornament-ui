@@ -4,7 +4,8 @@
 			<component 
 				:is="slot" 
 				@selectionChange="updateActiveSection" 
-				:_isActive="activeSection === slotIndex" 
+				:_isActive="activeSections.includes(slotIndex)" 
+				:_multiple="multiple"
 				:_index="slotIndex"
 			/>
 		</li>
@@ -14,17 +15,30 @@
 <script setup lang="ts">
 import { ref, useSlots, computed, VNode } from "vue";
 
+const props = withDefaults(defineProps<{
+	multiple: boolean;
+	active: number;
+}>(), {
+	multiple: false
+})
+
 const slots = useSlots();
 
-const activeSection = ref(-1);
+const activeSections = ref<number[]>([]);
 
-const updateActiveSection = (newActiveSection: number) => {
-	if (activeSection.value === newActiveSection) {
-		activeSection.value = -1;
+const updateActiveSection = (section: number) => {
+	if (props.multiple === false) {
+		activeSections.value = [section];
 		return
 	}
 
-	activeSection.value = newActiveSection;
+	const sectionIndex = activeSections.value.findIndex(activeSection => activeSection === section);
+	if (sectionIndex === -1) {
+		activeSections.value.push(section);
+		return
+	}
+
+	activeSections.value.splice(sectionIndex, 1);
 }
 
 const defaultSlots = computed<VNode[]>(() => {

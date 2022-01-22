@@ -29,7 +29,7 @@ const props = defineProps<{
 
 const attrs = useAttrs();
 
-const isComponentActive = computed(() => attrs._isActive)
+const isComponentActive = computed(() => attrs._isActive);
 
 const emit = defineEmits<{
 	(event: 'selectionChange', value: number): void
