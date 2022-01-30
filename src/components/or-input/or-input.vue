@@ -104,6 +104,7 @@ onMounted(() => {
 	display: inline-flex;
 	border: 1px solid var(--border-color-1);
 	border-radius: var(--radius-1);
+	box-sizing: border-box;
 	box-shadow: none;
 	transition: .2s;
 
