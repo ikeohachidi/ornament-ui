@@ -16,6 +16,7 @@ import OrSelect from './components/or-select/or-select';
 import { OrList, OrListItem } from './components/or-list/index';
 import { OrCircularLoader, OrPulsingLoader } from './components/or-loaders';
 import OrToast from './components/or-toast';
+import OrOverlay from './components/or-overlay';
 
 export {
 	OrButton,
@@ -35,7 +36,7 @@ export {
 	OrList, OrListItem,
 	OrCircularLoader,
 	OrPulsingLoader,
-	OrToast
+	OrOverlay,
 }
 
 export default {
