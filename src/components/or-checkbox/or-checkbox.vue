@@ -8,7 +8,7 @@
 		v-bind="$attrs"
 		@change="onCheckboxValueChange"
 	>
-	<label v-if="switch" class="or-switch center jc-center" :for="inputElementId"></label>
+	<label v-if="switchValue" class="or-switch center jc-center" :for="inputElementId"></label>
 
 	<label class="or-checkbox-label" v-else :for="inputElementId">
 		<span class="or-checkbox center jc-center"></span>
@@ -39,6 +39,8 @@ const inputElementId = computed(() => {
 })
 
 const checkboxElement = ref<HTMLInputElement>();
+
+const switchValue = computed(() => props.switch);
 
 const updateArrayModel = (element: HTMLInputElement) => {
 	if (modelType.value !== "array") return;
