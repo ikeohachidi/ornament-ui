@@ -29,14 +29,14 @@ enum Position {
 </script>
 
 <script lang="ts" setup>
-import { computed, CSSProperties } from "vue";
+import { computed } from "vue";
 
 const props = withDefaults(defineProps<{
 	attach?: string,
 	hasBackdrop?: boolean;
 	canClickOutside?: boolean;
 	escapeKeyClose?: boolean;
-	contentPosition: Position;
+	contentPosition?: Position;
 }>(), {
 	attach: 'body',
 	hasBackdrop: true,
