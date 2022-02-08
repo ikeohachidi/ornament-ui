@@ -43,7 +43,7 @@ interface Props extends ListOption {
 	placeholder?: string,
 	options?: Option[],
 	size: Size,
-	max: number;
+	max?: number;
 	optionValue?: keyof Option,
 	optionLabel?: keyof Option
 }
@@ -52,6 +52,7 @@ const props = withDefaults(defineProps<Props>(), {
 	modelValue: () => ([]),
 	placeholder: 'Enter text',
 	size: Size.SM,
+	max: undefined,
 	options: () => ([])
 })
 

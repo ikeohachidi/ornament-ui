@@ -10,7 +10,7 @@
 				<i class="ri-arrow-drop-up-line ri-lg dropdown-icon ml-auto" v-if="node.children"></i>
 			</div>
 			<menu-node :nodes="node.children" v-if="node.children" class="ml-3" :class="{'hidden': !node.collapsed}" v-bind="$attrs">
-				<template #node-content="props">
+				<template #node-content="props: Props">
 					<slot name="node-content" v-bind="props"></slot>
 				</template>
 			</menu-node>
@@ -23,15 +23,21 @@ import { useAttrs } from 'vue';
 import { Events, Node } from '.';
 import { emitter } from '@/utilities/use-shared-event';
 
-const props = defineProps<{
+type Attrs = {
+	activeNodeFunc: (node: Node) => boolean;
+}
+
+type Props = {
 	nodes: Node[]
-}>()
+}
 
-const attrs = useAttrs();
+const props = defineProps<Props>();
 
-const isNodeActive = (node: Node): boolean => attrs.activeNodeFunc ? attrs.activeNodeFunc!(node) : false;
+const attrs = useAttrs() as Attrs;
 
-const onNodeClick = (node: Node, event: InputEvent) => {
+const isNodeActive = (node: Node): boolean => attrs.activeNodeFunc ? attrs.activeNodeFunc(node) : false;
+
+const onNodeClick = (node: Node, event: MouseEvent) => {
 	emitter.emit(Events.NODE_CLICK, node).catch(err => err)
 
 	if (node.action) node.action(node);

@@ -4,8 +4,8 @@
 			<slot name="header"></slot>
 		</div>
 		<ul class="or-vertical-menu-body">
-			<menu-node :nodes="menu" v-bind="props">
-				<template #node-content="props">
+			<menu-node :nodes="menu">
+				<template #node-content="props: Props">
 					<slot name="node-content" v-bind="props"></slot>
 				</template>
 			</menu-node>
@@ -18,16 +18,17 @@
 
 <script setup lang="ts">
 import { computed, CSSProperties, onMounted, useSlots } from 'vue';
-import { MenuNode, Events, Group, Node } from '.';
+import { Events, Node } from '.';
 import { emitter } from '@/utilities/use-shared-event';
 
-const props = withDefaults(defineProps<{
-	menu: Group[];
+interface Props {
+	menu: Node[];
 	width?: number | 'full';
 	height?: number | 'full';
 	activeNodeFunc?: (node: Node) => boolean;
-}>(), {
-	menu: () => ([]),
+}
+
+const props = withDefaults(defineProps<Props>(), {
 	width: 300,
 	height: 'full',
 	activeNodeFunc: (node: Node) => false

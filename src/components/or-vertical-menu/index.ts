@@ -1,18 +1,11 @@
 import OrVerticalMenu from './or-vertical-menu.vue';
 import MenuNode from './menu-node.vue';
-
-interface Group {
-	name?: string;
-	icon?: string;
-	children?: Node[];
-}
-
 interface Node {
 	text?: string;
 	icon?: string;
 	collapsed?: boolean;
-	action: (node: Node) => unknown;
-	children: Node[];
+	action?: (node: Node) => unknown;
+	children?: Node[];
 }
 
 enum Events {
@@ -20,7 +13,6 @@ enum Events {
 }
 
 export {
-	Group,
 	Node,
 	Events,
 	MenuNode
