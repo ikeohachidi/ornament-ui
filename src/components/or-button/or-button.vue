@@ -15,12 +15,14 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue';
+import { OrPulsingLoader, OrCircularLoader } from '../or-loaders';
+
 import { Size, Sizes } from '@/types/Size';
 
 const props = withDefaults(defineProps<{
 	isLoading?: boolean;
 	size?: Size;
-	loader: 'pulse' | 'circular',
+	loader?: 'pulse' | 'circular',
 }>(), {
 	isLoading: false,
 	size: Size.SM,

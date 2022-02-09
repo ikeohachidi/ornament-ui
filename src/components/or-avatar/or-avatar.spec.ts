@@ -1,5 +1,5 @@
 import { shallowMount } from "@vue/test-utils";
-import { OrAvatar } from "@/plugin";
+import OrAvatar from ".";
 import { Size, RadiusSize } from "@/types/Size";
 
 const wrapper = shallowMount(OrAvatar, {

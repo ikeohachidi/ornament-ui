@@ -1,5 +1,6 @@
 import { mount } from '@vue/test-utils';
-import { OrPulsingLoader, OrButton } from '@/plugin';
+import OrButton from '.';
+import { OrPulsingLoader } from '@/components/or-loaders';
 
 const slotContent = 'Primary Button';
 const wrapper = mount(OrButton, {

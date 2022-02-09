@@ -1,5 +1,5 @@
 import { mount } from "@vue/test-utils";
-import { OrCheckbox } from "@/plugin";
+import OrCheckbox from ".";
 
 const factory = (props = {}, slots = {}) => {
 	return mount(OrCheckbox, {

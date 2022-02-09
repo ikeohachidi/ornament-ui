@@ -1,5 +1,6 @@
 import { mount } from "@vue/test-utils";
-import { OrChips, OrInputTags } from "@/plugin";
+import OrInputTags from ".";
+import OrChips from "../or-chips";
 
 const factory = (props = {}, slots = {}) => {
 	return mount(OrInputTags, { 

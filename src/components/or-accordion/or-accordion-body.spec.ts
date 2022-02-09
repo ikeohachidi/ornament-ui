@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils';
-import { OrAccordionBody } from '@/plugin';
+import { OrAccordionBody } from '.';
 
 const title = "accordion title";
 const body = 'accordion body';

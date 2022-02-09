@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils';
-import { OrSelect } from '@/plugin';
+import OrSelect from '.';
 
 const options = [
 	{ firstname: 'chidi', lastname: 'ikeoha' },

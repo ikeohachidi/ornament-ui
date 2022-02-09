@@ -1,5 +1,5 @@
 import { mount } from "@vue/test-utils";
-import { OrRadio } from "@/plugin";
+import OrRadio from ".";
 
 const wrapper = mount(OrRadio, {
 	attachTo: document.body,

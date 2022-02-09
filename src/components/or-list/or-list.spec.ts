@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import { OrList, OrListItem } from '@/plugin';
+import { OrList, OrListItem } from '.';
 
 const items = [
 	{

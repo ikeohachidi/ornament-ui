@@ -1,5 +1,5 @@
 import { mount } from "@vue/test-utils";
-import { OrInput } from "@/plugin";
+import OrInput from ".";
 
 const props = {
 	beforeIcon: 'home-fill',

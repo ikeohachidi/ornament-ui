@@ -1,5 +1,5 @@
 import { mount } from "@vue/test-utils";
-import { OrVerticalMenu } from '@/plugin';
+import OrVerticalMenu, { MenuNode } from '.';
 
 const menu = [
 	{
@@ -24,6 +24,11 @@ const menu = [
 
 const factory = (props = {}, slots = {}) => {
 	return mount(OrVerticalMenu, {
+		global: {
+			components: {
+				'menu-node': MenuNode
+			},
+		},
 		props: {
 			menu,
 			...props

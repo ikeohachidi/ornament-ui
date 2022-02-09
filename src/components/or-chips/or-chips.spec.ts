@@ -1,5 +1,5 @@
 import { shallowMount } from '@vue/test-utils';
-import { OrChips } from '@/plugin';
+import OrChips from '.';
 
 const wrapper = shallowMount(OrChips, {
 	props: {
