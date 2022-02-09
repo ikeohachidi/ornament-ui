@@ -1,6 +1,6 @@
 <template>
 	<div data-testid="wrapper" class="or-input-tags-wrapper" @click="focusInput" :class="[size]">
-		<or-chips ref="chips" v-model="tags" class="or-chips-wrapper" removeable @item-removed="removeTag">
+		<or-chips ref="chips" v-model="tags" removeable @item-removed="removeTag">
 			<template #item="{value}">
 				<slot name="option" :option="value">
 					{{ getOptionLabel(value) }}
@@ -42,7 +42,7 @@ interface Props extends ListOption {
 	modelValue: unknown[],
 	placeholder?: string,
 	options?: Option[],
-	size: Size,
+	size?: Size,
 	max?: number;
 	optionValue?: keyof Option,
 	optionLabel?: keyof Option
