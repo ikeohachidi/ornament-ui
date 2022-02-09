@@ -11,14 +11,14 @@
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from 'vue';
 import { Size, Sizes } from '@/types/Size';
-import { ListOption, useListOption } from '@/utilities/use-list-option';
+import { ListOption, useListOption, Option } from '@/utilities/use-list-option';
 
 interface PropType extends ListOption {
 	modelValue: unknown;
-	options: unknown[];
+	options: Option[];
 	size?: Size;
-	optionLabel?: string;
-	optionValue?: string;
+	optionLabel?: keyof Option;
+	optionValue?: keyof Option;
 }
 
 const prop = withDefaults(defineProps<PropType>(), {
