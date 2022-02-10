@@ -1,6 +1,10 @@
 {
   "name": "ornament-ui",
   "version": "0.1.21",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ikeohachidi/ornament-ui"
+  },
   "keywords": [
     "vue",
     "vue.js",
