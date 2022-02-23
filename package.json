@@ -1,6 +1,6 @@
 {
   "name": "ornament-ui",
-  "version": "0.1.22",
+  "version": "0.1.23",
   "repository": {
     "type": "git",
     "url": "https://github.com/ikeohachidi/ornament-ui"
@@ -21,8 +21,12 @@
   "files": [
     "dist"
   ],
-  "main": "./dist/ornament.umd.js",
-  "module": "./dist/ornament.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/ornament.es.js",
+      "require": "./dist/ornament.umd.js"
+    }
+  },
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
