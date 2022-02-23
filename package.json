@@ -5,6 +5,7 @@
     "type": "git",
     "url": "https://github.com/ikeohachidi/ornament-ui"
   },
+  "author": "ikeohachidi",
   "keywords": [
     "vue",
     "vue.js",
@@ -21,11 +22,14 @@
   "files": [
     "dist"
   ],
+  "main": "./dist/ornament.umd.js",
+  "module": "./dist/ornament.es.js",
   "exports": {
     ".": {
       "import": "./dist/ornament.es.js",
       "require": "./dist/ornament.umd.js"
-    }
+    },
+    "./dist/": "./dist/"
   },
   "scripts": {
     "dev": "vite",
