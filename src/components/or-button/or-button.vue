@@ -20,7 +20,7 @@ import { Size, Sizes } from '@/types/Size';
 const props = withDefaults(defineProps<{
 	isLoading?: boolean;
 	size?: Size;
-	loader: 'pulse' | 'circular',
+	loader?: 'pulse' | 'circular',
 }>(), {
 	isLoading: false,
 	size: Size.SM,
