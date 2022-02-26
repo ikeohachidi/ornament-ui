@@ -32,18 +32,24 @@ enum Position {
 import { computed, onMounted } from "vue";
 
 const props = withDefaults(defineProps<{
+	show?: boolean;
 	attach?: string,
 	hasBackdrop?: boolean;
 	canClickOutside?: boolean;
 	escapeKeyClose?: boolean;
 	contentPosition?: Position;
 }>(), {
+	show: false,
 	attach: 'body',
 	hasBackdrop: true,
 	canClickOutside: true,
 	escapeKeyClose: true,
 	contentPosition: Position.CENTER
 })
+
+const emit = defineEmits<{
+	(event: 'update:show', value: boolean): void
+}>()
 
 const positioning = computed(() => {
 	let classes: string[] = [];
