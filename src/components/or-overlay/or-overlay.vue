@@ -67,6 +67,7 @@ const props = withDefaults(defineProps<{
 
 const emit = defineEmits<{
 	(event: 'update:show', value: boolean): void
+	(event: 'visibility-change', value: boolean): void
 }>()
 
 const positioning = computed(() => {
@@ -97,6 +98,7 @@ const positioning = computed(() => {
 
 const closeOverlay = () => {
 	emit('update:show', false);
+	emit('visibility-change', props.show);
 }
 
 onMounted(() => {
