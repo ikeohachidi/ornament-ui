@@ -1,14 +1,19 @@
 <template>
 	<teleport :to="attach">
-		<div class="or-overlay" :class="positioning">
+		<Transition name="fade">
+			<div class="or-overlay" v-if="show" :class="positioning">
 
-			<div class="or-overlay-backdrop" data-testid="backdrop" v-if="hasBackdrop">
-			</div>	
-			
-			<div class="or-overlay-content">
-				<slot></slot>
+				<div class="or-overlay-backdrop" data-testid="backdrop" v-if="hasBackdrop">
+				</div>	
+				
+				<div 
+					class="or-overlay-content"
+					:class="[`slide-${contentAnimation}`]"
+				>
+					<slot></slot>
+				</div>
 			</div>
-		</div>
+		</Transition>
 	</teleport>
 </template>
 
@@ -26,6 +31,13 @@ enum Position {
 	BOTTOM_CENTER = "bottom-center",
 	BOTTOM_RIGHT = "bottom-right"
 }
+
+enum ContentAnimation {
+	LEFT_TO_RIGHT = "left-to-right",
+	RIGHT_TO_LEFT = "right-to-left",
+	TOP_TO_BOTTOM = "top-to-bottom",
+	BOTTOM_TO_TOP = "bottom-to-top",
+} 
 </script>
 
 <script lang="ts" setup>
@@ -38,13 +50,15 @@ const props = withDefaults(defineProps<{
 	canClickOutside?: boolean;
 	escapeKeyClose?: boolean;
 	contentPosition?: Position;
+	contentAnimation?: ContentAnimation;
 }>(), {
 	show: false,
 	attach: 'body',
 	hasBackdrop: true,
 	canClickOutside: true,
 	escapeKeyClose: true,
-	contentPosition: Position.CENTER
+	contentPosition: Position.CENTER,
+	contentAnimation: ContentAnimation.TOP_TO_BOTTOM
 })
 
 const emit = defineEmits<{
