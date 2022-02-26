@@ -1,8 +1,8 @@
 <template>
 	<or-overlay v-model:show="show" @visibility-change="closeModal">
-		<div class="or-modal-wrapper">
+		<div class="or-dialog-wrapper">
 			<slot name="header">
-				<h3 v-if="showHeader && headerText" class="or-modal-header">
+				<h3 v-if="showHeader && headerText" class="or-dialog-header">
 					<span>{{ headerText }}</span>
 					<span class="close-icon" @click="closeModal">
 						<i class="ri-close-line"></i>
@@ -10,11 +10,11 @@
 				</h3>
 			</slot>
 
-			<div class="or-modal-content">
+			<div class="or-dialog-content">
 				<slot></slot>
 			</div>
 			<slot name="footer">
-				<div v-if="showFooter" class="or-modal-footer">
+				<div v-if="showFooter" class="or-dialog-footer">
 					<or-button class="text ml-auto" @click="closeModal">
 						Cancel
 					</or-button>
@@ -59,7 +59,7 @@ const closeModal = () => {
 	padding: 15px;
 }
 
-.or-modal {
+.or-dialog {
 	&-wrapper {
 		background-color: #fff;
 		border-radius: var(--radius-1);
@@ -101,7 +101,7 @@ const closeModal = () => {
 }
 
 @media (max-width: 760px) {
-	.or-modal {
+	.or-dialog {
 		&-wrapper {
 			width: 450px;
 		}
