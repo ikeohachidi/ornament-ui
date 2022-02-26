@@ -1,14 +1,18 @@
 <template>
 	<teleport :to="attach">
 		<Transition name="fade">
-			<div class="or-overlay" v-if="show" :class="positioning">
-
-				<div class="or-overlay-backdrop" data-testid="backdrop" v-if="hasBackdrop">
-				</div>	
+			<div 
+				class="or-overlay" 
+				v-if="show" 
+				:class="positioning" 
+				@click="canClickOutside && closeOverlay()"
+			>
+				<div class="or-overlay-backdrop" data-testid="backdrop" v-if="hasBackdrop"></div>	
 				
 				<div 
 					class="or-overlay-content"
 					:class="[`slide-${contentAnimation}`]"
+					@click.stop
 				>
 					<slot></slot>
 				</div>
@@ -56,7 +60,7 @@ const props = withDefaults(defineProps<{
 	attach: 'body',
 	hasBackdrop: true,
 	canClickOutside: true,
-	escapeKeyClose: true,
+	escapeKeyClose: false,
 	contentPosition: Position.CENTER,
 	contentAnimation: ContentAnimation.TOP_TO_BOTTOM
 })
@@ -91,11 +95,15 @@ const positioning = computed(() => {
 	return classes;
 })
 
+const closeOverlay = () => {
+	emit('update:show', false);
+}
+
 onMounted(() => {
 	if (props.escapeKeyClose) {
 		document.addEventListener('keyup', (event: KeyboardEvent) => {
 			if (event.key === 'Escape') {
-				emit('update:show', false);
+				closeOverlay();
 			}
 		})
 	}
