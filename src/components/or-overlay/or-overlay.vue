@@ -29,7 +29,7 @@ enum Position {
 </script>
 
 <script lang="ts" setup>
-import { computed } from "vue";
+import { computed, onMounted } from "vue";
 
 const props = withDefaults(defineProps<{
 	attach?: string,
@@ -69,6 +69,16 @@ const positioning = computed(() => {
 	}
 
 	return classes;
+})
+
+onMounted(() => {
+	if (props.escapeKeyClose) {
+		document.addEventListener('keyup', (event: KeyboardEvent) => {
+			if (event.key === 'Escape') {
+				emit('update:show', false);
+			}
+		})
+	}
 })
 </script>
 
