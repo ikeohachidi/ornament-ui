@@ -1,5 +1,5 @@
 import { App } from 'vue';
-import './main.scss';;
+import './main.scss';
 
 import OrButton from './components/or-button';
 import OrDropdown from './components/or-dropdown';
