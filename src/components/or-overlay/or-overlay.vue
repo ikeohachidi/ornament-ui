@@ -124,7 +124,7 @@ onMounted(() => {
 .or-overlay {
 	padding: 20px;
 	display: flex;
-	@include fullscreen();
+	@include fullscreen;
 
 	&-content {
 		position: relative;
@@ -152,6 +152,6 @@ onMounted(() => {
 .or-overlay-backdrop {
 	z-index: 10;
 	background-color: rgba(0, 0, 0, 0.274);
-	@include fullscreen();
+	@include fullscreen;
 }
 </style>
