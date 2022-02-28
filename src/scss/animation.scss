@@ -1,0 +1,42 @@
+@mixin default {
+	transition: 2s;
+	opacity: 0;
+}
+
+@mixin v-transition-slide {
+	.slide-left-to-right {
+		@include default;
+		transform: translateX(-20px);
+	}
+
+	.slide-right-to-left {
+		@include default;
+		transform: translateX(-20px);
+	}
+
+	.slide-top-to-bottom {
+		@include default;
+		transform: translateY(20px);
+	}
+
+	.slide-bottom-to-top {
+		@include default;
+		transform: translateY(20px);
+	}
+}
+
+.fade-enter-active,
+.fade-leave-active {
+	transition: opacity 0.2s ease;
+
+	* {
+		transition: .2s;
+	}
+}
+
+.fade-enter-from,
+.fade-leave-to {
+	opacity: 0;
+
+	@include v-transition-slide;
+}
