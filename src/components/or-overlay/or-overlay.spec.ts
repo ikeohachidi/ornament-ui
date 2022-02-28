@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils';
-import { OrOverlay } from '@/plugin';
+import OrOverlay from '.';
 
 const factory = (props = {}, slots = {}) => {
 	return mount(OrOverlay, { 
