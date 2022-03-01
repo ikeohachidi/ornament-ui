@@ -2,7 +2,8 @@
 	<teleport :to="attach">
 		<Transition name="fade">
 			<div 
-				class="or-overlay" 
+				class="or-overlay"
+				data-testid="wrapper"
 				v-if="show" 
 				:class="positioning" 
 				@click="canClickOutside && closeOverlay()"
