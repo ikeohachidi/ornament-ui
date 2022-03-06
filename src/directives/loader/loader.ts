@@ -8,8 +8,9 @@ const quickStyle = (element: HTMLElement, style: Partial<CSSStyleDeclaration>) =
 	})
 }
 
+export const elementId = 'or-element-loader-overlay';
+
 const mountOverlay = (el: HTMLElement, { value, arg }: DirectiveBinding) => {
-	const elementId = 'or-element-loader-overlay';
 	const overlay = document.createElement('div');
 	overlay.id = elementId;
 
