@@ -5,7 +5,8 @@ import { defineUserConfig } from '@vuepress/cli';
 import type { DefaultThemeOptions } from '@vuepress/theme-default';
 
 import GuideSidebar from '../guide/sidebar';
-import ComponentSidebar from '../components/sidebar';
+import ComponentSidebar from '../components/componentSidebar';
+import DirectiveSidebar from '../directives/directiveSidebar';
 
 export default defineUserConfig<DefaultThemeOptions, ViteBundlerOptions>({
   // when using vuepress-vite package, you can omit this field
@@ -44,7 +45,8 @@ export default defineUserConfig<DefaultThemeOptions, ViteBundlerOptions>({
     ],
     sidebar: [
       GuideSidebar,
-      ComponentSidebar
+      ComponentSidebar,
+      DirectiveSidebar
     ]
   },
 })
