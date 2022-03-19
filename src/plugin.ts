@@ -20,6 +20,8 @@ import OrToast from './components/or-toast';
 import OrDialog from './components/or-dialog';
 import OrOverlay from './components/or-overlay';
 
+import VLoader from './directives/loader';
+
 export {
 	OrButton,
 	OrCheckbox,
@@ -41,6 +43,8 @@ export {
 	OrToast,
 	OrDialog,
 	OrOverlay,
+
+	VLoader
 }
 
 export default {
@@ -67,5 +71,7 @@ export default {
 		app.component('or-toast', OrToast);
 		app.component('or-dialog', OrDialog);
 		app.component('or-overlay', OrOverlay);
+
+		app.directive('loader', VLoader);
 	}
 }
