@@ -22,8 +22,8 @@
 		border-radius: 0px;
 		height: 0;
 
-		&:not(:last-child) {
-			border-right: none;
+		&:not(:first-child) {
+			margin-left: -1px;
 		}
 
 		&:first-child {
