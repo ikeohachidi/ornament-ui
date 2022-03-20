@@ -106,7 +106,7 @@ onMounted(() => {
 	border-radius: var(--radius-1);
 	box-sizing: border-box;
 	box-shadow: none;
-	transition: .2s;
+	transition: .05s;
 
 	&:focus-within {
 		box-shadow: inset 0px 0px 0px 1px var(--color-primary);
