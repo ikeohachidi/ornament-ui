@@ -20,7 +20,9 @@ import OrToast from './components/or-toast';
 import OrDialog from './components/or-dialog';
 import OrOverlay from './components/or-overlay';
 
+// directives import
 import VLoader from './directives/loader';
+import VFormDisable from './directives/form-disable';
 
 export {
 	OrButton,
@@ -44,7 +46,8 @@ export {
 	OrDialog,
 	OrOverlay,
 
-	VLoader
+	VLoader,
+	VFormDisable
 }
 
 export default {
@@ -73,5 +76,6 @@ export default {
 		app.component('or-overlay', OrOverlay);
 
 		app.directive('loader', VLoader);
+		app.directive('form-disable', VFormDisable);
 	}
 }
