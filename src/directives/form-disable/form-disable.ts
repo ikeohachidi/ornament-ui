@@ -13,7 +13,7 @@ const action = (el: HTMLElement, value: boolean) => {
 			element.disabled = true;
 		})
 
-		el.addEventListener('submit', (event: SubmitEvent) => {
+		el.addEventListener('submit', (event: Event) => {
 			event.preventDefault();
 		}, true)
 	} else {
