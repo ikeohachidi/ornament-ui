@@ -11,6 +11,7 @@ import { OrTab, OrTabs } from './components/or-tabs';
 import { OrAccordion, OrAccordionBody } from './components/or-accordion';
 import OrVerticalMenu from './components/or-vertical-menu';
 import OrRadio from './components/or-radio';
+import OrSwitch from './components/or-switch';
 import OrAvatar from './components/or-avatar';
 import OrChips from './components/or-chips';
 import OrSelect from './components/or-select';
@@ -19,6 +20,7 @@ import { OrCircularLoader, OrPulsingLoader } from './components/or-loaders';
 import OrToast from './components/or-toast';
 import OrDialog from './components/or-dialog';
 import OrOverlay from './components/or-overlay';
+import OrTree from './components/or-tree';
 
 // directives import
 import VLoader from './directives/loader';
@@ -28,6 +30,7 @@ export {
 	OrButton,
 	OrCheckbox,
 	OrRadio,
+	OrSwitch,
 	OrDropdown,
 	OrInput,
 	OrInputGroup,
@@ -45,6 +48,7 @@ export {
 	OrToast,
 	OrDialog,
 	OrOverlay,
+	OrTree,
 
 	VLoader,
 	VFormDisable
@@ -63,6 +67,7 @@ export default {
 		app.component('or-accordion-body', OrAccordionBody);
 		app.component('or-vertical-menu', OrVerticalMenu);
 		app.component('or-radio', OrRadio);
+		app.component('or-switch', OrSwitch);
 		app.component('or-checkbox', OrCheckbox);
 		app.component('or-avatar', OrAvatar);
 		app.component('or-chips', OrChips);
@@ -74,6 +79,7 @@ export default {
 		app.component('or-toast', OrToast);
 		app.component('or-dialog', OrDialog);
 		app.component('or-overlay', OrOverlay);
+		app.component('or-tree', OrTree);
 
 		app.directive('loader', VLoader);
 		app.directive('form-disable', VFormDisable);
