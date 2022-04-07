@@ -9,12 +9,6 @@ const factory = (data: {}) => {
 	})
 }
 
-// should have array support
-// should support true or false values too
-// should support unchecked value emission
-// should also use checked state of input element to add active button 
-// should support checkedValue prop
-
 describe('OrSwitch', () => {
 	it('should not have active classes and attributes when false', () => {
 		const component = factory({
