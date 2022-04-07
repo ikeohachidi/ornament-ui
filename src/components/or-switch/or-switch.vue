@@ -1,36 +1,97 @@
 <template>
 	<input 
 		type="checkbox"
+		class="or-switch-input"
 		data-testid="or-switch-input"
 		:id="inputElementId"
 		v-bind="$attrs"
+		ref="checkbox"
+		@change="onInputValueChange"
 	>
 	<label 
-		class="or-switch center jc-center" 
-		:for="inputElementId">
+		class="or-switch center jc-center"
+		:for="inputElementId"
+	>
 	</label>
-
 </template>
 
 <script lang="ts" setup>
-import { computed } from "vue";
+import { computed, onMounted, ref } from "vue";
 
-type ModelValueType = boolean | string | number;
+type ModelValueType = boolean | string | number | unknown[];
 
 const props = withDefaults(defineProps<{
 	modelValue: ModelValueType;
 	checkedValue?: boolean,
 	uncheckedValue?: boolean,
 }>(), {
-	modelValue: false,
-	checkedValue: false,
+	checkedValue: true,
 	uncheckedValue: undefined 
 })
+
+const emit = defineEmits<{
+	(event: 'update:modelValue', value: ModelValueType): void;
+}>()
+
+const checkbox = ref<HTMLInputElement>();
 
 const inputElementId = computed(() => {
 	return `or-switch-${Date.now()}`;
 })
 
+const modelType = computed<'array' | 'primitive'>(() => {
+	if (props.modelValue.constructor === Array) {
+		return 'array'
+	}
+
+	return 'primitive';
+})
+
+const isSelected = computed(() => {
+	return JSON.stringify(props.modelValue).includes(JSON.stringify(props.checkedValue));
+})
+
+const onInputValueChange = (e: InputEvent) => {
+	const target = e.target as HTMLInputElement;
+
+	if (target.checked) {
+		emit('update:modelValue', additionValue());
+	} else {
+		emit('update:modelValue', removedValue());
+	}
+}
+
+const additionValue = () => {
+	if (modelType.value === 'array') {
+		return [...props.modelValue as unknown[], props.checkedValue];
+	}
+
+	return props.checkedValue;
+}
+
+const removedValue = () => {
+	if (modelType.value === 'array') {
+		const filteredModel = [
+			...(props.modelValue as unknown[]).filter(value => {
+				return JSON.stringify(value) !== JSON.stringify(props.checkedValue);
+			})
+		]
+
+		if (props.uncheckedValue) {
+			filteredModel.push(props.uncheckedValue)
+		}
+
+		return filteredModel;
+	}
+
+	return props.uncheckedValue ?? false;
+}
+
+onMounted(() => {
+	if (isSelected.value && checkbox.value) {
+		checkbox.value.checked = true;
+	}
+})
 </script>
 
 <style lang="scss" scoped>
@@ -38,6 +99,17 @@ $size: 20px;
 
 .or-switch-input {
 	display: none;
+
+	&:checked + {
+		.or-switch {
+			background-color: var(--color-primary);
+		}
+
+		.or-switch:before {
+			background-color: #fff;
+			left: calc(96% - ($size - 5px));
+		}
+	} 
 }
 
 .or-switch {
