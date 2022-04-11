@@ -1,11 +1,10 @@
 import { shallowMount } from "@vue/test-utils";
 import OrSwitch from './index';
 
-const factory = (data: {}) => {
+const factory = (props: {}) => {
 	return shallowMount(OrSwitch, {
-		data() {
-			return data 
-		}
+		attachTo: document.body,
+		props,
 	})
 }
 
@@ -15,23 +14,19 @@ describe('OrSwitch', () => {
 			modelValue: false,
 		});
 
-		const switchEl = component.find('label[data-testid="or-switch"]');
-		const inputEl = component.find('label[data-testid="or-switch-input"]');
+		const inputEl = component.find('[data-testid="or-switch-input"]');
 
-		expect(switchEl.classes).not.toContain('active');
-		expect(inputEl.attributes('checked')).toBeFalsy();
+		expect((inputEl.element as HTMLInputElement).checked).toBeFalsy();
 	})
 
 	it('should have active classes when true', () => {
 		const component = factory({
-			modelValue: true 
+			modelValue: true,
 		});
 
-		const switchEl = component.find('label[data-testid="or-switch"]');
-		const inputEl = component.find('label[data-testid="or-switch-input"]');
+		const inputEl = component.find('[data-testid="or-switch-input"]');
 
-		expect(switchEl.classes).toContain('active');
-		expect(inputEl.attributes('checked')).toBeTruthy();
+		expect((inputEl.element as HTMLInputElement).checked).toBeTruthy();
 	})
 
 	it('should support array update when modelValue is an array (no unchecked value provided)', async () => {
@@ -44,19 +39,19 @@ describe('OrSwitch', () => {
 
 		await switchEl.trigger('click');
 
-		expect(component.emitted('update:modelValue')![0]).toContain([['orange']]);
+		expect(component.emitted('update:modelValue')![0]).toEqual([['orange']]);
 
 		await switchEl.trigger('click');
 
 		// should simply remove the value of checkedValue prop from the emitted array
-		expect(component.emitted('update:modelValue')![1]).toContain([[]]);
+		expect(component.emitted('update:modelValue')![1]).toEqual([[]]);
 	
-		await component.setData({ uncheckedValue: 'mango' })
+		await component.setProps({ uncheckedValue: 'mango' })
 
 		await switchEl.trigger('click');
 		await switchEl.trigger('click');
 
-		expect(component.emitted('update:modelValue')![4]).toContain([['mango']]);
+		expect(component.emitted('update:modelValue')![3]).toEqual([['mango']]);
 	})
 
 	it('should support emission of non array unchecked value', async () => {
@@ -70,11 +65,11 @@ describe('OrSwitch', () => {
 
 		await switchEl.trigger('click');
 
-		expect(component.emitted('update:modelValue')![0]).toContain(['mango']);
+		expect(component.emitted('update:modelValue')![0]).toEqual(['mango']);
 
 		await switchEl.trigger('click');
 
-		expect(component.emitted('update:modelValue')![1]).toContain(['orange']);
+		expect(component.emitted('update:modelValue')![1]).toEqual(['orange']);
 	})
 
 	it('should not have active classes if modelValue is unchecked value', async () => {
@@ -84,25 +79,24 @@ describe('OrSwitch', () => {
 			uncheckedValue: 'mango'
 		});
 
-		const switchEl = component.find('label[data-testid="or-switch"]');
-		const inputEl = component.find('label[data-testid="or-switch-input"]');
+		const inputEl = component.find('[data-testid="or-switch-input"]').element as HTMLInputElement;
+		const switchEl = component.find('[data-testid="or-switch"]');
 
-		expect(switchEl.classes).not.toContain('active');
-		expect(inputEl.attributes('checked')).toBeFalsy();
+		expect(inputEl.checked).toBeFalsy();
 
-		await component.setData({
+		await component.setProps({
 			modelValue: [],
+			checkedValue: 'orange',
+			uncheckedValue: 'mango'
 		})
 
-		await component.trigger('click')
+		await switchEl.trigger('click')
 
 		// should be checked at this point
-		expect(switchEl.classes).toContain('active');
-		expect(inputEl.attributes('checked')).toBeTruthy();
+		expect(inputEl.checked).toBeTruthy();
 		
-		await component.trigger('click')
+		await switchEl.trigger('click')
 
-		expect(switchEl.classes).not.toContain('active');
-		expect(inputEl.attributes('checked')).toBeFalsy();
+		expect(inputEl.checked).toBeFalsy();
 	})
 })
