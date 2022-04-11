@@ -72,31 +72,43 @@ describe('OrSwitch', () => {
 		expect(component.emitted('update:modelValue')![1]).toEqual(['orange']);
 	})
 
-	it('should not have active classes if modelValue is unchecked value', async () => {
+	it('should handle emitting correct values in when modelValue is an array', async() => {
 		const component = factory({
-			modelValue: 'mango',
-			checkedValue: 'orange',
-			uncheckedValue: 'mango'
-		});
-
-		const inputEl = component.find('[data-testid="or-switch-input"]').element as HTMLInputElement;
-		const switchEl = component.find('[data-testid="or-switch"]');
-
-		expect(inputEl.checked).toBeFalsy();
-
-		await component.setProps({
 			modelValue: [],
 			checkedValue: 'orange',
 			uncheckedValue: 'mango'
 		})
 
-		await switchEl.trigger('click')
+		const inputEl = component.find('[data-testid="or-switch-input"]').element as HTMLInputElement;
+		const switchEl = component.find('[data-testid="or-switch"]');
+	
+		await switchEl.trigger('click');
+		expect(component.emitted('update:modelValue')![0]).toEqual([['orange']])
 
-		// should be checked at this point
-		expect(inputEl.checked).toBeTruthy();
-		
-		await switchEl.trigger('click')
+		await switchEl.trigger('click');
+		expect(component.emitted('update:modelValue')![1]).toEqual([['mango']])
 
-		expect(inputEl.checked).toBeFalsy();
+		// -- prop set
+		await component.setProps({
+			modelValue: ['apple']
+		})
+
+		await switchEl.trigger('click');
+		expect(component.emitted('update:modelValue')![2]).toEqual([['apple', 'orange']])
+
+		await switchEl.trigger('click');
+		expect(component.emitted('update:modelValue')![3]).toEqual([['apple', 'mango']])
+
+		// -- prop set
+		await component.setProps({
+			modelValue: ['apple'],
+			uncheckedValue: undefined
+		})
+
+		await switchEl.trigger('click');
+		expect(component.emitted('update:modelValue')![4]).toEqual([['apple', 'orange']])
+
+		await switchEl.trigger('click');
+		expect(component.emitted('update:modelValue')![5]).toEqual([['apple']])
 	})
 })
