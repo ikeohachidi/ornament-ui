@@ -8,9 +8,8 @@
 		v-bind="$attrs"
 		@change="onCheckboxValueChange"
 	>
-	<label v-if="switchValue" class="or-switch center jc-center" :for="inputElementId"></label>
 
-	<label class="or-checkbox-label" v-else :for="inputElementId">
+	<label class="or-checkbox-label" :for="inputElementId">
 		<span class="or-checkbox center jc-center"></span>
 		<slot></slot>
 	</label>
@@ -23,7 +22,6 @@ const props = defineProps<{
 	modelValue: unknown;
 	value: unknown;
 	uncheckedValue?: unknown;
-	switch?: boolean;
 }>()
 
 const modelType = computed(() => {
@@ -39,8 +37,6 @@ const inputElementId = computed(() => {
 })
 
 const checkboxElement = ref<HTMLInputElement>();
-
-const switchValue = computed(() => props.switch);
 
 const updateArrayModel = (element: HTMLInputElement) => {
 	if (modelType.value !== "array") return;
@@ -134,41 +130,7 @@ $size: 20px;
 		.or-checkbox-label .or-checkbox:before {
 			content: '';
 		}
-
-		.or-switch {
-			background-color: var(--color-primary);
-		}
-
-		.or-switch:before {
-			background-color: #fff;
-			left: calc(96% - ($size - 5px));
-		}
 	} 
-}
-
-.or-switch {
-	cursor: pointer;
-	height: $size;
-	width: $size * 2;
-	border-radius: 999px;
-	box-shadow: 0px 0px 0px 1px var(--color-gray-2);
-	display: inline-block;
-	position: relative;
-	background: var(--color-gray-3);
-	transition: .2s;
-
-	&:before {
-		content: "";
-		height: $size - 6px;
-		width: $size - 6px;
-		border-radius: 999px;
-		background-color: #fff;
-		display: inline-block;
-		position: absolute;
-		top: 3px;
-		left: 3px;
-		transition: left .2s linear;
-	}
 }
 
 .or-checkbox {

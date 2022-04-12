@@ -48,14 +48,6 @@ describe("OrCheckbox", () => {
 		expect(wrapper.emitted('update:modelValue')![1]).toEqual(['orange'])
 	})
 
-	it('displays swtich on switch mode and hides checkbox', async () => {
-		const wrapper = factory({ modelValue: 'orange', switch: true });
-		await wrapper.setProps({ switch: true });
-
-		expect(wrapper.find('.or-switch').exists()).toBeTruthy();
-		expect(wrapper.find('.or-checkbox-label').exists()).toBeFalsy();
-	})
-
 	it('uses unchecked value', async () => {
 		const wrapper = factory({ uncheckedValue: 'lemon' });
 
