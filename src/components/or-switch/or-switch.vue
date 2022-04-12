@@ -10,6 +10,7 @@
 	>
 	<label 
 		class="or-switch center jc-center"
+		data-testid="or-switch"
 		:for="inputElementId"
 	>
 	</label>
@@ -63,7 +64,19 @@ const onInputValueChange = (e: InputEvent) => {
 
 const additionValue = () => {
 	if (modelType.value === 'array') {
-		return [...props.modelValue as unknown[], props.checkedValue];
+		const newVal = [...props.modelValue as unknown[]];
+
+		if (props.uncheckedValue) {
+			const uncheckedValueIndex = newVal.findIndex(value => JSON.stringify(value) === JSON.stringify(props.uncheckedValue));
+
+			if (uncheckedValueIndex !== -1) {
+				newVal.splice(uncheckedValueIndex, 1)
+			}
+		}
+
+		newVal.push(props.checkedValue)
+
+		return newVal;
 	}
 
 	return props.checkedValue;
