@@ -23,15 +23,14 @@ type ModelValueType = boolean | string | number | unknown[];
 
 const props = withDefaults(defineProps<{
 	modelValue: ModelValueType;
-	checkedValue?: boolean,
-	uncheckedValue?: boolean,
+	checkedValue: unknown,
+	uncheckedValue?: unknown,
 }>(), {
-	checkedValue: true,
 	uncheckedValue: undefined 
 })
 
 const emit = defineEmits<{
-	(event: 'update:modelValue', value: ModelValueType): void;
+	(event: 'update:modelValue', value: unknown): void;
 }>()
 
 const checkbox = ref<HTMLInputElement>();
