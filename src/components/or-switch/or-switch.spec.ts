@@ -12,6 +12,7 @@ describe('OrSwitch', () => {
 	it('should not have active classes and attributes when false', () => {
 		const component = factory({
 			modelValue: false,
+			checkedValue: true
 		});
 
 		const inputEl = component.find('[data-testid="or-switch-input"]');
@@ -22,6 +23,7 @@ describe('OrSwitch', () => {
 	it('should have active classes when true', () => {
 		const component = factory({
 			modelValue: true,
+			checkedValue: true
 		});
 
 		const inputEl = component.find('[data-testid="or-switch-input"]');
