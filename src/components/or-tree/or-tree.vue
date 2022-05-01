@@ -7,6 +7,7 @@
 		>
 			<p 
 				class="or-tree-metadata"
+				@click="onNodeClick(node)"
 			>
 				<span 
 					class="collapse-activator"
@@ -35,12 +36,9 @@ import { emitter } from '@/utilities/use-shared-event';
 
 interface Props {
 	nodes: Node[];
-	nodeClick?: (node: Node) => void;
 }
 
-const props = withDefaults(defineProps<Props>(), {
-	nodeClick: (node: Node) => {},
-})
+const props = defineProps<Props>()
 
 const emits = defineEmits<{
 	(e: Events.NODE_CLICK, value: Node): void
@@ -69,12 +67,17 @@ const toggleChild = (e: MouseEvent): void => {
 	}
 }
 
-const uniqueKey = () => {
-	return `key-${Date.now()}`
+const onNodeClick = (node: Node): void => {
+	emitter.emit(Events.NODE_CLICK, node)
 }
 
 onMounted(() => {
-	emitter.on(Events.NODE_CLICK, (node: Node) => { emits(Events.NODE_CLICK, node) })
+	emitter.on(
+		Events.NODE_CLICK, 
+		(node: Node) => { 
+			emits(Events.NODE_CLICK, node)
+		}
+	)
 })
 </script>
 
@@ -166,6 +169,10 @@ $border-type: 1px solid $color-gray-1;
 			align-items: center;
 			width: 17px;
 			cursor: pointer;
+
+			&.rotate {
+				transform: rotateZ(-45deg);
+			}
 		}
 	}
 }
