@@ -7,7 +7,6 @@
 		>
 			<p 
 				class="or-tree-metadata"
-				:class="{'_has_child': node.children && node.children.length > 0}"
 			>
 				<span class="collapse-activator">
 					<i 
@@ -43,14 +42,6 @@ const props = withDefaults(defineProps<Props>(), {
 	_isChild: false
 })
 
-const getTrackerHeight = (index: number): string => {
-	if (index === 0) {
-		return '15%'
-	}
-
-	return `${ 100 / (index + 1.1)}%`
-}
-
 const emits = defineEmits<{
 	(e: Events.NODE_CLICK, value: Node): void
 }>()
@@ -69,6 +60,8 @@ onMounted(() => {
 <style lang="scss" scoped>
 @import "@/scss/color.scss";
 
+$border-type: 1px solid $color-gray-1;
+
 .or-tree:deep(.or-tree) {
 	margin-left: 8px;
 
@@ -83,7 +76,7 @@ onMounted(() => {
 			left: 0;
 			top: 0%;
 			bottom: 0;
-			border-left: 1px solid $color-gray-1;
+			border-left: $border-type;
 			width: 16px;
 		}
 
@@ -102,7 +95,7 @@ onMounted(() => {
 			content: "";
 			left: 0;
 			top: 50%;
-			border-top: 1px solid $color-gray-1;
+			border-top: $border-type;
 			width: 10px;
 		}
 	
@@ -112,12 +105,8 @@ onMounted(() => {
 			left: 0px;
 			top: -30%;
 			bottom: 0;
-			border-left: 1px solid $color-gray-1;
+			border-left: $border-type;
 			width: 13px;
-		}
-	
-		&._has_child:before {
-			width: 10px;
 		}
 	}
 }
