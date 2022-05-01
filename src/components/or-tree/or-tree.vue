@@ -7,6 +7,7 @@
 		>
 			<p 
 				class="or-tree-metadata"
+				@click="toggleChild"
 			>
 				<span class="collapse-activator">
 					<i 
@@ -19,7 +20,6 @@
 
 			<or-tree
 				v-if="node.children"
-				:_isChild="true"
 				:nodes="node.children"
 			/>
 		</li>
@@ -33,13 +33,11 @@ import { emitter } from '@/utilities/use-shared-event';
 
 interface Props {
 	nodes: Node[];
-	_isChild: boolean;
 	nodeClick?: (node: Node) => void;
 }
 
 const props = withDefaults(defineProps<Props>(), {
 	nodeClick: (node: Node) => {},
-	_isChild: false
 })
 
 const emits = defineEmits<{
@@ -47,6 +45,16 @@ const emits = defineEmits<{
 }>()
 
 const slots = useSlots();
+
+const toggleChild = (e: MouseEvent): void => {
+	const target = e.currentTarget as HTMLElement;
+
+	const sibling = target.nextElementSibling;
+
+	if (sibling) {
+		sibling.classList.toggle('hidden');
+	}
+}
 
 const uniqueKey = () => {
 	return `key-${Date.now()}`
@@ -118,6 +126,10 @@ $border-type: 1px solid $color-gray-1;
 		list-style: none;
 	}
 
+	&.hidden {
+		display: none;
+	}
+
 	> .or-tree-node:last-child {
 		> .or-tree-metadata:after {
 			bottom: 50%;
@@ -129,6 +141,7 @@ $border-type: 1px solid $color-gray-1;
 	}
 
 	&-metadata {
+		cursor: pointer;
 		display: flex;
 		margin: 0;
 		padding: 5px 0;
