@@ -7,11 +7,13 @@
 		>
 			<p 
 				class="or-tree-metadata"
+				data-testid="metadata"
 				@click="onNodeClick(node)"
 			>
 				<span 
 					class="collapse-activator"
 					@click="toggleChild"
+					data-testid="collapser"
 				>
 					<i 
 						class="ri-arrow-down-s-fill" 
