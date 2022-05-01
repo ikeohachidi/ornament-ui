@@ -7,9 +7,11 @@
 		>
 			<p 
 				class="or-tree-metadata"
-				@click="toggleChild"
 			>
-				<span class="collapse-activator">
+				<span 
+					class="collapse-activator"
+					@click="toggleChild"
+				>
 					<i 
 						class="ri-arrow-down-s-fill" 
 						v-if="node.children && node.children.length > 0"
@@ -46,13 +48,24 @@ const emits = defineEmits<{
 
 const slots = useSlots();
 
+const uniqueKey = () => {
+	return `key-${Date.now()}`
+}
+
 const toggleChild = (e: MouseEvent): void => {
 	const target = e.currentTarget as HTMLElement;
+	const HIDDEN_CLASS = 'hidden';
 
-	const sibling = target.nextElementSibling;
+	const sibling = target.parentElement?.nextElementSibling;
 
 	if (sibling) {
-		sibling.classList.toggle('hidden');
+		if (sibling.classList.contains(HIDDEN_CLASS)) {
+			sibling.classList.remove(HIDDEN_CLASS);
+			target.classList.remove('rotate');
+		} else {
+			sibling.classList.add(HIDDEN_CLASS)
+			target.classList.add('rotate');
+		}
 	}
 }
 
