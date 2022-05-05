@@ -1,36 +1,68 @@
 <template>
-	<ul class="or-list">
-		<template v-if="slots.length > 0">
-			<li class="or-list-item" v-for="(vSlot, vSlotIndex) in slots" :key="vSlotIndex" >
-				<component :is="vSlot" />
-			</li>
-		</template>
-		<template v-else>
-			<li v-for="(item, itemIndex) in items" :key="itemIndex" class="or-list-item">
-				<slot name="item" :item="item">
-					<p v-if="item.title">{{ item.title }}</p>
-					<p v-if="item.description">{{ item.description }}</p>
-				</slot>
-			</li>
-		</template>
+	<ul>
+		<slot>
+		</slot>
 	</ul>
 </template>
 
 <script setup lang="ts">
+import { onMounted } from "vue";
 import useDefaultSlots from "@/utilities/use-default-slots";
+import { emitter } from '@/utilities/use-shared-event';
+import { Events } from '.';
 
-interface ListItem {
-	title: string;
-	description: string;
-}
+const props = defineProps<{
+	draggable?: boolean; 
+	modelValue?: unknown[];
+}>()
 
-const props = withDefaults(defineProps<{
-	items?: ListItem[]
-}>(), {
-	items: () => ([])
-})
+const emit = defineEmits<{
+	(event: 'update:modelValue', value: unknown): void
+}>()
 
 const slots = useDefaultSlots();
+
+const addModelValue = (value: unknown) => {
+	if (!props.modelValue) return;
+
+	const mvClone: unknown[] = JSON.parse(JSON.stringify(props.modelValue));
+
+	if (value) mvClone.push(value)
+
+	emit('update:modelValue', mvClone);
+}
+
+const removeModelValue = (value: unknown) => {
+	const mvClone: unknown[] = JSON.parse(JSON.stringify(props.modelValue));
+	const valueString = JSON.stringify(value);
+
+	if (JSON.stringify(mvClone).includes(valueString)) {
+		const index = mvClone.findIndex(v => JSON.stringify(v) === valueString)
+	
+		if (index > -1) {
+			mvClone.splice(index, 1)
+		}
+	}
+
+	emit('update:modelValue', mvClone);
+}
+
+onMounted(() => {
+	// expecting emission to come from "or-item-label" checkbox
+	emitter.on(
+		Events.ITEM_CHECK,
+		(value: unknown) => {
+			addModelValue(value)
+		}
+	)
+
+	emitter.on(
+		Events.ITEM_UNCHECK,
+		(value: unknown) => {
+			removeModelValue(value);
+		}
+	)
+})
 </script>
 
 <style lang="scss" scoped>
