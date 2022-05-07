@@ -1,15 +1,24 @@
 <template>
-	<ul>
-		<slot>
-		</slot>
+	<ul class="or-list">
+		<li class="or-list-header">
+			<slot name="header"></slot>
+		</li>
+		<component
+			v-for="(slot, index) in featuredSlots"
+			:key="index"
+			:is="slot"
+		></component>
+		<li class="or-list-footer">
+			<slot name="footer"></slot>
+		</li>
 	</ul>
 </template>
 
 <script setup lang="ts">
-import { onMounted } from "vue";
+import { onMounted, computed } from "vue";
 import useDefaultSlots from "@/utilities/use-default-slots";
 import { emitter } from '@/utilities/use-shared-event';
-import { Events } from '.';
+import { Events, OrListItem } from '.';
 
 const props = defineProps<{
 	draggable?: boolean; 
@@ -21,6 +30,12 @@ const emit = defineEmits<{
 }>()
 
 const slots = useDefaultSlots();
+
+const featuredSlots = computed(() => {
+	if (slots.length === 0) return [];
+
+	return slots.filter(slot => slot.type === OrListItem);
+}) 
 
 const addModelValue = (value: unknown) => {
 	if (!props.modelValue) return;
@@ -48,7 +63,7 @@ const removeModelValue = (value: unknown) => {
 }
 
 onMounted(() => {
-	// expecting emission to come from "or-item-label" checkbox
+	// expecting emission to come from "or-item" checkbox
 	emitter.on(
 		Events.ITEM_CHECK,
 		(value: unknown) => {
@@ -71,25 +86,8 @@ onMounted(() => {
 	overflow: hidden;
 	border-radius: var(--radius-1);
 
-	.or-list-item {
-		border-bottom: 1px solid var(--color-gray-2);
-		padding: 1em;
-
-		&:last-of-type {
-			border-bottom: none;
-		}
-
-		p:first-of-type {
-			margin-top: 0;
-			margin-bottom: 0.5em;
-		}
-
-		p:last-of-type {
-			color: var(--text-color-2);
-			font-size: 14px;
-			margin-top: 1em;
-			margin-bottom: 0;
-		}
+	&-header, &-footer {
+		padding: 10px;
 	}
 }
 </style>

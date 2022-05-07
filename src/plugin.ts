@@ -15,7 +15,7 @@ import OrSwitch from './components/or-switch';
 import OrAvatar from './components/or-avatar';
 import OrChips from './components/or-chips';
 import OrSelect from './components/or-select';
-import { OrList, OrListItem, OrListBody, OrListLabel } from './components/or-list/index';
+import { OrList, OrListItem } from './components/or-list/index';
 import { OrCircularLoader, OrPulsingLoader } from './components/or-loaders';
 import OrToast from './components/or-toast';
 import OrDialog from './components/or-dialog';
@@ -42,7 +42,7 @@ export {
 	OrAvatar,
 	OrChips,
 	OrSelect,
-	OrList, OrListItem, OrListBody, OrListLabel,
+	OrList, OrListItem,
 	OrCircularLoader,
 	OrPulsingLoader,
 	OrToast,
@@ -74,8 +74,6 @@ export default {
 		app.component('or-select', OrSelect);
 		app.component('or-list', OrList);
 		app.component('or-list-item', OrListItem);
-		app.component('or-list-label', OrListLabel);
-		app.component('or-list-body', OrListBody);
 		app.component('or-circular-loader', OrCircularLoader);
 		app.component('or-pulsing-loader', OrPulsingLoader);
 		app.component('or-toast', OrToast);
