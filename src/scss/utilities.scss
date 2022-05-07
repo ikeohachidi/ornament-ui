@@ -9,3 +9,13 @@
 		min-height: 69px;
 	}
 }
+
+@mixin border-y($value) {
+	border-top: $value;
+	border-bottom: $value;
+}
+
+@mixin border-x($value) {
+	border-left: $value;
+	border-right: $value;
+}
