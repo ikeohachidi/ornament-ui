@@ -16,7 +16,6 @@
 
 <script setup lang="ts">
 import { ref, watch } from "vue";
-import { emitter } from '@/utilities/use-shared-event';
 import { Events } from "..";
 
 const props = defineProps<{
