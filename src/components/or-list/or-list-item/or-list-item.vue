@@ -2,9 +2,10 @@
 	<li class="or-list-item">
 		<or-checkbox
 			v-if="checkable"
-			v-model="value"
+			v-model="checkedValue"
 			:value="1"
 			:unchecked-value="0"
+			data-testid="checkbox"
 		></or-checkbox>
 
 		<div class="or-list-item-content">
@@ -23,11 +24,16 @@ const props = defineProps<{
 	value?: unknown;
 }>()
 
-const value = ref(0);
+const emit = defineEmits<{
+	(event: Events.ITEM_CHECK, value: unknown):  void,
+	(event: Events.ITEM_UNCHECK, value: unknown):  void,
+}>()
 
-watch(value, (v: number) => {
-	if (v) emitter.emit(Events.ITEM_CHECK, props.value)
-	else emitter.emit(Events.ITEM_UNCHECK, props.value)
+const checkedValue = ref(0);
+
+watch(checkedValue, (v: number) => {
+	if (v) emit(Events.ITEM_CHECK, props.value) 
+	else emit(Events.ITEM_UNCHECK, props.value) 
 })
 </script>
 

@@ -7,6 +7,8 @@
 			v-for="(slot, index) in featuredSlots"
 			:key="index"
 			:is="slot"
+			@item-check="addModelValue"
+			@item-uncheck="removeModelValue"
 		></component>
 		<li class="or-list-footer">
 			<slot name="footer"></slot>
@@ -15,13 +17,11 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, computed } from "vue";
+import { computed } from "vue";
 import useDefaultSlots from "@/utilities/use-default-slots";
-import { emitter } from '@/utilities/use-shared-event';
-import { Events, OrListItem } from '.';
+import { OrListItem } from '.';
 
 const props = defineProps<{
-	draggable?: boolean; 
 	modelValue?: unknown[];
 }>()
 
@@ -61,23 +61,6 @@ const removeModelValue = (value: unknown) => {
 
 	emit('update:modelValue', mvClone);
 }
-
-onMounted(() => {
-	// expecting emission to come from "or-item" checkbox
-	emitter.on(
-		Events.ITEM_CHECK,
-		(value: unknown) => {
-			addModelValue(value)
-		}
-	)
-
-	emitter.on(
-		Events.ITEM_UNCHECK,
-		(value: unknown) => {
-			removeModelValue(value);
-		}
-	)
-})
 </script>
 
 <style lang="scss" scoped>
