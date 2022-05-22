@@ -2,7 +2,7 @@
 home: true
 title: Ornament UI
 tagline: A Vuejs component library
-heroText: Ornament UI (unstable)
+heroText: Ornament UI (Under development)
 actions:
     -   text: Get started
         link: '/guide/getting-started/'
