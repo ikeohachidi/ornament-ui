@@ -4,7 +4,7 @@ import './main.scss';
 import OrButton from './components/or-button';
 import OrDropdown from './components/or-dropdown';
 import OrCheckbox from './components/or-checkbox';
-import OrInput from './components/or-input';
+import { OrInput, OrInputNumber } from './components/or-input';
 import OrInputGroup from './components/or-input-group';
 import OrInputTags from './components/or-input-tags';
 import { OrTab, OrTabs } from './components/or-tabs';
@@ -33,6 +33,7 @@ export {
 	OrSwitch,
 	OrDropdown,
 	OrInput,
+	OrInputNumber,
 	OrInputGroup,
 	OrInputTags,
 	OrTab, OrTabs,
@@ -59,6 +60,7 @@ export default {
 		app.component('or-button', OrButton);
 		app.component('or-dropdown', OrDropdown);
 		app.component('or-input', OrInput);
+		app.component('or-input-number', OrInputNumber);
 		app.component('or-input-group', OrInputGroup);
 		app.component('or-input-tags', OrInputTags);
 		app.component('or-tab', OrTab);

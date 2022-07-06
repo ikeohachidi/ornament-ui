@@ -1,3 +1,7 @@
 import OrInput from './or-input.vue'; 
+import OrInputNumber from './or-input-number.vue';
 
-export default OrInput;
+export {
+    OrInput,
+    OrInputNumber
+}
