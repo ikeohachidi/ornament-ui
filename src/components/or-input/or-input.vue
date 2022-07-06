@@ -27,9 +27,7 @@ export default {
 
 <script setup lang="ts">
 import { onMounted, ref, computed } from "vue";
-import { Size, Sizes } from '@/types/Size';
-
-type InputState = '' | 'success' | 'error' | 'info';
+import { Size, Sizes, InputState } from '@/types';
 
 const props = withDefaults(defineProps<{
 	modelValue?: string;
