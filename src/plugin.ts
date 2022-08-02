@@ -20,6 +20,7 @@ import { OrCircularLoader, OrPulsingLoader } from './components/or-loaders';
 import OrToast from './components/or-toast';
 import OrDialog from './components/or-dialog';
 import OrOverlay from './components/or-overlay';
+import OrSlider from './components/or-slider';
 import OrTree from './components/or-tree';
 
 // directives import
@@ -49,6 +50,7 @@ export {
 	OrToast,
 	OrDialog,
 	OrOverlay,
+	OrSlider,
 	OrTree,
 
 	VLoader,
@@ -81,6 +83,7 @@ export default {
 		app.component('or-toast', OrToast);
 		app.component('or-dialog', OrDialog);
 		app.component('or-overlay', OrOverlay);
+		app.component('or-slider', OrSlider);
 		app.component('or-tree', OrTree);
 
 		app.directive('loader', VLoader);
