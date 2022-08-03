@@ -1,5 +1,4 @@
 <template>
-	{{ m }}
 	<div class="or-slider" ref="thumbWrapperEl">
 		<div class="or-slider__thumb" @mousedown="onMouseDown" ref="thumbEl"></div>
 	</div>
