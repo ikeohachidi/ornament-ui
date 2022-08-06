@@ -48,9 +48,9 @@ const singleStepPx = computed(() => {
 	return thumbWrapperElWidth.value / props.steps;
 });
 const allStepsPx = computed(() => {
-	const steps: number[] = [0];
+	const steps: number[] = [];
 
-	for (let i = 1; i <= props.steps; i++) {
+	for (let i = 0; i < props.steps; i++) {
 		steps.push(singleStepPx.value * i);
 	}
 
@@ -180,25 +180,42 @@ const removeListeners = (element: HTMLElement): void => {
 		mousePosition = 0;
 	});
 }
+
+onMounted(() => {
+	const { steps, modelValue } = props;
+
+	if (thumbEl.value) {
+		if (steps > 0 && (modelValue > 0 && modelValue <= steps)) {
+			const position = allStepsPx.value[modelValue];
+			thumbEl.value.style.left = position + unit; 
+		} 
+	}
+})
 </script>
 
 <style lang="scss" scoped>
-$size: 40px;
+
+$size: 5px;
+$thumb-size: $size * 3;
 
 .or-slider {
-	height: $size * 1.5;
+	height: $size;
+	border-radius: 999px;
 	width: 100%;
-	background-color: red;
+	background-color: hsl(0, 0, 96%);
 	box-sizing: border-box;
 	position: relative;
 
 	&__thumb {
 		box-sizing: border-box;
-		height: $size;
-		width: $size;
-		background-color: blue;
+		height: $thumb-size;
+		width: $thumb-size;
+		border-radius: 9999px;
+		background-color: var(--color-primary);
+		box-shadow: var(--shadow-lg);
 		position: absolute;
 		left: 0;
+		top: -100%;
 	}
 }
 </style>
