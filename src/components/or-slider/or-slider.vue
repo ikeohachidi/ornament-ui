@@ -35,6 +35,8 @@ let thumbPosition = ref(0);
 
 const thumbWrapperEl = ref<HTMLDivElement>();
 
+const unit = 'px';
+
 const thumbWrapperElWidth = computed(() => {
 	if (thumbWrapperEl.value) {
 		return parseInt(getComputedStyle(thumbWrapperEl.value).width.replace('px', ''));
@@ -67,88 +69,101 @@ const updateModelValueStep = (step: number) => {
 }
 
 const thumbEl = ref<HTMLDivElement>();
-const currentThumbPosition = ref(0);
-const globalTracker = ref(0);
-const setThumbPosition = (position: number, x: number): void => {
+// ghostThumbPosition used only on snapping slider tracks the users mouse movement
+// but doesn't actually cause the position change of the thumb until it reaches a
+// certain threshold 
+const ghostThumbPosition = ref(0);
+
+const setSnapSlider = (positionDiff: number, mouseMovementX: number) => {
+	const leftPosition = thumbEl!.value!.style.left;
+	// expecting that it'll have % at the end of it
+	const currentThumbPosition = Number(leftPosition.replace(unit, ''))
+
+	if (ghostThumbPosition.value === 0 && currentThumbPosition === 0) {
+		ghostThumbPosition.value += 2;
+	}
+	else if (ghostThumbPosition.value === 0) {
+		ghostThumbPosition.value = currentThumbPosition;
+	}
+	else {
+		ghostThumbPosition.value += positionDiff;
+	}
+
+	const threshold = 5;
+
+	for (let i = 0; i < allStepsPx.value.length; i++) {
+		const step = allStepsPx.value[i];
+		const from = step - threshold;
+		const to = step + threshold;
+
+		if (ghostThumbPosition.value >= from && ghostThumbPosition.value <= to) {
+			if (props.modelValue !== i) {
+				thumbEl!.value!.style.left! = step + unit;
+				// thumbPosition.value = step;
+				updateModelValueStep(i)
+			}
+		}
+	}
+
+	document.addEventListener('mouseup', () => {
+		ghostThumbPosition.value = 0;
+	});
+
+	mousePosition = mouseMovementX;
+}
+
+const setSmoothSlider = (positionDiff: number, mouseMovementX: number) => {
+	const leftPosition = thumbEl!.value!.style.left;
+	// expecting that it'll have % at the end of it
+	let currentThumbPosition = Number(leftPosition.replace(unit, ''))
+
+	const newThumbPosition = currentThumbPosition + positionDiff;
+
+	if (newThumbPosition > 0 && newThumbPosition < thumbWrapperElWidth.value) {
+		if (currentThumbPosition === 0) {
+			currentThumbPosition++;
+		} 
+		// assume we are beginning from a mouseup
+		// in order to avoid large space jank
+		else if (positionDiff > mousePosition) {
+			currentThumbPosition++;
+		}
+		else {
+			currentThumbPosition += positionDiff;
+		}
+	}
+
+	thumbEl!.value!.style.left = unref(currentThumbPosition) + unit;
+	thumbPosition.value = unref(currentThumbPosition);
+	mousePosition = mouseMovementX;
+	updateModelValue();
+}
+
+const setThumbPosition = (mouseMovementX: number): void => {
 	window.requestAnimationFrame(() => {
 		if (thumbEl.value) {
-			const leftPosition = thumbEl.value.style.left;
-			const unit = 'px';
-			// expecting that it'll have % at the end of it
-			currentThumbPosition.value = Number(leftPosition.replace(unit, ''))
-
 			// the difference between the last registered mouse position
 			// and the present position. This is better than just adding
 			// and subtracting 1 to the margin because depending on the
 			// mouse move speed it may be greater than 1.
-			const mouseDiff = x - mousePosition;
-			const newThumbPosition = currentThumbPosition.value + mouseDiff;
+			const possitionDiff = mouseMovementX - mousePosition;
 
 			if (props.steps > 0) {
-				if (globalTracker.value === 0 && currentThumbPosition.value === 0) {
-					globalTracker.value += 2;
-				}
-				else if (globalTracker.value === 0) {
-					globalTracker.value = currentThumbPosition.value;
-				}
-				else {
-					globalTracker.value += mouseDiff;
-				}
-
-				const threshold = 5;
-
-				for (let i = 0; i < allStepsPx.value.length; i++) {
-					const step = allStepsPx.value[i];
-					const from = step - threshold;
-					const to = step + threshold;
-
-					if (globalTracker.value >= from && globalTracker.value <= to) {
-						if (props.modelValue !== i) {
-							thumbEl.value.style.left = step + unit;
-							// thumbPosition.value = step;
-							updateModelValueStep(i)
-						}
-					}
-				}
-
-				document.addEventListener('mouseup', () => {
-					console.log('global tracker resetting:', globalTracker.value)
-					globalTracker.value = 0;
-				});
-
-				mousePosition = x;
+				setSnapSlider(possitionDiff, mouseMovementX);
 				return;
 			}
 
-			// smooth slider
-			if (newThumbPosition > 0 && newThumbPosition < thumbWrapperElWidth.value) {
-				if (currentThumbPosition.value === 0) {
-					currentThumbPosition.value++;
-				} 
-				// assume we are beginning from a mouseup
-				// in order to avoid large space jank
-				else if (mouseDiff > mousePosition) {
-					currentThumbPosition.value++;
-				}
-				else {
-					currentThumbPosition.value += mouseDiff;
-				}
-			}
-
-			thumbEl.value.style.left = unref(currentThumbPosition) + unit;
-			thumbPosition.value = unref(currentThumbPosition);
-			mousePosition = x;
-			updateModelValue();
+			setSmoothSlider(possitionDiff, mouseMovementX);
 		}
 	})
 }
 
 const onMouseMove = (event: MouseEvent): void => {
 	if (event.x > mousePosition) {
-		setThumbPosition(1, event.clientX);
+		setThumbPosition(event.clientX);
 	} 
 	else if (event.x < mousePosition) {
-		setThumbPosition(-1, event.clientX);
+		setThumbPosition(event.clientX);
 	}
 }
 
