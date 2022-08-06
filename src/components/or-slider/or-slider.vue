@@ -47,7 +47,7 @@ const thumbWrapperElWidth = computed(() => {
 });
 
 const singleStepPx = computed(() => {
-	return thumbWrapperElWidth.value / props.steps;
+	return thumbWrapperElWidth.value / (props.steps - 1);
 });
 const allStepsPx = computed(() => {
 	const steps: number[] = [];
@@ -91,7 +91,7 @@ const setSnapSlider = (positionDiff: number, mouseMovementX: number) => {
 		ghostThumbPosition.value += positionDiff;
 	}
 
-	const threshold = 5;
+	const threshold = 10;
 
 	for (let i = 0; i < allStepsPx.value.length; i++) {
 		const step = allStepsPx.value[i];
@@ -99,11 +99,12 @@ const setSnapSlider = (positionDiff: number, mouseMovementX: number) => {
 		const to = step + threshold;
 
 		if (ghostThumbPosition.value >= from && ghostThumbPosition.value <= to) {
-			if (props.modelValue !== i) {
+			const actualStep = i + 1;
+			if (props.modelValue !== actualStep) {
 				thumbEl!.value!.style.left! = step + unit;
 				thumbRangeEl!.value!.style.width = step + unit;
 
-				updateModelValueStep(i)
+				updateModelValueStep(actualStep)
 			}
 		}
 	}
