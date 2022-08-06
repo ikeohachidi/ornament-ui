@@ -131,6 +131,10 @@ const setSmoothSlider = (positionDiff: number, mouseMovementX: number) => {
 		else {
 			currentThumbPosition += positionDiff;
 		}
+	} 
+	
+	if (newThumbPosition < 0) {
+		currentThumbPosition = 0;
 	}
 
 	thumbEl!.value!.style.left = unref(currentThumbPosition) + unit;
