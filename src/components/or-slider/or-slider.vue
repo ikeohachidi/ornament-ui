@@ -1,6 +1,7 @@
 <template>
 	<div class="or-slider" ref="thumbWrapperEl">
 		<div class="or-slider__thumbs">
+			<div class="or-slider__range" ref="thumbRangeEl"></div>
 			<div
 				class="or-slider__thumb"
 				@mousedown="onMouseDown"
@@ -34,6 +35,7 @@ let mousePosition = 0;
 let thumbPosition = ref(0);
 
 const thumbWrapperEl = ref<HTMLDivElement>();
+const thumbRangeEl = ref<HTMLDivElement>();
 
 const unit = 'px';
 
@@ -99,7 +101,8 @@ const setSnapSlider = (positionDiff: number, mouseMovementX: number) => {
 		if (ghostThumbPosition.value >= from && ghostThumbPosition.value <= to) {
 			if (props.modelValue !== i) {
 				thumbEl!.value!.style.left! = step + unit;
-				// thumbPosition.value = step;
+				thumbRangeEl!.value!.style.width = step + unit;
+
 				updateModelValueStep(i)
 			}
 		}
@@ -132,13 +135,15 @@ const setSmoothSlider = (positionDiff: number, mouseMovementX: number) => {
 			currentThumbPosition += positionDiff;
 		}
 	} 
-	
+
 	if (newThumbPosition < 0) {
 		currentThumbPosition = 0;
 	}
 
-	thumbEl!.value!.style.left = unref(currentThumbPosition) + unit;
-	thumbPosition.value = unref(currentThumbPosition);
+	thumbEl!.value!.style.left = currentThumbPosition + unit;
+	thumbRangeEl!.value!.style.width = currentThumbPosition + unit;
+	thumbPosition.value = currentThumbPosition;
+
 	mousePosition = mouseMovementX;
 	updateModelValue();
 }
@@ -198,6 +203,7 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
+@import "@/scss/utilities.scss";
 
 $size: 5px;
 $thumb-size: $size * 3;
@@ -210,13 +216,20 @@ $thumb-size: $size * 3;
 	box-sizing: border-box;
 	position: relative;
 
+	&__range {
+		background-color: var(--color-primary);
+		height: $size;
+		width: 0%;
+		@include border-radius("left", 999px);
+	}
+
 	&__thumb {
 		box-sizing: border-box;
 		height: $thumb-size;
 		width: $thumb-size;
 		border-radius: 9999px;
-		background-color: var(--color-primary);
-		box-shadow: var(--shadow-lg);
+		background-color: #fff;
+		box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.3), inset 0 0 1px 0 rgba(0, 0, 0, 0.05);
 		position: absolute;
 		left: 0;
 		top: -100%;

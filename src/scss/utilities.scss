@@ -19,3 +19,8 @@
 	border-left: $value;
 	border-right: $value;
 }
+
+@mixin border-radius($side, $value) {
+	border-top-#{$side}-radius: $value;
+	border-bottom-#{$side}-radius: $value;
+}
