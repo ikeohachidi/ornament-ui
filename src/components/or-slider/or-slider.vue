@@ -35,17 +35,31 @@ const emit = defineEmits<{
 // last registered position of cursor 
 let mousePosition = 0;
 let thumbPosition = ref(0);
+const unit = 'px';
 
 const thumbWrapperEl = ref<HTMLDivElement>();
 const thumbRangeEl = ref<HTMLDivElement>();
 
-const unit = 'px';
+const getElementWidth = (element: HTMLElement): number => {
+	return parseInt(getComputedStyle(element).width.replace('px', ''));
+}
+
+const setPositions = (position: number, type: 'smooth' | 'step'): void => {
+	thumbEl!.value!.style.translate = position + unit;
+	thumbRangeEl!.value!.style.width = position + unit;
+
+	thumbPosition.value = position;
+}
 
 const thumbWrapperElWidth = computed(() => {
-	if (thumbWrapperEl.value) {
-		return parseInt(getComputedStyle(thumbWrapperEl.value).width.replace('px', ''));
+	let value = 0;
+	if (thumbWrapperEl.value && thumbEl.value) {
+		// minus the width of thumb else thumb goes beyond container
+		// can't properly figure out a way to fix this using only css
+		value = getElementWidth(thumbWrapperEl.value) - (getElementWidth(thumbEl.value) - 2);
 	}
-	return 0;
+
+	return value;
 });
 
 const singleStepPx = computed(() => {
@@ -79,7 +93,7 @@ const thumbEl = ref<HTMLDivElement>();
 const ghostThumbPosition = ref(0);
 
 const setSnapSlider = (positionDiff: number, mouseMovementX: number) => {
-	const leftPosition = thumbEl!.value!.style.left;
+	const leftPosition = thumbEl!.value!.style.translate;
 	// expecting that it'll have % at the end of it
 	const currentThumbPosition = Number(leftPosition.replace(unit, ''))
 
@@ -103,9 +117,7 @@ const setSnapSlider = (positionDiff: number, mouseMovementX: number) => {
 		if (ghostThumbPosition.value >= from && ghostThumbPosition.value <= to) {
 			const actualStep = i + 1;
 			if (props.modelValue !== actualStep) {
-				thumbEl!.value!.style.left! = step + unit;
-				thumbRangeEl!.value!.style.width = step + unit;
-
+				setPositions(step, 'step');
 				updateModelValueStep(actualStep)
 			}
 		}
@@ -119,55 +131,47 @@ const setSnapSlider = (positionDiff: number, mouseMovementX: number) => {
 }
 
 const setSmoothSlider = (positionDiff: number, mouseMovementX: number) => {
-	const leftPosition = thumbEl!.value!.style.left;
+	const leftPosition = thumbEl!.value!.style.translate;
 	// expecting that it'll have % at the end of it
 	let currentThumbPosition = Number(leftPosition.replace(unit, ''))
 
 	const newThumbPosition = currentThumbPosition + positionDiff;
 
-	if (newThumbPosition > 0 && newThumbPosition < thumbWrapperElWidth.value) {
-		if (currentThumbPosition === 0) {
-			currentThumbPosition++;
-		} 
-		// assume we are beginning from a mouseup
-		// in order to avoid large space jank
-		else if (positionDiff > mousePosition) {
-			currentThumbPosition++;
-		}
-		else {
-			currentThumbPosition += positionDiff;
-		}
-	} 
+	// assume we are beginning from a mouseup
+	// in order to avoid large space jank
+	if (positionDiff > mousePosition) {
+		currentThumbPosition++;
+	} else {
+		currentThumbPosition += positionDiff;
+	}
 
 	if (newThumbPosition < 0) {
 		currentThumbPosition = 0;
+	} else if (currentThumbPosition > thumbWrapperElWidth.value) {
+		currentThumbPosition = thumbWrapperElWidth.value
 	}
 
-	thumbEl!.value!.style.left = currentThumbPosition + unit;
-	thumbRangeEl!.value!.style.width = currentThumbPosition + unit;
-	thumbPosition.value = currentThumbPosition;
+	setPositions(currentThumbPosition, 'smooth');
 
 	mousePosition = mouseMovementX;
 	updateModelValue();
 }
 
 const setThumbPosition = (mouseMovementX: number): void => {
-	window.requestAnimationFrame(() => {
-		if (thumbEl.value) {
-			// the difference between the last registered mouse position
-			// and the present position. This is better than just adding
-			// and subtracting 1 to the margin because depending on the
-			// mouse move speed it may be greater than 1.
-			const possitionDiff = mouseMovementX - mousePosition;
+	if (thumbEl.value) {
+		// the difference between the last registered mouse position
+		// and the present position. This is better than just adding
+		// and subtracting 1 to the margin because depending on the
+		// mouse move speed it may be greater than 1.
+		const positionDiff = mouseMovementX - mousePosition;
 
-			if (props.steps > 0) {
-				setSnapSlider(possitionDiff, mouseMovementX);
-				return;
-			}
-
-			setSmoothSlider(possitionDiff, mouseMovementX);
+		if (props.steps > 0) {
+			setSnapSlider(positionDiff, mouseMovementX);
+			return;
 		}
-	})
+
+		setSmoothSlider(positionDiff, mouseMovementX);
+	}
 }
 
 const onMouseMove = (event: MouseEvent): void => {
