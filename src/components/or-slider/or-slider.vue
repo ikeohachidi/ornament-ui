@@ -198,13 +198,26 @@ const removeListeners = (element: HTMLElement): void => {
 }
 
 onMounted(() => {
-	const { steps, modelValue } = props;
+	const { steps, modelValue, max } = props;
 
-	if (thumbEl.value) {
+	if (thumbEl.value && thumbWrapperEl.value) {
+		// step slider
 		if (steps > 0 && (modelValue > 0 && modelValue <= steps)) {
-			const position = allStepsPx.value[modelValue];
-			thumbEl.value.style.left = position + unit; 
-		} 
+			const position = allStepsPx.value[modelValue - 1];
+			setPositions(position, 'step');
+		}
+		else {
+			// since the modelValue in a smooth slider 
+			// is basically a percentage of the full slider
+			if (modelValue > max) {
+				setPositions(thumbWrapperElWidth.value, 'smooth');
+				return;
+			}
+
+			const percOfMax = (modelValue / max) * 100;
+			const position = (percOfMax / 100) * thumbWrapperElWidth.value;
+			setPositions(position, 'smooth');
+		}
 	}
 })
 </script>
@@ -227,7 +240,6 @@ $thumb-size: $size * 3;
 		display: flex;
 		place-items: center;
 		height: $thumb-size;
-		border: 1px solid red;
 	}
 
 	&__rail {
