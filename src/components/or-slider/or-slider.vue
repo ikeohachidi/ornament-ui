@@ -51,7 +51,9 @@ const setPositions = (position: number, type: 'smooth' | 'step'): void => {
 	thumbPosition.value = position;
 }
 
-const thumbWrapperElWidth = computed(() => {
+// would be be farthest possible distance the thumb can move
+// calculated in px
+const maxValue = computed(() => {
 	let value = 0;
 	if (thumbWrapperEl.value && thumbEl.value) {
 		// minus the width of thumb else thumb goes beyond container
@@ -64,25 +66,25 @@ const thumbWrapperElWidth = computed(() => {
 
 const minValue = computed(() => {
 	const perc = (props.min / props.max) * 100;
-	return (perc / 100) * thumbWrapperElWidth.value;
+	return (perc / 100) * maxValue.value;
 });
 
-const singleStepPx = computed(() => {
-	return thumbWrapperElWidth.value / (props.steps - 1);
+const singleStepDistance = computed(() => {
+	return maxValue.value / (props.steps - 1);
 });
 
-const allStepsPx = computed(() => {
+const allStepsDistances = computed(() => {
 	const steps: number[] = [];
 
 	for (let i = 0; i < props.steps; i++) {
-		steps.push(singleStepPx.value * i);
+		steps.push(singleStepDistance.value * i);
 	}
 
 	return steps;
 });
 
 const updateModelValue = () => {
-	const thumbPositionPerc = (thumbPosition.value / thumbWrapperElWidth.value) * 100;
+	const thumbPositionPerc = (thumbPosition.value / maxValue.value) * 100;
 	// percentage position of the thumb on the wrapper
 	const thumbPosPercOfWrapper = Math.round(thumbPositionPerc * (props.max / 100));
 	emit('update:modelValue', thumbPosPercOfWrapper);
@@ -93,7 +95,7 @@ const updateModelValueStep = (step: number) => {
 }
 
 const thumbEl = ref<HTMLDivElement>();
-// ghostThumbPosition used only on snapping slider tracks the users mouse movement
+// ghostThumbPosition used only on snapping slider and it tracks the users mouse movement
 // but doesn't actually cause the position change of the thumb until it reaches a
 // certain threshold 
 const ghostThumbPosition = ref(0);
@@ -115,8 +117,8 @@ const setSnapSlider = (positionDiff: number, mouseMovementX: number) => {
 
 	const threshold = 10;
 
-	for (let i = 0; i < allStepsPx.value.length; i++) {
-		const step = allStepsPx.value[i];
+	for (let i = 0; i < allStepsDistances.value.length; i++) {
+		const step = allStepsDistances.value[i];
 		const from = step - threshold;
 		const to = step + threshold;
 
@@ -153,8 +155,8 @@ const setSmoothSlider = (positionDiff: number, mouseMovementX: number) => {
 
 	if (newThumbPosition < minValue.value) {
 		currentThumbPosition = minValue.value;
-	} else if (currentThumbPosition > thumbWrapperElWidth.value) {
-		currentThumbPosition = thumbWrapperElWidth.value
+	} else if (currentThumbPosition > maxValue.value) {
+		currentThumbPosition = maxValue.value
 	}
 
 	setPositions(currentThumbPosition, 'smooth');
@@ -209,19 +211,19 @@ onMounted(() => {
 	if (thumbEl.value && thumbWrapperEl.value) {
 		// step slider
 		if (steps > 0 && (modelValue > 0 && modelValue <= steps)) {
-			const position = allStepsPx.value[modelValue - 1];
+			const position = allStepsDistances.value[modelValue - 1];
 			setPositions(position, 'step');
 		}
 		else {
 			// since the modelValue in a smooth slider 
 			// is basically a percentage of the full slider
 			if (modelValue > max) {
-				setPositions(thumbWrapperElWidth.value, 'smooth');
+				setPositions(maxValue.value, 'smooth');
 				return;
 			}
 
 			const percOfMax = (modelValue / max) * 100;
-			const position = (percOfMax / 100) * thumbWrapperElWidth.value;
+			const position = (percOfMax / 100) * maxValue.value;
 
 			if (position < minValue.value) {
 				setPositions(minValue.value, 'smooth');
