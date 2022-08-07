@@ -7,7 +7,13 @@
 					class="or-slider__thumb"
 					@mousedown="onMouseDown"
 					ref="thumbEl"
-				></div>
+				>
+					<div class="or-slider__tooltip">
+						<span>
+							<slot name="tooltip" :value="modelValue">{{ modelValue }}</slot>
+						</span>
+					</div>	
+				</div>
 			</div>
 		</div>
 	</div>
@@ -240,6 +246,7 @@ onMounted(() => {
 
 $size: 5px;
 $thumb-size: $size * 3;
+$tooltip-size: $size * 6;
 
 .or-slider {
 	height: $size;
@@ -283,6 +290,35 @@ $thumb-size: $size * 3;
 		left: 0;
 		top: -100%;
 		transform: translate(-$thumb-size);
+
+		&:hover {
+			 .or-slider__tooltip {
+			 	opacity: 1;
+			 	transform: scale(1);
+			 }
+		}
+	}
+
+	&__tooltip {
+		opacity: 0;
+		min-height: $tooltip-size; 
+		min-width: $tooltip-size; 
+		background-color: rgba(0, 0, 0, 80%);
+		border-radius: var(--radius-2);
+		display: flex;
+		place-content: center;
+		place-items: center;
+		transform: scale(0);
+		transform-origin: bottom center;
+		transition: .5s;
+		position: absolute;
+		bottom: 190%;
+		left: -50%;
+		pointer-events: none;
+
+		span {
+			color: #fff;
+		}
 	}
 }
 </style>
