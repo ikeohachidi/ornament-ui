@@ -1,12 +1,14 @@
 <template>
-	<div class="or-slider" ref="thumbWrapperEl">
-		<div class="or-slider__thumbs">
-			<div class="or-slider__range" ref="thumbRangeEl"></div>
-			<div
-				class="or-slider__thumb"
-				@mousedown="onMouseDown"
-				ref="thumbEl"
-			></div>
+	<div class="or-slider__wrapper">
+		<div class="or-slider" ref="thumbWrapperEl">
+			<div class="or-slider__rail" ref="thumbRangeEl"></div>
+			<div class="or-slider__thumbs">
+				<div
+					class="or-slider__thumb"
+					@mousedown="onMouseDown"
+					ref="thumbEl"
+				></div>
+			</div>
 		</div>
 	</div>
 </template>
@@ -217,23 +219,41 @@ $thumb-size: $size * 3;
 	box-sizing: border-box;
 	position: relative;
 
-	&__range {
+	&__wrapper {
+		display: flex;
+		place-items: center;
+		height: $thumb-size;
+		border: 1px solid red;
+	}
+
+	&__rail {
 		background-color: var(--color-primary);
 		height: $size;
 		width: 0%;
+		position: absolute;
 		@include border-radius("left", 999px);
+	}
+
+	&__thumbs {
+		box-sizing: border-box;
+		position: absolute;
+		left: calc($thumb-size);
+		right: calc($thumb-size);
+		height: $size;
 	}
 
 	&__thumb {
 		box-sizing: border-box;
 		height: $thumb-size;
 		width: $thumb-size;
+		cursor: pointer;
 		border-radius: 9999px;
 		background-color: #fff;
 		box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.3), inset 0 0 1px 0 rgba(0, 0, 0, 0.05);
 		position: absolute;
 		left: 0;
 		top: -100%;
+		transform: translate(-$thumb-size);
 	}
 }
 </style>
