@@ -24,3 +24,8 @@
 	border-top-#{$side}-radius: $value;
 	border-bottom-#{$side}-radius: $value;
 }
+
+@mixin set-sq-size($size) {
+	height: $size;
+	width: $size;
+}

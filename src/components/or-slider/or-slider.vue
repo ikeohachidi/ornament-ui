@@ -1,6 +1,14 @@
 <template>
 	<div class="or-slider__wrapper">
 		<div class="or-slider" ref="thumbWrapperEl">
+			<div 
+				class="or-slider__marker" 
+				v-for="stepDistance in allStepsDistances" 
+				v-if="showMarkers && steps > 0"
+				:key="stepDistance"
+				:class="{ active: thumbPosition >= stepDistance }"
+				:style="{ left: `${stepDistance}px` }"
+			></div>
 			<div class="or-slider__rail" ref="thumbRangeEl"></div>
 			<div class="or-slider__thumbs">
 				<div
@@ -26,12 +34,14 @@ const props = withDefaults(defineProps<{
 	modelValue: number,
 	min?: number,
 	max?: number,
-	steps?: number
+	steps?: number,
+	showMarkers?: boolean
 }>(), {
 	modelValue: 0,
 	min: 0,
 	max: 20,
-	steps: 0 
+	steps: 0,
+	showMarkers: true 
 });
 
 const emit = defineEmits<{
@@ -64,7 +74,7 @@ const maxValue = computed(() => {
 	if (thumbWrapperEl.value && thumbEl.value) {
 		// minus the width of thumb else thumb goes beyond container
 		// can't properly figure out a way to fix this using only css
-		value = getElementWidth(thumbWrapperEl.value) - (getElementWidth(thumbEl.value) - 2);
+		value = getElementWidth(thumbWrapperEl.value) - (getElementWidth(thumbEl.value) - 3);
 	}
 
 	return value;
@@ -247,12 +257,14 @@ onMounted(() => {
 $size: 5px;
 $thumb-size: $size * 3;
 $tooltip-size: $size * 6;
+$marker-size: $size * 1.3;
+$slider-color: hsl(0, 0, 96%);
 
 .or-slider {
 	height: $size;
 	border-radius: 999px;
 	width: 100%;
-	background-color: hsl(0, 0, 96%);
+	background-color: $slider-color;
 	box-sizing: border-box;
 	position: relative;
 
@@ -260,6 +272,20 @@ $tooltip-size: $size * 6;
 		display: flex;
 		place-items: center;
 		height: $thumb-size;
+	}
+
+	&__marker {
+		@include set-sq-size($marker-size);
+		border-radius: 999px;
+		position: absolute;
+		top: -$marker-size / 2;
+		border: 3px solid $slider-color;
+		background-color: #fff;
+		z-index: 2;
+
+		&.active {
+			border-color: var(--color-primary);
+		}
 	}
 
 	&__rail {
@@ -290,6 +316,7 @@ $tooltip-size: $size * 6;
 		left: 0;
 		top: -100%;
 		transform: translate(-$thumb-size);
+		z-index: 3;
 
 		&:hover {
 			 .or-slider__tooltip {
