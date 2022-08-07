@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, computed, unref, watch } from 'vue';
+import { onMounted, ref, computed } from 'vue';
 
 const props = withDefaults(defineProps<{
 	modelValue: number,
@@ -25,7 +25,7 @@ const props = withDefaults(defineProps<{
 	modelValue: 0,
 	min: 0,
 	max: 20,
-	steps: 5 
+	steps: 0 
 });
 
 const emit = defineEmits<{
@@ -62,9 +62,15 @@ const thumbWrapperElWidth = computed(() => {
 	return value;
 });
 
+const minValue = computed(() => {
+	const perc = (props.min / props.max) * 100;
+	return (perc / 100) * thumbWrapperElWidth.value;
+});
+
 const singleStepPx = computed(() => {
 	return thumbWrapperElWidth.value / (props.steps - 1);
 });
+
 const allStepsPx = computed(() => {
 	const steps: number[] = [];
 
@@ -145,8 +151,8 @@ const setSmoothSlider = (positionDiff: number, mouseMovementX: number) => {
 		currentThumbPosition += positionDiff;
 	}
 
-	if (newThumbPosition < 0) {
-		currentThumbPosition = 0;
+	if (newThumbPosition < minValue.value) {
+		currentThumbPosition = minValue.value;
 	} else if (currentThumbPosition > thumbWrapperElWidth.value) {
 		currentThumbPosition = thumbWrapperElWidth.value
 	}
@@ -216,7 +222,12 @@ onMounted(() => {
 
 			const percOfMax = (modelValue / max) * 100;
 			const position = (percOfMax / 100) * thumbWrapperElWidth.value;
-			setPositions(position, 'smooth');
+
+			if (position < minValue.value) {
+				setPositions(minValue.value, 'smooth');
+			} else {
+				setPositions(position, 'smooth');
+			}
 		}
 	}
 })
