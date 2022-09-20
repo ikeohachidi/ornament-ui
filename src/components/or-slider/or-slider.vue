@@ -252,13 +252,14 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
+@use "sass:math";
 @import "@/scss/utilities.scss";
 
 $size: 5px;
 $thumb-size: $size * 3;
 $tooltip-size: $size * 6;
 $marker-size: $size * 1.3;
-$slider-color: hsl(0, 0, 96%);
+$slider-color: hsl(0%, 0%, 96%);
 
 .or-slider {
 	height: $size;
@@ -278,7 +279,7 @@ $slider-color: hsl(0, 0, 96%);
 		@include set-sq-size($marker-size);
 		border-radius: 999px;
 		position: absolute;
-		top: -$marker-size / 2;
+		top: math.div(-$marker-size, 2);
 		border: 3px solid $slider-color;
 		background-color: #fff;
 		z-index: 2;
