@@ -3,11 +3,12 @@
 		<div class="or-slider" ref="thumbWrapperEl">
 			<div 
 				class="or-slider__marker" 
-				v-for="stepDistance in allStepsDistances" 
+				v-for="(stepDistance, index) in allStepsDistances" 
 				v-if="showMarkers && steps > 0"
 				:key="stepDistance"
 				:class="{ active: thumbPosition >= stepDistance }"
 				:style="{ left: `${stepDistance}px` }"
+				@click="onMarkerClick(index)"
 			></div>
 			<div class="or-slider__rail" ref="thumbRangeEl"></div>
 			<div class="or-slider__thumbs">
@@ -214,6 +215,12 @@ const onMouseDown = (event: MouseEvent): void => {
 	removeListeners(document.body);
 }
 
+const onMarkerClick = (markerPositionIndex: number): void => {
+	const distance = allStepsDistances.value[markerPositionIndex];
+	setPositions(distance, 'step');
+	updateModelValueStep(markerPositionIndex + 1);
+}
+
 const removeListeners = (element: HTMLElement): void => {
 	document.addEventListener('mouseup', () => {
 		element.removeEventListener('mousemove', onMouseMove);
@@ -287,6 +294,7 @@ $slider-color: hsl(0%, 0%, 96%);
 		border: 3px solid $slider-color;
 		background-color: #fff;
 		z-index: 2;
+		cursor: pointer;
 
 		&.active {
 			border-color: var(--color-primary);
