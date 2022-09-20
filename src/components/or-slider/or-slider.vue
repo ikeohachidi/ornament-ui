@@ -229,6 +229,10 @@ onMounted(() => {
 		if (steps > 0 && (modelValue > 0 && modelValue <= steps)) {
 			const position = allStepsDistances.value[modelValue - 1];
 			setPositions(position, 'step');
+		} else if (modelValue > steps) {
+			const allStepsLength = allStepsDistances.value.length;
+			const position = allStepsDistances.value[allStepsLength - 1];
+			setPositions(position, 'step');
 		}
 		else {
 			// since the modelValue in a smooth slider 
