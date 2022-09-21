@@ -30,6 +30,7 @@
 
 <script setup lang="ts">
 import { onMounted, ref, computed } from 'vue';
+import { useElementResize } from '@/utilities/use-resize';
 
 const props = withDefaults(defineProps<{
 	modelValue: number,
@@ -56,6 +57,8 @@ const unit = 'px';
 
 const thumbWrapperEl = ref<HTMLDivElement>();
 const thumbRangeEl = ref<HTMLDivElement>();
+
+const thumbWrapperElWidth = useElementResize(thumbWrapperEl);
 
 const getElementWidth = (element: HTMLElement): number => {
 	return parseInt(getComputedStyle(element).width.replace('px', ''));
@@ -86,16 +89,15 @@ const minValue = computed(() => {
 	return (perc / 100) * maxValue.value;
 });
 
-const singleStepDistance = computed(() => {
-	return maxValue.value / (props.steps - 1);
-});
-
 const allStepsDistances = computed(() => {
 	const steps: number[] = [];
 
-	for (let i = 0; i < props.steps; i++) {
-		steps.push(singleStepDistance.value * i);
+	const divs = thumbWrapperElWidth.value / props.steps;
+
+	for(let i = 0; i < props.steps; i++) {
+		steps.push(divs * i);
 	}
+	steps.push(thumbWrapperElWidth.value);
 
 	return steps;
 });
@@ -236,7 +238,8 @@ onMounted(() => {
 		if (steps > 0 && (modelValue > 0 && modelValue <= steps)) {
 			const position = allStepsDistances.value[modelValue - 1];
 			setPositions(position, 'step');
-		} else if (modelValue > steps) {
+		}
+		else if (modelValue > steps) {
 			const allStepsLength = allStepsDistances.value.length;
 			const position = allStepsDistances.value[allStepsLength - 1];
 			setPositions(position, 'step');
