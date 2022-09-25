@@ -60,10 +60,6 @@ const thumbRangeEl = ref<HTMLDivElement>();
 
 const thumbWrapperElWidth = useElementResize(thumbWrapperEl);
 
-const getElementWidth = (element: HTMLElement): number => {
-	return parseInt(getComputedStyle(element).width.replace('px', ''));
-}
-
 const setPositions = (position: number, type: 'smooth' | 'step'): void => {
 	thumbEl!.value!.style.translate = position + unit;
 	thumbRangeEl!.value!.style.width = position + unit;
@@ -76,9 +72,7 @@ const setPositions = (position: number, type: 'smooth' | 'step'): void => {
 const maxValue = computed(() => {
 	let value = 0;
 	if (thumbWrapperEl.value && thumbEl.value) {
-		// minus the width of thumb else thumb goes beyond container
-		// can't properly figure out a way to fix this using only css
-		value = getElementWidth(thumbWrapperEl.value) - (getElementWidth(thumbEl.value) - 3);
+		value = thumbWrapperEl.value.getBoundingClientRect().width; 
 	}
 
 	return value;
@@ -87,6 +81,10 @@ const maxValue = computed(() => {
 const minValue = computed(() => {
 	const perc = (props.min / props.max) * 100;
 	return (perc / 100) * maxValue.value;
+});
+
+const singleStepDistance = computed(() => {
+	return maxValue.value / props.steps;
 });
 
 const allStepsDistances = computed(() => {
@@ -236,10 +234,10 @@ onMounted(() => {
 	if (thumbEl.value && thumbWrapperEl.value) {
 		// step slider
 		if (steps > 0 && (modelValue > 0 && modelValue <= steps)) {
-			const position = allStepsDistances.value[modelValue - 1];
+			const position = singleStepDistance.value * (modelValue - 1);
 			setPositions(position, 'step');
 		}
-		else if (modelValue > steps) {
+		else if (steps > 0 && (modelValue > steps)) {
 			const allStepsLength = allStepsDistances.value.length;
 			const position = allStepsDistances.value[allStepsLength - 1];
 			setPositions(position, 'step');

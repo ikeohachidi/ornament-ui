@@ -15,14 +15,13 @@ export const useElementResize = (element: Ref<HTMLElement | undefined>) => {
 
     const setSize = () => {
         if (element && element.value) {
-            const rect = element.value.getBoundingClientRect();
-            size.value = rect.width;
+            size.value = element.value.getBoundingClientRect().width;
         }
     }
 
     // elements are usually undefined during the initial function call
-    // and the element ref is rarelly ever reassigned so the watch will
-    // never run again
+    // and the so this will run once when the element exists and won't run
+    // again since the element won't change
     watch(element, setSize);
 
     window.addEventListener('resize', () => {
