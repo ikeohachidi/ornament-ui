@@ -29,7 +29,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, computed } from 'vue';
+import { onMounted, ref, computed, watch } from 'vue';
 import { useElementResize } from '@/utilities/use-resize';
 
 const props = withDefaults(defineProps<{
@@ -44,6 +44,24 @@ const props = withDefaults(defineProps<{
 	max: 20,
 	steps: 0,
 	showMarkers: true 
+});
+
+// _model is used to store the present value slider by this component itself
+let _model = 0;
+
+watch(() => props.modelValue, () => {
+	if (props.steps > 0) {
+		const position = singleStepDistance.value * (props.modelValue - 1);
+		setPositions(position, 'step');
+	}
+	else {
+		if (props.modelValue !== _model) {
+			const percOfMax = (props.modelValue / props.max) * 100;
+			const position = (percOfMax / 100) * maxValue.value;
+
+			setPositions(position, 'smooth');
+		}
+	}	
 });
 
 const emit = defineEmits<{
@@ -104,6 +122,7 @@ const updateModelValue = () => {
 	const thumbPositionPerc = (thumbPosition.value / maxValue.value) * 100;
 	// percentage position of the thumb on the wrapper
 	const thumbPosPercOfWrapper = Math.round(thumbPositionPerc * (props.max / 100));
+	_model = thumbPosPercOfWrapper;
 	emit('update:modelValue', thumbPosPercOfWrapper);
 }
 
@@ -210,7 +229,6 @@ const onMouseMove = (event: MouseEvent): void => {
 
 const onMouseDown = (event: MouseEvent): void => {
 	if (!thumbEl.value) return;
-
 	document.body.addEventListener('mousemove', onMouseMove);
 	removeListeners(document.body);
 }
