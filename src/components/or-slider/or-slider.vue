@@ -39,7 +39,6 @@ const props = withDefaults(defineProps<{
 	steps?: number,
 	showMarkers?: boolean
 }>(), {
-	modelValue: 0,
 	min: 0,
 	max: 20,
 	steps: 0,
@@ -289,7 +288,7 @@ $size: 5px;
 $thumb-size: $size * 3;
 $tooltip-size: $size * 6;
 $marker-size: $size * 1.3;
-$slider-color: hsl(0%, 0%, 96%);
+$slider-color: hsl(0, 0%, 96%);
 
 .or-slider {
 	height: $size;
