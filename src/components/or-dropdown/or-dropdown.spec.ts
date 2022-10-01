@@ -2,7 +2,7 @@ import { mount } from "@vue/test-utils";
 import OrDropdown from ".";
 import OrCheckbox from "../or-checkbox";
 import OrChips from "../or-chips";
-import OrInput from "../or-input";
+import { OrInput } from "../or-input";
 
 const options = [
 	{ label: 'Excellent', value: 'A+' },

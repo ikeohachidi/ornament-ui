@@ -1,15 +1,8 @@
-import useEvent, { emitter } from './use-shared-event';
+import { emitter } from './use-shared-event';
 
 const callback = jest.fn();
 
-describe('useShareEvent', () => {
-	it('should call run the callback function', () => {
-		useEvent('fire').listen(callback);
-		useEvent('fire').push('hello');
-
-		expect(callback).toHaveBeenCalledWith('hello');
-	})
-
+describe('event emitters', () => {
 	it('should call run the callback function', () => {
 		emitter.on('fire', callback)
 		emitter.emit('fire', 'hello');
