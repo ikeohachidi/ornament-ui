@@ -3,6 +3,7 @@
 		<div class="or-slider" ref="thumbWrapperEl">
 			<div 
 				class="or-slider__marker" 
+				data-testid="or-slider-marker"
 				v-for="(stepDistance, index) in allStepsDistances" 
 				v-if="showMarkers && steps > 0"
 				:key="stepDistance"
@@ -14,6 +15,7 @@
 			<div class="or-slider__thumbs">
 				<div
 					class="or-slider__thumb"
+					data-testid="or-slider-thumb"
 					@mousedown="onMouseDown"
 					ref="thumbEl"
 				>
@@ -107,12 +109,11 @@ const singleStepDistance = computed(() => {
 const allStepsDistances = computed(() => {
 	const steps: number[] = [];
 
-	const divs = thumbWrapperElWidth.value / props.steps;
+	const divs = thumbWrapperElWidth.value / (props.steps - 1);
 
 	for(let i = 0; i < props.steps; i++) {
 		steps.push(divs * i);
 	}
-	steps.push(thumbWrapperElWidth.value);
 
 	return steps;
 });
