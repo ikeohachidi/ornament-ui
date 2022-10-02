@@ -103,7 +103,7 @@ const minValue = computed(() => {
 });
 
 const singleStepDistance = computed(() => {
-	return maxValue.value / props.steps;
+	return maxValue.value / (props.steps - 1);
 });
 
 const allStepsDistances = computed(() => {
