@@ -14,10 +14,12 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, ref, inject } from 'vue';
+import { useTheme } from '@/utilities';
+import { Size, Sizes, injectionKey } from '@/types';
 import { OrPulsingLoader, OrCircularLoader } from '../or-loaders';
 
-import { Size, Sizes } from '@/types/Size';
+const { defaultTheme } = useTheme();
 
 const props = withDefaults(defineProps<{
 	isLoading?: boolean;
@@ -53,10 +55,12 @@ const getSize = computed(() => {
 
 $profiles: danger, success, info;
 
+$primary: v-bind('defaultTheme.primary');
+
 @include min-height-size("button");
 
 button {
-	background: var(--color-primary);
+	background: $primary;
 	border: 1px solid var(--color-primary);
 	font-size: 1rem;
 	border-radius: var(--radius-1);

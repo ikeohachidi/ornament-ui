@@ -1,4 +1,7 @@
-import { App } from 'vue';
+import { App, provide } from 'vue';
+import { merge } from 'lodash/fp';
+import type { ComponentOptions } from './types';
+import { injectionKey } from './types';
 import './main.scss';
 
 import OrButton from './components/or-button';
@@ -57,8 +60,32 @@ export {
 	VFormDisable
 }
 
+const optionsDefaults: ComponentOptions = {
+	theme: {
+		default: {
+			primary: '#1F2937',
+			secondary: '#5f27cd',
+			danger: '#e74c3c',
+			success: '#2ecc71',
+			info: '#3498db',
+			text: {
+				primary: '#3c3c3f',
+				secondary: '#59595e'
+			},
+			grey: {
+				dark: '#cccccc',
+				dark2: '#e6ebee77',
+				dark3: '#e6ebee3b'
+			}
+		}
+	}
+}
+
 export default {
-	install: (app: App) => {
+	install: (app: App, options: ComponentOptions) => {
+		const mergedOptions = merge(optionsDefaults, options);
+		app.provide(injectionKey, mergedOptions);
+
 		app.component('or-button', OrButton);
 		app.component('or-dropdown', OrDropdown);
 		app.component('or-input', OrInput);
