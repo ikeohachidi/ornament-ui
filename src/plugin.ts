@@ -1,7 +1,5 @@
-import { App, provide } from 'vue';
-import { merge } from 'lodash/fp';
+import { App } from 'vue';
 import type { ComponentOptions } from './types';
-import { injectionKey } from './types';
 import './main.scss';
 
 import OrButton from './components/or-button';
@@ -25,6 +23,8 @@ import OrDialog from './components/or-dialog';
 import OrOverlay from './components/or-overlay';
 import OrSlider from './components/or-slider';
 import OrTree from './components/or-tree';
+
+import OrThemeProvider from './components/or-theme-provider';
 
 // directives import
 import VLoader from './directives/loader';
@@ -56,36 +56,14 @@ export {
 	OrSlider,
 	OrTree,
 
+	OrThemeProvider,
+
 	VLoader,
 	VFormDisable
 }
 
-const optionsDefaults: ComponentOptions = {
-	theme: {
-		default: {
-			primary: '#1F2937',
-			secondary: '#5f27cd',
-			danger: '#e74c3c',
-			success: '#2ecc71',
-			info: '#3498db',
-			text: {
-				primary: '#3c3c3f',
-				secondary: '#59595e'
-			},
-			grey: {
-				dark: '#cccccc',
-				dark2: '#e6ebee77',
-				dark3: '#e6ebee3b'
-			}
-		}
-	}
-}
-
 export default {
 	install: (app: App, options: ComponentOptions) => {
-		const mergedOptions = merge(optionsDefaults, options);
-		app.provide(injectionKey, mergedOptions);
-
 		app.component('or-button', OrButton);
 		app.component('or-dropdown', OrDropdown);
 		app.component('or-input', OrInput);
@@ -112,6 +90,8 @@ export default {
 		app.component('or-overlay', OrOverlay);
 		app.component('or-slider', OrSlider);
 		app.component('or-tree', OrTree);
+
+		app.component('or-theme-provider', OrThemeProvider);
 
 		app.directive('loader', VLoader);
 		app.directive('form-disable', VFormDisable);

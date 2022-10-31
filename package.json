@@ -44,12 +44,14 @@
     "@vuepress/bundler-vite": "^2.0.0-beta.27",
     "@vuepress/theme-default": "^2.0.0-beta.27",
     "kwik-css": "^0.1.5",
+    "lodash": "^4.17.21",
     "remixicon": "^2.5.0",
     "vue": "^3.2.16"
   },
   "devDependencies": {
     "@babel/core": "^7.15.8",
     "@types/jest": "^27.0.3",
+    "@types/lodash": "^4.14.186",
     "@vitejs/plugin-vue": "^1.9.3",
     "@vue/test-utils": "^2.0.0-rc.18",
     "@vue/vue3-jest": "27.0.0-alpha.4",
