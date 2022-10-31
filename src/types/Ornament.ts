@@ -1,3 +1,4 @@
+import { ButtonOptions } from '@/components/or-button';
 type Theme = {
     primary?: string
     secondary?: string
@@ -17,10 +18,8 @@ type DefaultTheme = Theme & {
 }
 
 type ComponentOptions = {
-    theme: {
-        default: DefaultTheme,
-        [key: string]: Record<string, unknown>
-    }
+    default: DefaultTheme
+    Button?: ButtonOptions
 }
 
 export const injectionKey = Symbol();
