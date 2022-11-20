@@ -15,7 +15,7 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue';
-import { useTheme, useStyles } from '@/utilities';
+import { useTheme, useStyles } from '@/components/theme-provider';
 import { Size, Sizes } from '@/types';
 import type { ButtonOptions } from '.';
 import { OrPulsingLoader, OrCircularLoader } from '../or-loaders';

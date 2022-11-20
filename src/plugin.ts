@@ -24,7 +24,7 @@ import OrOverlay from './components/or-overlay';
 import OrSlider from './components/or-slider';
 import OrTree from './components/or-tree';
 
-import OrThemeProvider from './components/or-theme-provider';
+import ThemeProvider from './components/theme-provider';
 
 // directives import
 import VLoader from './directives/loader';
@@ -56,7 +56,7 @@ export {
 	OrSlider,
 	OrTree,
 
-	OrThemeProvider,
+	ThemeProvider,
 
 	VLoader,
 	VFormDisable
@@ -91,7 +91,7 @@ export default {
 		app.component('or-slider', OrSlider);
 		app.component('or-tree', OrTree);
 
-		app.component('or-theme-provider', OrThemeProvider);
+		app.component('theme-provider', ThemeProvider);
 
 		app.directive('loader', VLoader);
 		app.directive('form-disable', VFormDisable);
