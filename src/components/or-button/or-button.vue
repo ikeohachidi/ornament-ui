@@ -58,13 +58,13 @@ const getSize = computed(() => {
 
 $profiles: danger, success, info;
 
-$primary: v-bind('styles.primary');
+$primary: v-bind('styles.primaryBg');
 
 @include min-height-size("button");
 
 button {
-	background: v-bind('styles.primary');
-	border: 1px solid v-bind('styles.primary');
+	background: v-bind('styles.primaryBg');
+	border: 1px solid v-bind('styles.primaryBg');
 	font-size: 1rem;
 	border-radius: var(--radius-1);
 	color: #fff;
@@ -100,24 +100,24 @@ button {
 	&.text {
 		color: var(--text-color-1);
 		border: none;
-		background-color: transparent;
+		background: transparent;
 
 		&.danger:hover {
-			background-color: #e74d3c18;
+			background: #e74d3c18;
 		}
 		&.success:hover {
-			background-color: #2ecc7118;
+			background: #2ecc7118;
 		}
 		&.info:hover {
-			background-color: #3498db18;
+			background: #3498db18;
 		}
 	}
 
 	&:disabled {
-		background-color: var(--color-gray-2);
+		background: var(--color-gray-2);
 		border: 1px solid var(--color-gray-1);
 		&:disabled:hover {
-			background-color: var(--color-gray-2) !important;
+			background: var(--color-gray-2) !important;
 		}
 	}
 }

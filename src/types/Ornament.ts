@@ -1,13 +1,10 @@
 import { ButtonOptions } from '@/components/or-button';
-type Theme = {
-    primary?: string
-    secondary?: string
-    [key: string]: string | unknown
-}
 
 type HexColor = string
 
-type DefaultTheme = Theme & {
+type DefaultTheme = {
+    primaryBg: string
+    secondaryBg: string
     danger?: HexColor
     success?: HexColor
     info?: HexColor 
@@ -15,6 +12,7 @@ type DefaultTheme = Theme & {
         primary?: HexColor
         secondary?: HexColor
     }
+    [key: string]: string | unknown
 }
 
 type ComponentOptions = {

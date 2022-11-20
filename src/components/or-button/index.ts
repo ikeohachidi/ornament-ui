@@ -2,9 +2,8 @@ import OrButton from './or-button.vue';
 
 export type ButtonOptions = {
     borderRadius: number
-    primary: string
-    secondary: string
-    disabled: string
+    primaryBg: string
+    disabledBg: string
     textColor: string
     padding: string 
 }

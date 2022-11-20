@@ -1,23 +1,29 @@
 import { inject, ref, Ref } from "vue";
 import { ComponentOptions, DefaultTheme, injectionKey } from "@/types";
+import { merge } from 'lodash/fp';
 
 type ReturnValue<T> = {
-    defaultTheme: Ref<DefaultTheme>
-    componentTheme: Ref<T>
+    defaultTheme: Ref<Partial<DefaultTheme>>
+    componentTheme: Ref<Partial<T> | undefined>
 }
 
 export const useTheme = <T>(key?: keyof ComponentOptions): ReturnValue<T> => {
-    const defaultTheme = ref<DefaultTheme>({});
-    const componentTheme = ref();
+    const defaultTheme = ref<Partial<DefaultTheme>>({
+        primaryBg: '#000',
+        secondaryBg: 'teal',
+    });
+
+    const componentTheme = ref<Partial<T>>();
 
     const theme = (inject(injectionKey) as ComponentOptions);
 
-    if ('default' in theme) {
-        defaultTheme.value = theme.default;
-    }
+    // theme may be undefined because the ThemeProvider isn't being used
+    if (theme && 'default' in theme) {
+        defaultTheme.value = merge(defaultTheme.value, theme.default);
 
-    if (key && key in theme) {
-        componentTheme.value = theme[key];
+        if (key && key in theme) {
+            componentTheme.value = (theme[key] as unknown) as Partial<T>;
+        }
     }
 
     return {
@@ -26,9 +32,8 @@ export const useTheme = <T>(key?: keyof ComponentOptions): ReturnValue<T> => {
     }
 }
 
-export const useStyles = <T extends {[key: string]: unknown}>(componentTheme: Ref<T>, defaultTheme: Ref<DefaultTheme>) => {
+export const useStyles = <T extends {[key: string]: unknown}>(componentTheme: Ref<T | undefined>, defaultTheme: Ref<Partial<DefaultTheme>>) => {
     return {
-        primary: (componentTheme.value.primary || defaultTheme.value.primary),
-        secondary: (componentTheme.value.secondary || defaultTheme.value.secondary),
+        primaryBg: (componentTheme?.value?.primaryBg || defaultTheme.value.primaryBg),
     }
 }
