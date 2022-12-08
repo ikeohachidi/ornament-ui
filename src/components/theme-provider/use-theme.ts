@@ -1,31 +1,20 @@
-import { computed, inject, reactive, ref, Ref } from "vue";
-import { ComponentOptions, DefaultTheme, injectionKey } from "@/types";
+import { computed, inject, ref, Ref } from "vue";
+import { injectionKey } from "@/types";
+import type { BaseTheme, ComponentOptions } from "@/types";
+import { defaultThemeSetting } from './defaults';
 import { merge } from 'lodash/fp';
 
-type ReturnValue<T> = {
-    defaultTheme: Ref<Partial<DefaultTheme>>
-    componentTheme: Ref<Partial<T> | undefined>
+type ComponentTheme<T> = Partial<T> & BaseTheme;
+
+type Theme<T> = {
+    defaultTheme: Ref<BaseTheme>
+    componentTheme: Ref<ComponentTheme<T> | undefined>
 }
 
-export const useTheme = <T>(key?: keyof ComponentOptions): ReturnValue<T> => {
-    const defaultTheme = ref<Partial<DefaultTheme>>({
-        primaryBg: '#1F2937',
-        secondaryBg: '#5f27cd',
-        dangerBg: '#e74c3c',
-        successBg: '#2ecc71',
-        infoBg: '#3498db',
-        text: {
-            primary: '#3c3c3f',
-            secondary: '#59595e'
-        },
-        grey: {
-            dark: '#cccccc',
-            dark2: '#e6ebee77',
-            dark3: '#e6ebee3b'
-        }
-    });
+export const useTheme = <T>(key?: keyof ComponentOptions): Theme<T> => {
+    const defaultTheme = ref<BaseTheme>(defaultThemeSetting);
 
-    const componentTheme = ref<Partial<T>>();
+    const componentTheme = ref<ComponentTheme<T>>();
 
     const theme = (inject(injectionKey) as ComponentOptions);
 
@@ -36,7 +25,7 @@ export const useTheme = <T>(key?: keyof ComponentOptions): ReturnValue<T> => {
         }
 
         if (key && key in theme) {
-            componentTheme.value = (theme[key] as unknown) as Partial<T>;
+            componentTheme.value = (theme[key] as unknown) as ComponentTheme<T>;
         }
     }
 
@@ -46,8 +35,21 @@ export const useTheme = <T>(key?: keyof ComponentOptions): ReturnValue<T> => {
     }
 }
 
-export const useStyles = <T extends {[key: string]: unknown}>(componentTheme: Ref<T | undefined>, defaultTheme: Ref<Partial<DefaultTheme>>) => {
+export const useStyles = <T extends {[key: string]: unknown}>(componentTheme: Ref<(T & BaseTheme) | undefined>, defaultTheme: Ref<BaseTheme>) => {
     return computed(() => ({
-        primaryBg: (componentTheme?.value?.primaryBg || defaultTheme.value.primaryBg),
+        primaryBg: (componentTheme?.value?.primary?.background || defaultTheme.value.primary.background),
+        primaryTextColor: (componentTheme?.value?.primary?.textColor || defaultTheme.value.primary.textColor),
+
+        secondaryBg: (componentTheme?.value?.secondary?.background || defaultTheme.value.secondary.background),
+        secondaryTextColor: (componentTheme?.value?.secondary?.textColor || defaultTheme.value.secondary.textColor),
+
+        dangerBg: (componentTheme?.value?.danger?.background || defaultTheme.value.danger.background),
+        dangerTextColor: (componentTheme?.value?.danger?.textColor || defaultTheme.value.danger.textColor),
+
+        infoBg: (componentTheme?.value?.info?.background || defaultTheme.value.info.background),
+        infoTextColor: (componentTheme?.value?.info?.textColor || defaultTheme.value.info.textColor),
+
+        successBg: (componentTheme?.value?.success?.background || defaultTheme.value.success.background),
+        successTextColor: (componentTheme?.value?.success?.textColor || defaultTheme.value.success.textColor),
     }));
 }
