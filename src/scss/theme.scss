@@ -1,0 +1,18 @@
+$theme-profile-map: (
+	(
+		"kind": "danger",
+		"bg": v-bind('styles.dangerBg'),
+		"textColor": v-bind('styles.dangerTextColor')
+	),
+	(
+		"kind": "success",
+		"bg": v-bind('styles.successBg'),
+		"textColor": v-bind('styles.successTextColor')
+	),
+	(
+		"kind": "info",
+		"bg": v-bind('styles.infoBg'),
+		"textColor": v-bind('styles.infoTextColor')
+	),
+);
+

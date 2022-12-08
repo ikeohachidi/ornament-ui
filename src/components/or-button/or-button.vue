@@ -53,47 +53,54 @@ const getSize = computed(() => {
 </script>
 
 <style lang="scss" scoped>
+@use "sass:list";
+@use "sass:map";
+
+@import "@/scss/theme.scss";
 @import "@/scss/color.scss";
 @import "@/scss/utilities.scss";
 
-$profiles: danger, success, info;
-
-$primary: v-bind('styles.primaryBg');
-
 @include min-height-size("button");
+
+
+$primaryBg: v-bind('styles.primaryBg');
+$primaryTextColor: v-bind('styles.primaryTextColor');
 
 button {
 	background: v-bind('styles.primaryBg');
 	border: 1px solid v-bind('styles.primaryBg');
 	font-size: 1rem;
 	border-radius: var(--radius-1);
-	color: #fff;
+	color: v-bind('styles.primaryTextColor');
 	cursor: pointer;
 	transition: .2s;
 	display: inline-flex;
 	justify-content: center;
 	align-items: center;
 
+	@each $profile in $theme-profile-map {
+		$kind: map.get($profile, "kind");
+		$bg: map.get($profile, "bg");
+		$textColor: map.get($profile, "textColor");
 
-	@each $profile in $profiles {
-		&.#{$profile} {
+		&.#{$kind} {
 			border: none;
-			background-color: var(--color-#{$profile});
-			color: #fff;
+			background-color: $bg;
+			color: $textColor;
 		}
 
-		&.outline.#{$profile}, &.text.#{$profile} {
-			color: var(--color-#{$profile});
+		&.outline.#{$kind}, &.text.#{$kind} {
+			color: $bg;
 		}
 
-		&.outline.#{$profile} {
-			color: var(--color-#{$profile});
-			border: 1px solid var(--color-#{$profile});
+		&.outline.#{$kind} {
+			color: $bg;
+			border: 1px solid $bg;
 		}
 	}
 
 	&.outline {
-		color: var(--text-color-1);
+		color: $primaryBg;
 		background: transparent;
 	}
 
