@@ -1,11 +1,15 @@
 import { shallowMount } from "@vue/test-utils";
-import OrSwitch from './index';
+import OrSwitch from '.';
 
 const factory = (props: {}) => {
 	return shallowMount(OrSwitch, {
 		attachTo: document.body,
-		props,
-	})
+		props: {
+			modelValue: true,
+			checkedValue: false,
+			...props
+		}
+	});
 }
 
 describe('OrSwitch', () => {

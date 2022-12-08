@@ -16,18 +16,22 @@
 	</label>
 </template>
 
-<script lang="ts" setup>
-import { computed, onMounted, ref } from "vue";
+<script setup lang="ts">
+import { computed, onMounted, PropType, ref } from "vue";
 
 type ModelValueType = boolean | string | number | unknown[];
 
-const props = withDefaults(defineProps<{
-	modelValue: ModelValueType;
-	checkedValue: unknown,
-	uncheckedValue?: unknown,
-}>(), {
-	uncheckedValue: undefined 
-})
+const props = defineProps({
+	uncheckedValue: Object as PropType<unknown>,
+	checkedValue: {
+		type: Object as PropType<unknown>,
+		required: true
+	},
+	modelValue: {
+		type: Object as PropType<ModelValueType>,
+		required: true
+	}
+});
 
 const emit = defineEmits<{
 	(event: 'update:modelValue', value: unknown): void;
@@ -51,7 +55,7 @@ const isSelected = computed(() => {
 	return JSON.stringify(props.modelValue).includes(JSON.stringify(props.checkedValue));
 })
 
-const onInputValueChange = (e: InputEvent) => {
+const onInputValueChange = (e: Event) => {
 	const target = e.target as HTMLInputElement;
 
 	if (target.checked) {
