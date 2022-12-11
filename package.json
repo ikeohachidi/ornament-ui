@@ -51,7 +51,7 @@
   "devDependencies": {
     "@babel/core": "^7.15.8",
     "@types/jest": "^27.0.3",
-    "@types/lodash": "^4.14.186",
+    "@types/lodash": "^4.14.191",
     "@vitejs/plugin-vue": "^1.9.3",
     "@vue/test-utils": "^2.2.6",
     "@vue/vue3-jest": "27.0.0-alpha.4",
