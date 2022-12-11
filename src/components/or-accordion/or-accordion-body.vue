@@ -22,12 +22,15 @@
 
 <script setup lang="ts">
 import { useAttrs, computed } from "vue";
+import { useTheme } from "@/components/theme-provider";
 
-const props = defineProps<{
+defineProps<{
 	title?: string;
 }>();
 
 const attrs = useAttrs();
+
+const theme = useTheme('Accordion');
 
 const isComponentActive = computed(() => attrs._isActive);
 
@@ -44,12 +47,13 @@ const toggleAccordion = () => {
 <style lang="scss" scoped>
 .or-accordion-title {
 	cursor: pointer;
-	border-bottom: 1px solid var(--color-gray-1);
+	border-bottom: 1px solid v-bind('theme.backgroundSecondary');
+	background: v-bind('theme.backgroundPrimary');
 }
 
 .or-accordion-body {
 	overflow-y: auto;
-	background: var(--color-gray-2);
+	background: v-bind('theme.backgroundSecondary');
 
 	&.inactive {
 		max-height: 0;
