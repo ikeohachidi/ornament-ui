@@ -1,39 +1,28 @@
-import { computed, inject, ref, Ref } from "vue";
+import { computed, inject, ref, Ref, watch } from "vue";
 import { injectionKey } from "@/types";
 import type { BaseTheme, ComponentOptions } from "@/types";
 import { defaultThemeSetting } from './defaults';
 import { merge } from 'lodash/fp';
 
-type Theme = {
-    defaultTheme: Ref<BaseTheme>
-    componentTheme: Ref<BaseTheme | undefined>
-}
-
-export const useTheme = (key?: keyof ComponentOptions): Theme => {
-    const defaultTheme = ref<BaseTheme>(defaultThemeSetting);
-
+export const useTheme = (key?: keyof ComponentOptions) => {
     const componentTheme = ref<BaseTheme>();
 
-    const theme = (inject(injectionKey) as ComponentOptions);
+    const theme = inject(injectionKey) as ComponentOptions;
+
+    const defaultTheme = computed(() => {
+        if (theme && 'default' in theme) {
+            return merge(defaultThemeSetting, theme.default);
+        }
+        return defaultThemeSetting;
+    })
 
     // theme may be undefined because the ThemeProvider isn't being used
     if (theme) {
-        if ('default' in theme) {
-            defaultTheme.value = merge(defaultTheme.value, theme.default);
-        }
-
         if (key && key in theme) {
             componentTheme.value = (theme[key] as unknown) as BaseTheme;
         }
     }
 
-    return {
-        defaultTheme,
-        componentTheme
-    }
-}
-
-export const useStyles = <T>(componentTheme: Ref<BaseTheme | undefined>, defaultTheme: Ref<BaseTheme>) => {
     return computed(() => ({
         primaryBg: (componentTheme?.value?.primary?.background || defaultTheme.value.primary.background),
         primaryTextColor: (componentTheme?.value?.primary?.textColor || defaultTheme.value.primary.textColor),
