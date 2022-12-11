@@ -51,5 +51,9 @@ export const useStyles = <T extends {[key: string]: unknown}>(componentTheme: Re
 
         successBg: (componentTheme?.value?.success?.background || defaultTheme.value.success.background),
         successTextColor: (componentTheme?.value?.success?.textColor || defaultTheme.value.success.textColor),
+
+        disabledBg: (componentTheme?.value?.disabled?.background || defaultTheme.value.disabled.background),
+        disabledTextColor: (componentTheme?.value?.disabled?.textColor || defaultTheme.value.disabled.textColor),
+
     }));
 }

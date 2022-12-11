@@ -62,6 +62,16 @@ export interface BaseTheme {
          */
         textColor: CssColor
     }
+    disabled: {
+        /**
+         * @default #d1d5db
+         */
+        background: CssColor,
+        /**
+         * @default #6b7280
+         */
+        textColor: CssColor
+    },
     /**
      * The background of components like cards, menus etc
      */

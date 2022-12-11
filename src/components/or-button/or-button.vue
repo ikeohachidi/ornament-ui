@@ -121,10 +121,11 @@ button {
 	}
 
 	&:disabled {
-		background: var(--color-gray-2);
-		border: 1px solid var(--color-gray-1);
+		background: v-bind('styles.disabledBg');
+		color: v-bind('styles.disabledTextColor');
+		border: none;
 		&:disabled:hover {
-			background: var(--color-gray-2) !important;
+			background: v-bind('styles.disabledBg') !important;
 		}
 	}
 }

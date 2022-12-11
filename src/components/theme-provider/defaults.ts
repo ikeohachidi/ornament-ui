@@ -21,6 +21,10 @@ export const defaultThemeSetting: BaseTheme = {
 		background: '#3498db',
 		textColor: '#fff'
 	},
+	disabled: {
+		background: '#d1d5db',
+		textColor: '#6b7280'
+	},
 	background: {
 		primary: '#fff',
 		secondary: '#fafafa'
