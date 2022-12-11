@@ -17,10 +17,9 @@
 import { computed, ref } from 'vue';
 import { useTheme, useStyles } from '@/components/theme-provider';
 import { Size, Sizes } from '@/types';
-import type { ButtonOptions } from '.';
 import { OrPulsingLoader, OrCircularLoader } from '../or-loaders';
 
-const { defaultTheme, componentTheme } = useTheme<ButtonOptions>('Button');
+const { defaultTheme, componentTheme } = useTheme('Button');
 
 const styles = useStyles(componentTheme, defaultTheme);
 

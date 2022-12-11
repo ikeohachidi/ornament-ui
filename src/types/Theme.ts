@@ -1,4 +1,4 @@
-import type { ButtonOptions } from '@/components/or-button';
+import type { ButtonTheme } from '@/components/or-button';
 
 // type HexColor = string
 export type CssColor = string;
@@ -104,7 +104,7 @@ export interface BaseTheme {
 
 export interface ComponentOptions {
     default: BaseTheme
-    Button?: Partial<BaseTheme> & ButtonOptions
+    Button?: Partial<BaseTheme> & ButtonTheme
 }
 
 export const injectionKey = 'OrnamentUI';

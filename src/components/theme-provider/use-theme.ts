@@ -4,17 +4,15 @@ import type { BaseTheme, ComponentOptions } from "@/types";
 import { defaultThemeSetting } from './defaults';
 import { merge } from 'lodash/fp';
 
-type ComponentTheme<T> = Partial<T> & BaseTheme;
-
-type Theme<T> = {
+type Theme = {
     defaultTheme: Ref<BaseTheme>
-    componentTheme: Ref<ComponentTheme<T> | undefined>
+    componentTheme: Ref<BaseTheme | undefined>
 }
 
-export const useTheme = <T>(key?: keyof ComponentOptions): Theme<T> => {
+export const useTheme = (key?: keyof ComponentOptions): Theme => {
     const defaultTheme = ref<BaseTheme>(defaultThemeSetting);
 
-    const componentTheme = ref<ComponentTheme<T>>();
+    const componentTheme = ref<BaseTheme>();
 
     const theme = (inject(injectionKey) as ComponentOptions);
 
@@ -25,7 +23,7 @@ export const useTheme = <T>(key?: keyof ComponentOptions): Theme<T> => {
         }
 
         if (key && key in theme) {
-            componentTheme.value = (theme[key] as unknown) as ComponentTheme<T>;
+            componentTheme.value = (theme[key] as unknown) as BaseTheme;
         }
     }
 
@@ -35,7 +33,7 @@ export const useTheme = <T>(key?: keyof ComponentOptions): Theme<T> => {
     }
 }
 
-export const useStyles = <T extends {[key: string]: unknown}>(componentTheme: Ref<(T & BaseTheme) | undefined>, defaultTheme: Ref<BaseTheme>) => {
+export const useStyles = <T>(componentTheme: Ref<BaseTheme | undefined>, defaultTheme: Ref<BaseTheme>) => {
     return computed(() => ({
         primaryBg: (componentTheme?.value?.primary?.background || defaultTheme.value.primary.background),
         primaryTextColor: (componentTheme?.value?.primary?.textColor || defaultTheme.value.primary.textColor),
@@ -55,5 +53,6 @@ export const useStyles = <T extends {[key: string]: unknown}>(componentTheme: Re
         disabledBg: (componentTheme?.value?.disabled?.background || defaultTheme.value.disabled.background),
         disabledTextColor: (componentTheme?.value?.disabled?.textColor || defaultTheme.value.disabled.textColor),
 
+        component: componentTheme.value
     }));
 }
