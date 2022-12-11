@@ -15,13 +15,11 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue';
-import { useTheme, useStyles } from '@/components/theme-provider';
+import { useTheme } from '@/components/theme-provider';
 import { Size, Sizes } from '@/types';
 import { OrPulsingLoader, OrCircularLoader } from '../or-loaders';
 
-const { defaultTheme, componentTheme } = useTheme('Button');
-
-const styles = useStyles(componentTheme, defaultTheme);
+const theme = useTheme('Button');
 
 const props = withDefaults(defineProps<{
 	isLoading?: boolean
@@ -62,15 +60,15 @@ const getSize = computed(() => {
 @include min-height-size("button");
 
 
-$primaryBg: v-bind('styles.primaryBg');
-$primaryTextColor: v-bind('styles.primaryTextColor');
+$primaryBg: v-bind('theme.primaryBg');
+$primaryTextColor: v-bind('theme.primaryTextColor');
 
 button {
-	background: v-bind('styles.primaryBg');
-	border: 1px solid v-bind('styles.primaryBg');
+	background: v-bind('theme.primaryBg');
+	border: 1px solid v-bind('theme.primaryBg');
 	font-size: 1rem;
 	border-radius: var(--radius-1);
-	color: v-bind('styles.primaryTextColor');
+	color: v-bind('theme.primaryTextColor');
 	cursor: pointer;
 	transition: .2s;
 	display: inline-flex;
@@ -120,11 +118,11 @@ button {
 	}
 
 	&:disabled {
-		background: v-bind('styles.disabledBg');
-		color: v-bind('styles.disabledTextColor');
+		background: v-bind('theme.disabledBg');
+		color: v-bind('theme.disabledTextColor');
 		border: none;
 		&:disabled:hover {
-			background: v-bind('styles.disabledBg') !important;
+			background: v-bind('theme.disabledBg') !important;
 		}
 	}
 }
