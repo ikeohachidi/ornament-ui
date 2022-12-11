@@ -1,4 +1,5 @@
 import { App } from 'vue';
+import type { ComponentOptions } from './types';
 import './main.scss';
 
 import OrButton from './components/or-button';
@@ -22,6 +23,8 @@ import OrDialog from './components/or-dialog';
 import OrOverlay from './components/or-overlay';
 import OrSlider from './components/or-slider';
 import OrTree from './components/or-tree';
+
+import ThemeProvider from './components/theme-provider';
 
 // directives import
 import VLoader from './directives/loader';
@@ -53,12 +56,14 @@ export {
 	OrSlider,
 	OrTree,
 
+	ThemeProvider,
+
 	VLoader,
 	VFormDisable
 }
 
 export default {
-	install: (app: App) => {
+	install: (app: App, options: ComponentOptions) => {
 		app.component('or-button', OrButton);
 		app.component('or-dropdown', OrDropdown);
 		app.component('or-input', OrInput);
@@ -85,6 +90,8 @@ export default {
 		app.component('or-overlay', OrOverlay);
 		app.component('or-slider', OrSlider);
 		app.component('or-tree', OrTree);
+
+		app.component('theme-provider', ThemeProvider);
 
 		app.directive('loader', VLoader);
 		app.directive('form-disable', VFormDisable);

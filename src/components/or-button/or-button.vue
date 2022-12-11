@@ -15,14 +15,18 @@
 
 <script setup lang="ts">
 import { computed, ref } from 'vue';
+import { useTheme, useStyles } from '@/components/theme-provider';
+import { Size, Sizes } from '@/types';
 import { OrPulsingLoader, OrCircularLoader } from '../or-loaders';
 
-import { Size, Sizes } from '@/types/Size';
+const { defaultTheme, componentTheme } = useTheme('Button');
+
+const styles = useStyles(componentTheme, defaultTheme);
 
 const props = withDefaults(defineProps<{
-	isLoading?: boolean;
-	size?: Size;
-	loader?: 'pulse' | 'circular',
+	isLoading?: boolean
+	size?: Size
+	loader?: 'pulse' | 'circular'
 }>(), {
 	isLoading: false,
 	size: Size.SM,
@@ -48,69 +52,79 @@ const getSize = computed(() => {
 </script>
 
 <style lang="scss" scoped>
+@use "sass:list";
+@use "sass:map";
+
+@import "@/scss/theme.scss";
 @import "@/scss/color.scss";
 @import "@/scss/utilities.scss";
 
-$profiles: danger, success, info;
-
 @include min-height-size("button");
 
+
+$primaryBg: v-bind('styles.primaryBg');
+$primaryTextColor: v-bind('styles.primaryTextColor');
+
 button {
-	background: var(--color-primary);
-	border: 1px solid var(--color-primary);
+	background: v-bind('styles.primaryBg');
+	border: 1px solid v-bind('styles.primaryBg');
 	font-size: 1rem;
 	border-radius: var(--radius-1);
-	color: #fff;
+	color: v-bind('styles.primaryTextColor');
 	cursor: pointer;
 	transition: .2s;
 	display: inline-flex;
 	justify-content: center;
 	align-items: center;
 
+	@each $profile in $theme-profile-map {
+		$kind: map.get($profile, "kind");
+		$bg: map.get($profile, "bg");
+		$textColor: map.get($profile, "textColor");
 
-	@each $profile in $profiles {
-		&.#{$profile} {
+		&.#{$kind} {
 			border: none;
-			background-color: var(--color-#{$profile});
-			color: #fff;
+			background-color: $bg;
+			color: $textColor;
 		}
 
-		&.outline.#{$profile}, &.text.#{$profile} {
-			color: var(--color-#{$profile});
+		&.outline.#{$kind}, &.text.#{$kind} {
+			color: $bg;
 		}
 
-		&.outline.#{$profile} {
-			color: var(--color-#{$profile});
-			border: 1px solid var(--color-#{$profile});
+		&.outline.#{$kind} {
+			color: $bg;
+			border: 1px solid $bg;
 		}
 	}
 
 	&.outline {
-		color: var(--text-color-1);
+		color: $primaryBg;
 		background: transparent;
 	}
 
 	&.text {
 		color: var(--text-color-1);
 		border: none;
-		background-color: transparent;
+		background: transparent;
 
 		&.danger:hover {
-			background-color: #e74d3c18;
+			background: #e74d3c18;
 		}
 		&.success:hover {
-			background-color: #2ecc7118;
+			background: #2ecc7118;
 		}
 		&.info:hover {
-			background-color: #3498db18;
+			background: #3498db18;
 		}
 	}
 
 	&:disabled {
-		background-color: var(--color-gray-2);
-		border: 1px solid var(--color-gray-1);
+		background: v-bind('styles.disabledBg');
+		color: v-bind('styles.disabledTextColor');
+		border: none;
 		&:disabled:hover {
-			background-color: var(--color-gray-2) !important;
+			background: v-bind('styles.disabledBg') !important;
 		}
 	}
 }
