@@ -42,6 +42,9 @@ export const useTheme = (key?: keyof ComponentOptions) => {
         disabledBg: (componentTheme?.value?.disabled?.background || defaultTheme.value.disabled.background),
         disabledTextColor: (componentTheme?.value?.disabled?.textColor || defaultTheme.value.disabled.textColor),
 
+        backgroundPrimary: (componentTheme?.value?.background?.primary || defaultTheme.value.background.primary),
+        backgroundSecondary: (componentTheme?.value?.background?.secondary || defaultTheme.value.background.secondary),
+
         component: componentTheme.value
     }));
 }
