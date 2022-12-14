@@ -49,7 +49,9 @@ import { computed, onBeforeMount, onMounted, ref, unref } from 'vue';
 
 import useDropPosition from "@/utilities/use-drop-position";
 import useClickAway from "@/utilities/use-clickaway";
-import { Option, ListOption, useListOption } from '@/utilities/use-list-option';
+import { useListOption } from '@/utilities/use-list-option';
+import type { Option, ListOption } from '@/utilities/use-list-option';
+import { useTheme } from '../theme-provider';
 
 interface Props extends ListOption {
 	options: Option[],
@@ -74,6 +76,8 @@ const emit = defineEmits<{
 }>()
 
 const { getOptionValue, getOptionLabel, findOption } = useListOption(props);
+
+const theme = useTheme('Dropdown');
 
 /**
  * return values transformed with getOptionLabel 
@@ -179,14 +183,16 @@ onMounted(() => {
 .or-dropdown-value {
 	border: 1px solid var(--color-gray-2);
 	border-radius: var(--radius-1);
-	background: var(--color-gray-3);
+	// background: var(--color-gray-3);
+	background: v-bind('theme.backgroundPrimary');
 	box-shadow: none;
 	cursor: pointer;
 	transition: .2s;
 	width: 100%;
 
 	&:hover {
-		box-shadow: var(--outline-border);
+		// box-shadow: var(--outline-border);
+		box-shadow: 0px 0px 0px 1px v-bind('theme.primaryBg');
 	}
 
 	::v-deep(.or-chips-wrapper) {
@@ -214,8 +220,8 @@ onMounted(() => {
 	z-index: 10;
 	margin: 5px 0;
 	list-style: none;
-	background-color: #fff;
-	border: 1px solid var(--color-gray-2);
+	background-color: v-bind('theme.backgroundPrimary');
+	border: 1px solid v-bind('theme.backgroundSecondary');
 	border-radius: var(--radius-2);
 	box-shadow: var(--shadow-sm);
 	visibility: hidden;
@@ -247,25 +253,24 @@ onMounted(() => {
 	cursor: pointer;
 	padding: 0.7em;
 	background-color: transparent;
-	color: var(--text-color-1);
 	border-radius: var(--radius-1);
 	transition: .2s;
-	color: var(--text-color-2);
+	color: v-bind('theme.textPrimary');
 
 	.or-dropdown-item-multi-icon {
-		color: var(--color-gray-2)
+		color: v-bind('theme.textPrimary');
 	}
 
 	&.active {
-		background-color: var(--color-gray-2);
+		background-color: v-bind('theme.backgroundPrimary');
 
 		.or-dropdown-item-multi-icon {
-			color: var(--color-primary)
+			color: v-bind('theme.primaryTextColor');
 		}
 	}
 
 	&:hover {
-		background-color: var(--color-gray-3);
+		background-color: v-bind('theme.backgroundSecondary');
 	}
 }
 
