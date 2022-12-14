@@ -45,6 +45,12 @@ export const useTheme = (key?: keyof ComponentOptions) => {
         backgroundPrimary: (componentTheme?.value?.background?.primary || defaultTheme.value.background.primary),
         backgroundSecondary: (componentTheme?.value?.background?.secondary || defaultTheme.value.background.secondary),
 
+        textPrimary: (componentTheme?.value?.text?.primary || defaultTheme.value.text.primary),
+        textSecondary: (componentTheme?.value?.text?.secondary || defaultTheme.value.text.secondary),
+
+        borderPrimary: (componentTheme?.value?.border?.primary || defaultTheme.value.border.primary),
+        borderSecondary: (componentTheme?.value?.border?.secondary || defaultTheme.value.border.secondary),
+
         component: componentTheme.value
     }));
 }

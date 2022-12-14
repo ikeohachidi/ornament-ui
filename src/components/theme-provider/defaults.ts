@@ -29,6 +29,10 @@ export const defaultThemeSetting: BaseTheme = {
 		primary: '#fff',
 		secondary: '#fafafa'
 	},
+	border: {
+		primary: '#bdc3c7',
+		secondary: '#ecf0f1'
+	},
 	text: {
 		primary: '#3c3c3f',
 		secondary: '#59595e'
