@@ -113,9 +113,10 @@ export interface BaseTheme {
 }
 
 export interface ComponentOptions {
-    default: BaseTheme
+    default: BaseTheme,
     Button?: Partial<BaseTheme> & ButtonTheme,
     Accordion?: Partial<BaseTheme>,
+    Dropdown?: Partial<BaseTheme>,
     Chips?: Partial<BaseTheme>
 }
 
