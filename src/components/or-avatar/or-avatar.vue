@@ -85,4 +85,8 @@ const initials = computed(() => {
 		object-position: center;
 	}
 }
+
+.or-avatar-text {
+	color: v-bind('theme.textPrimary');
+}
 </style>
