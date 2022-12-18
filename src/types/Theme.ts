@@ -115,7 +115,8 @@ export interface BaseTheme {
 export interface ComponentOptions {
     default: BaseTheme
     Button?: Partial<BaseTheme> & ButtonTheme,
-    Accordion?: Partial<BaseTheme>
+    Accordion?: Partial<BaseTheme>,
+    Chips?: Partial<BaseTheme>
 }
 
 export const injectionKey = 'OrnamentUI';

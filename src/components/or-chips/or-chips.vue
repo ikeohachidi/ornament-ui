@@ -8,18 +8,21 @@
 </template>
 
 <script setup lang="ts">
+import { useTheme } from '@/components/theme-provider';
 
 const props = withDefaults(defineProps<{
 	modelValue: unknown[],
 	removeable?: boolean
 }>(), {
 	removeable: false 
-})
+});
 
 const emit = defineEmits<{
 	(event: "update:modelValue", value: unknown): void;
 	(event: "item-removed", value: number): void;
-}>()
+}>();
+
+const theme = useTheme('Chips');
 
 const removeItem = (index: number) => {
 	const model = [...props.modelValue];
@@ -35,17 +38,17 @@ const removeItem = (index: number) => {
 .or-chip {
 	list-style: none;
 	display: inline-flex;
-	background-color: var(--color-gray-2);
-	border: 1px solid var(--color-gray-3);
+	background-color: v-bind('theme.backgroundSecondary');
+	border: 1px solid v-bind('theme.borderSecondary');
 	border-radius: 999px;
 	font-size: 14px;
-	color: var(--text-color-1);
+	color: v-bind('theme.textPrimary');
 	margin-left: .5rem;
 	padding: 5px 10px;
 
 	.close {
 		cursor: pointer;
-		color: var(--color-gray-1);
+		color: v-bind('theme.textPrimary');
 	}
 
 	&:first-of-type {
