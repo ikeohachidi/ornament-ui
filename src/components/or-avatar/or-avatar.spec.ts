@@ -11,7 +11,7 @@ const wrapper = shallowMount(OrAvatar, {
 
 describe('OrAvatar', () => {
 	it ('renders proper initials when image prop is empty', () => {
-		expect(wrapper.html()).toContain('N D');
+		expect(wrapper.html()).toContain('ND');
 	})
 
 	it ('should have a border rounding with specified radius', () => {
