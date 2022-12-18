@@ -87,6 +87,16 @@ export interface BaseTheme {
          */
         secondary: CssColor
     },
+    border: {
+        /**
+         * @default #bdc3c7
+         */
+        primary: CssColor
+        /**
+         * @default #ecf0f1
+         */
+        secondary: CssColor
+    },
     text: {
         /**
          * @default #3c3c3f
