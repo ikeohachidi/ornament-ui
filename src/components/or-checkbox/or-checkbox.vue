@@ -17,24 +17,27 @@
 
 <script setup lang="ts">
 import { computed, nextTick, onMounted,ref } from 'vue';
+import { useTheme } from '@/components/theme-provider';
 
 const props = defineProps<{
 	modelValue: unknown;
 	value: unknown;
 	uncheckedValue?: unknown;
-}>()
+}>();
 
 const modelType = computed(() => {
 	return typeof props.modelValue === "object" ? "array" : "primitive";
-})
+});
 
 const emit = defineEmits<{
 	(e: 'update:modelValue', value: unknown): void;
-}>()
+}>();
+
+const theme = useTheme('Checkbox');
 
 const inputElementId = computed(() => {
 	return `or-checkbox-${Date.now()}`;
-})
+});
 
 const checkboxElement = ref<HTMLInputElement>();
 
@@ -123,7 +126,7 @@ $size: 20px;
 
 	&:checked + {
 		.or-checkbox-label .or-checkbox {
-			background-color: var(--color-primary);
+			background-color: v-bind('theme.primaryBg');
 			box-shadow: none;
 		}
 
@@ -137,11 +140,11 @@ $size: 20px;
 	cursor: pointer;
 	height: $size;
 	width: $size;
-	background: var(--color-gray-3);
+	background: v-bind('theme.backgroundSecondary');
 	position: relative;
 	margin: 3px 4px 3px 0;
 	border-radius: var(--radius-1);
-	box-shadow: 0px 0px 0px 1px var(--color-gray-2);
+	box-shadow: 0px 0px 0px 1px v-bind('theme.backgroundSecondary');
 	transition: .2s;
 
 	&:before {
