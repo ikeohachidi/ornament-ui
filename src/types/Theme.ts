@@ -114,6 +114,7 @@ export interface BaseTheme {
 
 export interface ComponentOptions {
     default: BaseTheme
+    Chips?: Partial<BaseTheme>
     Button?: Partial<BaseTheme> & ButtonTheme
     Accordion?: Partial<BaseTheme>
     Avatar?: Partial<BaseTheme>
