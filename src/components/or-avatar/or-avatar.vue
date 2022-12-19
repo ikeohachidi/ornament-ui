@@ -14,6 +14,7 @@
 import { computed, CSSProperties } from 'vue'
 import { Size, RadiusSize } from '@/types/Size'
 import { Position } from '@/types/Position'
+import { useTheme } from '@/components/theme-provider';
 
 const props = withDefaults(defineProps<{
 	dimension?: number;
@@ -31,7 +32,9 @@ const props = withDefaults(defineProps<{
 	textPosition: Position.BOTTOM,
 	text: '',
 	showText: true
-})
+});
+
+const theme = useTheme('Avatar');
 
 const wrapperStyle = computed(() => {
 	let direction = "row";
@@ -64,14 +67,14 @@ const imgBoxStyle = computed(() => {
 const initials = computed(() => {
 	const [firstName, lastName] = props.text.split(' ');
 
-	return `${firstName[0] || ''} ${lastName[0] || ''}`;
+	return `${firstName[0] || ''}${lastName[0] || ''}`;
 })
 </script>
 
 <style scoped lang="scss">
 .or-avatar-img {
-	background-color: var(--color-gray-1);
-	color: #fff;
+	background-color: v-bind('theme.backgroundSecondary');
+	color: v-bind('theme.textSecondary');
 	overflow: hidden;
 	text-transform: uppercase;
 
@@ -81,5 +84,9 @@ const initials = computed(() => {
 		object-fit: cover;
 		object-position: center;
 	}
+}
+
+.or-avatar-text {
+	color: v-bind('theme.textPrimary');
 }
 </style>

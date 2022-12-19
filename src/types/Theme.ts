@@ -116,6 +116,7 @@ export interface ComponentOptions {
     default: BaseTheme
     Button?: Partial<BaseTheme> & ButtonTheme
     Accordion?: Partial<BaseTheme>
+    Avatar?: Partial<BaseTheme>
     Dropdown?: Partial<BaseTheme>
     Checkbox?: Partial<BaseTheme>
 }
