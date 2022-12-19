@@ -117,6 +117,7 @@ export interface ComponentOptions {
     Button?: Partial<BaseTheme> & ButtonTheme
     Accordion?: Partial<BaseTheme>
     Dropdown?: Partial<BaseTheme>
+    Checkbox?: Partial<BaseTheme>
 }
 
 export const injectionKey = 'OrnamentUI';
