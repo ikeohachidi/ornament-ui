@@ -120,6 +120,7 @@ export interface ComponentOptions {
     Avatar?: Partial<BaseTheme>
     Dropdown?: Partial<BaseTheme>
     Checkbox?: Partial<BaseTheme>
+    Dialog?: Partial<BaseTheme>
 }
 
 export const injectionKey = 'OrnamentUI';
