@@ -1,5 +1,8 @@
 <template>
-	<or-overlay v-model:show="show" @visibility-change="closeModal">
+	<or-overlay
+		v-model:show="show"
+		@visibility-change="closeModal"
+	>
 		<div class="or-dialog-wrapper">
 			<slot name="header">
 				<h3 v-if="showHeader && headerText" class="or-dialog-header">
@@ -28,11 +31,12 @@
 </template>
 
 <script lang="ts" setup>
+import { useTheme } from '@/components/theme-provider';
 
 const props = withDefaults(defineProps<{
 	show: boolean;
-	showHeader: boolean;
-	showFooter: boolean;
+	showHeader?: boolean;
+	showFooter?: boolean;
 	headerText?: string;
 }>(), {
 	show: false,
@@ -44,7 +48,9 @@ const emit = defineEmits<{
 	(event: 'confirm'): void,
 	(event: 'cancel'): void,
 	(event: 'update:show', value: boolean): void
-}>()
+}>();
+
+const theme = useTheme('Dialog');
 
 const closeModal = () => {
 	emit('update:show', false);
@@ -61,7 +67,7 @@ const closeModal = () => {
 
 .or-dialog {
 	&-wrapper {
-		background-color: #fff;
+		background-color: v-bind('theme.backgroundSecondary');
 		border-radius: var(--radius-1);
 		overflow: hidden;
 		width: 700px;
@@ -96,7 +102,7 @@ const closeModal = () => {
 	&-footer {
 		@include shared;
 		display: flex;
-		border-top: 1px solid #f5f5f5;
+		border-top: 1px solid v-bind('theme.borderSecondary');
 	}
 }
 

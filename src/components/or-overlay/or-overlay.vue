@@ -1,25 +1,23 @@
 <template>
-	<teleport :to="attach">
-		<Transition name="fade">
+	<Transition name="fade">
+		<div 
+			class="or-overlay"
+			data-testid="wrapper"
+			v-if="show" 
+			:class="positioning" 
+			@click="canClickOutside && closeOverlay()"
+		>
+			<div class="or-overlay-backdrop" data-testid="backdrop" v-if="hasBackdrop"></div>	
+			
 			<div 
-				class="or-overlay"
-				data-testid="wrapper"
-				v-if="show" 
-				:class="positioning" 
-				@click="canClickOutside && closeOverlay()"
+				class="or-overlay-content"
+				:class="[`slide-${contentAnimation}`]"
+				@click.stop
 			>
-				<div class="or-overlay-backdrop" data-testid="backdrop" v-if="hasBackdrop"></div>	
-				
-				<div 
-					class="or-overlay-content"
-					:class="[`slide-${contentAnimation}`]"
-					@click.stop
-				>
-					<slot></slot>
-				</div>
+				<slot></slot>
 			</div>
-		</Transition>
-	</teleport>
+		</div>
+	</Transition>
 </template>
 
 <script lang="ts">
@@ -50,7 +48,6 @@ import { computed, onMounted } from "vue";
 
 const props = withDefaults(defineProps<{
 	show?: boolean;
-	attach?: string,
 	hasBackdrop?: boolean;
 	canClickOutside?: boolean;
 	escapeKeyClose?: boolean;
@@ -58,7 +55,6 @@ const props = withDefaults(defineProps<{
 	contentAnimation?: ContentAnimation;
 }>(), {
 	show: false,
-	attach: 'body',
 	hasBackdrop: true,
 	canClickOutside: true,
 	escapeKeyClose: false,
