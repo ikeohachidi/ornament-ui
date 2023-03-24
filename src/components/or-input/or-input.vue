@@ -123,7 +123,15 @@ onMounted(() => {
 		}
 	}
 
-	&:not([disabled]):hover {
+	&.success:hover {
+		box-shadow: inset 0px 0px 0px 1px v-bind('theme.successBg');
+	}
+
+	&.error:hover {
+		box-shadow: inset 0px 0px 0px 1px v-bind('theme.dangerBg');
+	}
+
+	&:not(.error, .success, [disabled]):hover {
 		box-shadow: inset 0px 0px 0px 1px v-bind('theme.primaryBg');
 	}
 
