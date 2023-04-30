@@ -121,6 +121,10 @@ onMounted(() => {
 		&.success {
 			box-shadow: inset 0px 0px 0px 1px v-bind('theme.successBg');
 		}
+
+		&.info {
+			box-shadow: inset 0px 0px 0px 1px v-bind('theme.infoBg');
+		}
 	}
 
 	&.success:hover {
@@ -131,7 +135,11 @@ onMounted(() => {
 		box-shadow: inset 0px 0px 0px 1px v-bind('theme.dangerBg');
 	}
 
-	&:not(.error, .success, [disabled]):hover {
+	&.info:hover {
+		box-shadow: inset 0px 0px 0px 1px v-bind('theme.infoBg');
+	}
+
+	&:not(.error, .success, .info, [disabled]):hover {
 		box-shadow: inset 0px 0px 0px 1px v-bind('theme.primaryBg');
 	}
 
@@ -145,6 +153,10 @@ onMounted(() => {
 
 	&.success {
 		border: 1px solid v-bind('theme.successBg');
+	}
+
+	&.info {
+		border: 1px solid v-bind('theme.infoBg');
 	}
 
 	.or-input {
