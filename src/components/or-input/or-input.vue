@@ -27,6 +27,7 @@ export default {
 
 <script setup lang="ts">
 import { onMounted, ref, computed } from "vue";
+import { useTheme } from "../theme-provider";
 import { Size, Sizes, InputState } from '@/types';
 
 const props = withDefaults(defineProps<{
@@ -41,11 +42,13 @@ const props = withDefaults(defineProps<{
 }>(), {
 	modelValue: '',
 	size: Size.SM,
-})
+});
 
 const emit = defineEmits<{
 	(e: 'update:modelValue', value: string): void
-}>()
+}>();
+
+const theme = useTheme('Input');
 
 const input = ref<HTMLInputElement>();
 
@@ -83,10 +86,12 @@ onMounted(() => {
 	display: inline-flex;
 	align-self: stretch;
 	align-items: center;
-	color: var(--text-color-2);
+	color: v-bind('theme.textSecondary');
 
 	&.prefix, &.suffix {
-		background-color: var(--color-gray-2);
+		background-color: v-bind('theme.backgroundSecondary');
+		position: relative;
+		z-index: -1;
 	}
 }
 
@@ -100,38 +105,58 @@ onMounted(() => {
 
 .or-input-wrapper {
 	display: inline-flex;
-	border: 1px solid var(--border-color-1);
+	border: 1px solid v-bind('theme.borderPrimary');
 	border-radius: var(--radius-1);
 	box-sizing: border-box;
 	box-shadow: none;
 	transition: .05s;
 
 	&:focus-within {
-		box-shadow: inset 0px 0px 0px 1px var(--color-primary);
+		box-shadow: inset 0px 0px 0px 1px v-bind('theme.primaryBg');
 
 		&.error {
-			box-shadow: inset 0px 0px 0px 1px var(--color-danger);
+			box-shadow: inset 0px 0px 0px 1px v-bind('theme.dangerBg');
 		}
 
 		&.success {
-			box-shadow: inset 0px 0px 0px 1px var(--color-success);
+			box-shadow: inset 0px 0px 0px 1px v-bind('theme.successBg');
+		}
+
+		&.info {
+			box-shadow: inset 0px 0px 0px 1px v-bind('theme.infoBg');
 		}
 	}
 
-	&:not([disabled]):hover {
-		box-shadow: inset 0px 0px 0px 1px var(--hover-ring-color);
+	&.success:hover {
+		box-shadow: inset 0px 0px 0px 1px v-bind('theme.successBg');
+	}
+
+	&.error:hover {
+		box-shadow: inset 0px 0px 0px 1px v-bind('theme.dangerBg');
+	}
+
+	&.info:hover {
+		box-shadow: inset 0px 0px 0px 1px v-bind('theme.infoBg');
+	}
+
+	&:not(.error, .success, .info, [disabled]):hover {
+		box-shadow: inset 0px 0px 0px 1px v-bind('theme.primaryBg');
 	}
 
 	&[disabled] {
-		background-color: var(--color-gray-3);
+		background-color: v-bind('theme.disabledBg');
 	}
 
 	&.error {
-		border: 1px solid var(--color-danger);
+		border: 1px solid v-bind('theme.dangerBg');
 	}
 
 	&.success {
-		border: 1px solid var(--color-success);
+		border: 1px solid v-bind('theme.successBg');
+	}
+
+	&.info {
+		border: 1px solid v-bind('theme.infoBg');
 	}
 
 	.or-input {
@@ -144,7 +169,7 @@ onMounted(() => {
 		}
 
 		&[disabled] {
-			color: var(--color-gray-1);
+			color: v-bind('theme.disabledTextColor');
 		}
 
 		&:focus {
