@@ -9,5 +9,8 @@ module.exports = {
 		".*\\.ts$": "ts-jest",
 		".*\\.vue$": "@vue/vue3-jest"
 	},
-	testEnvironment: "jsdom"
+	testEnvironment: "jsdom",
+	testEnvironmentOptions: {
+		customExportConditions: ["node", "node-addons"],
+	},
 };
