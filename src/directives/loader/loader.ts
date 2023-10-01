@@ -33,7 +33,10 @@ const mountOverlay = (el: HTMLElement, { value, arg }: DirectiveBinding) => {
 		el.appendChild(overlay);
 	} else {
 		const f = el.querySelector(`#${elementId}`);
-		if (f) el.removeChild(f);
+		if (f) {
+			el.removeChild(f);
+			loader.unmount();
+		}
 	}
 }
 

@@ -1,5 +1,5 @@
 <template>
-	<or-overlay v-model:show="show" @visibility-change="closeModal">
+	<or-overlay v-model:show="value" @visibility-change="closeModal">
 		<div class="or-dialog-wrapper">
 			<slot name="header">
 				<h3 v-if="showHeader && headerText" class="or-dialog-header">
@@ -28,6 +28,7 @@
 </template>
 
 <script lang="ts" setup>
+import { computed } from 'vue';
 
 const props = withDefaults(defineProps<{
 	show: boolean;
@@ -44,7 +45,16 @@ const emit = defineEmits<{
 	(event: 'confirm'): void,
 	(event: 'cancel'): void,
 	(event: 'update:show', value: boolean): void
-}>()
+}>();
+
+const value = computed({
+	get() {
+		return props.show;
+	},
+	set(value) {
+		emit('update:show', value);
+	}
+});
 
 const closeModal = () => {
 	emit('update:show', false);

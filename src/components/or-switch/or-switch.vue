@@ -51,7 +51,7 @@ const isSelected = computed(() => {
 	return JSON.stringify(props.modelValue).includes(JSON.stringify(props.checkedValue));
 })
 
-const onInputValueChange = (e: InputEvent) => {
+const onInputValueChange = (e: Event) => {
 	const target = e.target as HTMLInputElement;
 
 	if (target.checked) {

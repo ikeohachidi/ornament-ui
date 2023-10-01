@@ -5,10 +5,9 @@
 		data-testid="or-radio"
 		:id="inputElementId" 
 		v-bind="$attrs"
-		v-model="modelValue"
-		:value="value"
+		v-model="inputValue"
 		ref="radioElement"
-		@change="onRadioValueChange"
+		:checked="isChecked"
 	>
 	<label class="or-radio-label" :for="inputElementId">
 		<span class="or-radio-label-text"><slot></slot></span>
@@ -17,31 +16,39 @@
 
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
+import { uid } from 'uid';
 
 const props = defineProps<{
 	modelValue: unknown;
 	value: unknown;
-}>()
+}>();
 
 const emit = defineEmits<{
 	(e: 'update:modelValue', value: unknown): void;
-}>()
+}>();
 
 const radioElement = ref<HTMLInputElement>();
 
 const inputElementId = computed(() => {
-	return `or-radio-${Date.now()}`;
-})
+	return `or-radio-${uid()}`;
+});
 
-const onRadioValueChange = () => {
-	emit('update:modelValue', props.value);
-}
+const isChecked = computed(() => inputValue.value === props.value);
+
+const inputValue = computed({
+	get() {
+		return props.modelValue;
+	},
+	set() {
+		emit('update:modelValue', props.value);
+	}
+});
 
 onMounted(() => {
 	if ((props.modelValue === props.value) && radioElement.value) {
 		radioElement.value.checked = true;
 	}
-})
+});
 </script>
 
 <style lang="scss" scoped>
@@ -49,6 +56,8 @@ onMounted(() => {
 $radius: 20px;
 
 .or-radio {
+	display: none;
+	cursor: pointer;
 
 	&:checked {
 		+ .or-radio-label:before {
