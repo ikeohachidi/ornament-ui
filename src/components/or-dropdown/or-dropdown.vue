@@ -49,17 +49,18 @@ import { computed, onBeforeMount, onMounted, ref, unref } from 'vue';
 
 import useDropPosition from "@/utilities/use-drop-position";
 import useClickAway from "@/utilities/use-clickaway";
-import { Option, ListOption, useListOption } from '@/utilities/use-list-option';
+import { useListOption } from '@/utilities/use-list-option';
 
-interface Props extends ListOption {
-	options: Option[],
+interface Props {
 	modelValue: object[] | object | string,
 	multi?: boolean,
 	chips?: boolean;
 	hasFilter?: boolean;
 	noResults?: string;
-	optionValue?: keyof Option;
-	optionLabel?: keyof Option;
+
+	optionLabel?: string,
+	optionValue?: string,
+	options: Record<string, unknown>[];
 }
 
 const props = withDefaults(defineProps<Props>(), {

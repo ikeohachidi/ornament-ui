@@ -11,17 +11,19 @@
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from 'vue';
 import { Size, Sizes } from '@/types/Size';
-import { ListOption, useListOption, Option } from '@/utilities/use-list-option';
+import { useListOption  } from '@/utilities/use-list-option';
 
-interface PropType extends ListOption {
+interface Props {
 	modelValue: unknown;
-	options: Option[];
 	size?: Size;
-	optionLabel?: keyof Option;
-	optionValue?: keyof Option;
+
+	optionLabel?: string,
+	optionValue?: string,
+	options: Record<string, unknown>[];
 }
 
-const prop = withDefaults(defineProps<PropType>(), {
+const prop = withDefaults(defineProps<Props>(), {
+	options: () => [],
 	size: Size.SM,
 })
 

@@ -35,17 +35,18 @@
 import { computed, onMounted, ref, unref } from 'vue';
 
 import useDropPosition from "@/utilities/use-drop-position";
-import { Option, ListOption, useListOption } from '@/utilities/use-list-option';
+import { useListOption } from '@/utilities/use-list-option';
 import { Size } from '@/types/Size';
 
-interface Props extends ListOption {
+interface Props {
 	modelValue: unknown[],
 	placeholder?: string,
-	options?: Option[],
 	size?: Size,
 	max?: number;
-	optionValue?: keyof Option,
-	optionLabel?: keyof Option
+
+	optionLabel?: string,
+	optionValue?: string,
+	options: Record<string, unknown>[];
 }
 
 const props = withDefaults(defineProps<Props>(), {
