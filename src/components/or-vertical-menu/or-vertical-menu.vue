@@ -18,18 +18,31 @@
 
 <script setup lang="ts">
 import { computed, CSSProperties, onMounted, useSlots } from 'vue';
-import { Events, Node } from '.';
+// import { Events, Node } from '.';
 import { emitter } from '@/utilities/use-shared-event';
+
+interface Node {
+	text?: string;
+	icon?: string;
+	collapsed?: boolean;
+	action?: (node: Node) => unknown;
+	children?: Node[];
+}
+
+enum Events {
+	NODE_CLICK = 'node-click'
+}
 
 interface Props {
 	menu: Node[];
-	width?: number | 'full';
-	height?: number | 'full';
+	// width and height can also have the value 'full'
+	width?: string;
+	height?: string;
 	activeNodeFunc?: (node: Node) => boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
-	width: 300,
+	width: '300',
 	height: 'full',
 	activeNodeFunc: (node: Node) => false
 })
@@ -50,8 +63,10 @@ const hasHeaderSlot = computed(() => {
 
 const style = computed<CSSProperties>(() => {
 	return {
-		width: props.width >= 0 ? `${props.width}px` : '100%',
-		height: props.height >= 0 ? `${props.height}px` : '100%',
+		// width: props.width !== 'full' && props.width >= 0 ? `${props.width}px` : '100%',
+		// height: props.height !== 'full' && props.height >= 0 ? `${props.height}px` : '100%',
+		width: props.width === 'full' ? '100%' : `${props.width}px`,
+		height: props.height === 'full' ? '100%' : `${props.height}px`,
 	}
 })
 

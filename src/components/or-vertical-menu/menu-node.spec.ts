@@ -1,4 +1,4 @@
-import { shallowMount } from "@vue/test-utils";
+import { mount } from "@vue/test-utils";
 import { MenuNode } from "."; 
 
 const action = jest.fn();
@@ -24,7 +24,7 @@ const nodes = [
 ]
 
 const factory = (props = {}, slots = {}) => {
-	return shallowMount(MenuNode, {
+	return mount(MenuNode, {
 		props: {
 			nodes,
 			...props

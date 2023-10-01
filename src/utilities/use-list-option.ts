@@ -1,10 +1,11 @@
 const primitives = ['number', 'string', 'boolean'];
 
-interface Option {}
+type Option = Record<string, unknown>;
+
 interface ListOption {
 	options?: Option[];
-	optionLabel?: keyof Option;
-	optionValue?: keyof Option;
+	optionLabel?: string;
+	optionValue?: string;
 }
 
 const useListOption = <T extends ListOption>(props: T) => {
@@ -46,7 +47,6 @@ const useListOption = <T extends ListOption>(props: T) => {
 }
 
 export {
-	Option,
 	ListOption,
 	useListOption
 }

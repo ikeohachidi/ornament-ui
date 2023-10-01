@@ -20,8 +20,20 @@
 
 <script setup lang="ts">
 import { useAttrs } from 'vue';
-import { Events, Node } from '.';
 import { emitter } from '@/utilities/use-shared-event';
+import { uid } from 'uid';
+
+interface Node {
+	text?: string;
+	icon?: string;
+	collapsed?: boolean;
+	action?: (node: Node) => unknown;
+	children?: Node[];
+}
+
+enum Events {
+	NODE_CLICK = 'node-click'
+}
 
 type Attrs = {
 	activeNodeFunc: (node: Node) => boolean;
@@ -31,7 +43,7 @@ type Props = {
 	nodes: Node[]
 }
 
-const props = defineProps<Props>();
+defineProps<Props>();
 
 const attrs = useAttrs() as Attrs;
 
@@ -53,7 +65,7 @@ const onNodeClick = (node: Node, event: MouseEvent) => {
 }
 
 const uniqueKey = () => {
-	return `key-${Date.now()}`
+	return `key-${uid()}`
 }
 </script>
 

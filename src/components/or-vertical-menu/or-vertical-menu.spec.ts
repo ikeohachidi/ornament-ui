@@ -58,7 +58,7 @@ describe('OrVerticalMenu', () => {
 
 		expect(menuEl.attributes()['style']).toContain('height: 100%');
 
-		await wrapper.setProps({ width: 'full', height: 400 });
+		await wrapper.setProps({ width: 'full', height: '400' });
 		expect(wrapper.attributes()['style']).toContain('height: 400px');
 		expect(wrapper.attributes()['style']).toContain('width: 100%');
 	})
