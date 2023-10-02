@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../../node_modules/uid/dist/index.mjs"],
+  "sourcesContent": ["var IDX=256, HEX=[], SIZE=256, BUFFER;\nwhile (IDX--) HEX[IDX] = (IDX + 256).toString(16).substring(1);\n\nexport function uid(len) {\n\tvar i=0, tmp=(len || 11);\n\tif (!BUFFER || ((IDX + tmp) > SIZE*2)) {\n\t\tfor (BUFFER='',IDX=0; i < SIZE; i++) {\n\t\t\tBUFFER += HEX[Math.random() * 256 | 0];\n\t\t}\n\t}\n\n\treturn BUFFER.substring(IDX, IDX++ + tmp);\n}\n"],
+  "mappings": ";AAAA,IAAI,MAAI;AAAR,IAAa,MAAI,CAAC;AAAlB,IAAqB,OAAK;AAA1B,IAA+B;AAC/B,OAAO;AAAO,MAAI,GAAG,KAAK,MAAM,KAAK,SAAS,EAAE,EAAE,UAAU,CAAC;AAEtD,SAAS,IAAI,KAAK;AACxB,MAAI,IAAE,GAAG,MAAK,OAAO;AACrB,MAAI,CAAC,UAAY,MAAM,MAAO,OAAK,GAAI;AACtC,SAAK,SAAO,IAAG,MAAI,GAAG,IAAI,MAAM,KAAK;AACpC,gBAAU,IAAI,KAAK,OAAO,IAAI,MAAM,CAAC;AAAA,IACtC;AAAA,EACD;AAEA,SAAO,OAAO,UAAU,KAAK,QAAQ,GAAG;AACzC;",
+  "names": []
+}
