@@ -26,6 +26,11 @@ export default defineConfig({
       directiveSidebar
     ],
 
+    footer: {
+      copyright: `${new Date().getFullYear()} til infinity`,
+      message: 'D2B ___ Chidi Ikeoha'
+    },
+
     socialLinks: [
       { icon: 'github', link: 'https://github.com/ikeohachidi/ornament-ui' }
     ]
