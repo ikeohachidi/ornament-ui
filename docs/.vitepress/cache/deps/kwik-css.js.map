@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["../../../../node_modules/kwik-css/index.js"],
-  "sourcesContent": ["import './kwik.css';"],
-  "mappings": ";AAAA,OAAO;",
-  "names": []
-}

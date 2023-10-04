@@ -1,6 +1,7 @@
 import DefaultTheme from 'vitepress/theme'
 
 import 'remixicon/fonts/remixicon.css';
+import 'kwik-css/kwik.css';
 import '@/main.scss';
 
 // TODO: not sure why MenuNode is imported here

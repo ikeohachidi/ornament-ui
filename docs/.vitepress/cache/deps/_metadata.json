@@ -1,6 +1,6 @@
 {
   "hash": "4af636b8",
-  "browserHash": "a95d9d43",
+  "browserHash": "b2c8c23f",
   "optimized": {
     "vue": {
       "src": "../../../../node_modules/vue/dist/vue.runtime.esm-bundler.js",
@@ -12,12 +12,6 @@
       "src": "../../../../node_modules/@vue/devtools-api/lib/esm/index.js",
       "file": "vitepress___@vue_devtools-api.js",
       "fileHash": "7f989047",
-      "needsInterop": false
-    },
-    "kwik-css": {
-      "src": "../../../../node_modules/kwik-css/index.js",
-      "file": "kwik-css.js",
-      "fileHash": "972351b4",
       "needsInterop": false
     },
     "uid": {
