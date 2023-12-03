@@ -4,7 +4,10 @@
 	</div>
 </template>
 
-<script lang="ts" setup>
+<script lang="ts">
+export default {
+	name: 'or-input-group'
+}
 </script>
 
 <style lang="scss" scoped>

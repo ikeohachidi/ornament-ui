@@ -1,8 +1,6 @@
-import { SidebarItem } from "@vuepress/theme-default";
-
-const sidebar: SidebarItem = {
+export const sidebar = {
 	text: 'Components',
-	children: [
+	items: [
 		{
 			text: 'Accordion',
 			link: '/components/or-accordion'
@@ -53,5 +51,3 @@ const sidebar: SidebarItem = {
 		},
 	]
 }
-
-export default sidebar;

@@ -18,7 +18,6 @@
 
 <script setup lang="ts">
 import { computed, CSSProperties, onMounted, useSlots } from 'vue';
-// import { Events, Node } from '.';
 import { emitter } from '@/utilities/use-shared-event';
 
 interface Node {

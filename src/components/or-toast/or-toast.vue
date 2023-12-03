@@ -3,5 +3,9 @@
 	</div>
 </template>
 
-<script lang="ts" setup>
+<script lang="ts">
+// TODO: implement
+export default {
+	name: 'or-toast'
+}
 </script>
