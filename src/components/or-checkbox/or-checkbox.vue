@@ -17,6 +17,7 @@
 
 <script setup lang="ts">
 import { computed, nextTick, onMounted,ref } from 'vue';
+import { uid } from 'uid';
 
 const props = defineProps<{
 	modelValue: unknown;
@@ -33,7 +34,7 @@ const emit = defineEmits<{
 }>()
 
 const inputElementId = computed(() => {
-	return `or-checkbox-${Date.now()}`;
+	return `or-checkbox-${uid()}`;
 })
 
 const checkboxElement = ref<HTMLInputElement>();
