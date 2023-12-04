@@ -2,11 +2,13 @@
 
 **Basic**
 <or-accordion>
-	<or-accordion-body title="Accordion 1">
-		<p>1: Lorem ipsum dolor imat</p>
+	<or-accordion-body title="North">
+		<h3>North</h3>
+		<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled</p>
 	</or-accordion-body>
-	<or-accordion-body title="Accordion 2">
-		<p>2: Lorem ipsum dolor imat</p>
+	<or-accordion-body title="South">
+		<h3>South</h3>
+		<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled</p>
 	</or-accordion-body>
 </or-accordion>
 
