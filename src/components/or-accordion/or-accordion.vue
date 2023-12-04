@@ -56,6 +56,10 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
+.or-accordion-container {
+	padding-left: 0;
+}
+
 li {
 	list-style: none;
 }
