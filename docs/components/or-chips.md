@@ -5,7 +5,7 @@ A component to display chips
 <or-chips v-model="users"/>
 
 Pass an array of strings
-{{ users }}
+`{{ users }}`
 
 ```html
 <or-chips v-model="users" />
