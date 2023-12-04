@@ -1,7 +1,8 @@
 import { mount } from "@vue/test-utils";
+import { describe, it, expect, vi } from 'vitest';
 import { MenuNode } from "."; 
 
-const action = jest.fn();
+const action = vi.fn();
 
 const nodes = [
 	{ 

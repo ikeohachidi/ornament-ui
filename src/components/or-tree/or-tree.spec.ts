@@ -1,4 +1,5 @@
-import { shallowMount  } from "@vue/test-utils";
+import { mount  } from "@vue/test-utils";
+import { describe, it, expect } from 'vitest';
 import { Events } from ".";
 import OrTree from ".";
 
@@ -60,7 +61,7 @@ const nodes = [
 ];
 
 const factory = (props = {}) => {
-	return shallowMount(OrTree, {
+	return mount(OrTree, {
 		props: {
 			...props,
 			nodes
