@@ -1,4 +1,5 @@
 import { shallowMount } from "@vue/test-utils";
+import { describe, it, expect } from 'vitest';
 import OrAvatar from ".";
 import { Size, RadiusSize } from "@/types/Size";
 

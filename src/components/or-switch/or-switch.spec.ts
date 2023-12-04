@@ -1,4 +1,5 @@
 import { shallowMount } from "@vue/test-utils";
+import { describe, it, expect } from 'vitest';
 import OrSwitch from '.';
 
 const factory = (props: {}) => {

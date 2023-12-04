@@ -1,4 +1,5 @@
 import { shallowMount } from '@vue/test-utils';
+import { describe, it, expect } from 'vitest';
 import OrSlider from '.';
 
 const factory = (props = {}, slots = {}) => {

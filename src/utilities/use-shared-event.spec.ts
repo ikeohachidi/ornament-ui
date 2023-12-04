@@ -1,6 +1,7 @@
 import { emitter } from './use-shared-event';
+import { describe, it, expect, vi } from 'vitest';
 
-const callback = jest.fn();
+const callback = vi.fn();
 
 describe('event emitters', () => {
 	it('should call run the callback function', () => {

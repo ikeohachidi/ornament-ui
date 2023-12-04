@@ -1,5 +1,6 @@
 import { VNode, h, withDirectives } from 'vue';
 import { shallowMount } from '@vue/test-utils';
+import { describe, it, expect } from 'vitest';
 import loadingDirective, { elementId }  from '.';
 
 const component = shallowMount({
