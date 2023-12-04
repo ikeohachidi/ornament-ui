@@ -150,7 +150,7 @@ $size: 20px;
 		height: 4px;
 		width: 8px;
 		position: absolute;
-		top: 5px;
+		top: 7px;
 		border: 2px solid #fff;
 		border-right: none;
 		border-top: none;
