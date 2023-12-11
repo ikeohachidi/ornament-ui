@@ -18,7 +18,11 @@
 			</span>
 			<i class="ri-arrow-down-s-line ml-auto"></i>
 		</div>
-		<ul class="or-dropdown-list" ref="dropdownList" v-attach.fullWidth="instanceClass">
+		<ul
+			class="or-dropdown-list"
+			ref="dropdownList"
+			v-attach.fullWidth="instanceClass"
+		>
 			<li class="or-dropdown-filter">
 				<or-input placeholder="Filter items" ref="filterInput" v-model="filterTerm" v-if="hasFilter" beforeIcon="search-2-line" clear />
 			</li>
@@ -218,14 +222,26 @@ onMounted(() => {
 	border: 1px solid var(--color-gray-2);
 	border-radius: var(--radius-2);
 	box-shadow: var(--shadow-sm);
+	margin: 0;
 	visibility: hidden;
 	opacity: 0;
 	transition: 0s visibility, .1s opacity, .1s transform;
 
+	&.or-item-bottom {
+		&.show {
+			transform: translateY(35px);
+		}
+	}
+
+	&.or-item-top {
+		&.show {
+			transform: translateY(-35px);
+		}
+	}
+
 	&.show {
 		visibility: visible;
 		opacity: 1;
-		transform: translateY(20px);
 	}
 }
 
