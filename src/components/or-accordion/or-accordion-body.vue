@@ -1,21 +1,25 @@
 <template>
-	<p data-testid="title" class="or-accordion-title m-0 p-2 flex center jc-between" @click="toggleAccordion">
-		<span>
-			<slot name="title" :title="title">
-				{{ title }}
-			</slot>
-		</span>
-		<span>
-			<slot name="collapse" :isCollapsed="isComponentActive">
-				<i class="ri-subtract-line" v-if="isComponentActive"></i>
-				<i class="ri-add-line" v-else></i>
-			</slot>
-		</span>
-	</p>
-	<div class="or-accordion-body" :class="[isComponentActive ? 'active' : 'inactive']">
-		<div class="p-3">
-			<slot>
-			</slot>
+	<div class="or-accordion-wrapper">
+		<p data-testid="title" class="or-accordion-title m-0 p-2 flex center jc-between" @click="toggleAccordion">
+			<span>
+				<slot name="title" :title="title">
+					{{ title }}
+				</slot>
+			</span>
+			<span>
+				<slot name="collapse" :isCollapsed="isComponentActive">
+					<i class="ri-subtract-line" v-if="isComponentActive"></i>
+					<i class="ri-add-line" v-else></i>
+				</slot>
+			</span>
+		</p>
+		<div class="or-accordion-body" :class="[isComponentActive ? 'active' : 'inactive']">
+			<div class="p-2">
+				<div class="p-2">
+					<slot>
+					</slot>
+				</div>
+			</div>
 		</div>
 	</div>
 </template>
@@ -42,14 +46,24 @@ const toggleAccordion = () => {
 </script>
 
 <style lang="scss" scoped>
-.or-accordion-title {
+.or-accordion-wrapper {
 	cursor: pointer;
-	border-bottom: 1px solid var(--color-gray-1);
+	border: 1px solid var(--color-gray-1);
+}
+
+.or-accordion-title {
+	margin: 0;
 }
 
 .or-accordion-body {
 	overflow-y: auto;
-	background: var(--color-gray-2);
+
+	> div {
+		> div {
+			background: var(--color-gray-2);
+			border-radius: var(--radius-2);
+		}
+	}
 
 	&.inactive {
 		max-height: 0;
