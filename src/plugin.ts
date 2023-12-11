@@ -26,6 +26,7 @@ import OrTree from './components/or-tree';
 // directives import
 import VLoader from './directives/loader';
 import VFormDisable from './directives/form-disable';
+import VAttach from './directives/attach';
 
 export {
 	OrButton,
@@ -54,7 +55,8 @@ export {
 	OrTree,
 
 	VLoader,
-	VFormDisable
+	VFormDisable,
+	VAttach
 }
 
 export default {
@@ -88,5 +90,6 @@ export default {
 
 		app.directive('loader', VLoader);
 		app.directive('form-disable', VFormDisable);
+		app.directive('attach', VAttach);
 	}
 }
