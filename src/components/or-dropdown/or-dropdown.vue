@@ -1,5 +1,5 @@
 <template>
-	<div class="or-dropdown-wrapper" ref="orDropdown">
+	<div class="or-dropdown-wrapper" :class="[instanceClass]" ref="orDropdown">
 		<div data-testid="options-trigger" class="or-dropdown-value p-1 center" @click="toggleDropdownList">
 			<template v-if="multi">
 				<or-chips v-if="chips" v-model="selectedOptions" class="or-chips-wrapper">
@@ -18,7 +18,7 @@
 			</span>
 			<i class="ri-arrow-down-s-line ml-auto"></i>
 		</div>
-		<ul class="or-dropdown-list" ref="dropdownList" :style="dropdownPosition">
+		<ul class="or-dropdown-list" ref="dropdownList" v-attach.fullWidth="instanceClass">
 			<li class="or-dropdown-filter">
 				<or-input placeholder="Filter items" ref="filterInput" v-model="filterTerm" v-if="hasFilter" beforeIcon="search-2-line" clear />
 			</li>
@@ -50,6 +50,7 @@ import { computed, onBeforeMount, onMounted, ref, unref } from 'vue';
 import useDropPosition from "@/utilities/use-drop-position";
 import useClickAway from "@/utilities/use-clickaway";
 import { useListOption } from '@/utilities/use-list-option';
+import { uid } from 'uid';
 
 interface Props {
 	modelValue: object[] | object | string,
@@ -96,6 +97,8 @@ const selectedOptions = ref<object[]>([]);
  * values for single selection 
  */
 const selectedOption = ref<object>();
+
+const instanceClass =  `or-dropdown-${uid()}`;
 
 const hasNoFilterResults = computed(() => filterTerm.value !== '' && filteredOptions.value.length === 0) 
 const filterTerm = ref<string>('');
@@ -209,11 +212,7 @@ onMounted(() => {
 }
 
 .or-dropdown-list {
-	position: absolute;
-	left: 0;
-	right: 0;
-	z-index: 10;
-	margin: 5px 0;
+	z-index: 9999;
 	list-style: none;
 	background-color: #fff;
 	border: 1px solid var(--color-gray-2);
@@ -221,13 +220,12 @@ onMounted(() => {
 	box-shadow: var(--shadow-sm);
 	visibility: hidden;
 	opacity: 0;
-	transform: translateY(5px);
 	transition: 0s visibility, .1s opacity, .1s transform;
 
 	&.show {
 		visibility: visible;
 		opacity: 1;
-		transform: translateY(0px);
+		transform: translateY(20px);
 	}
 }
 
