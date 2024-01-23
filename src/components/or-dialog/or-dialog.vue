@@ -16,10 +16,10 @@
 			<slot name="footer">
 				<div v-if="showFooter" class="or-dialog-footer">
 					<or-button class="text ml-auto" @click="closeModal">
-						Cancel
+						{{ cancelText }}
 					</or-button>
-					<or-button>
-						Continue
+					<or-button @click="onContinueButtonClick">
+						{{ confirmText }}
 					</or-button>
 				</div>
 			</slot>
@@ -31,14 +31,18 @@
 import { computed } from 'vue';
 
 const props = withDefaults(defineProps<{
-	show: boolean;
-	showHeader: boolean;
-	showFooter: boolean;
+	show?: boolean;
+	showHeader?: boolean;
+	showFooter?: boolean;
 	headerText?: string;
+	cancelText?: string;
+	confirmText?: string;
 }>(), {
 	show: false,
 	showHeader: true,
 	showFooter: true,
+	cancelText: 'Cancel',
+	confirmText: 'Continue'
 });
 
 const emit = defineEmits<{
@@ -59,6 +63,10 @@ const value = computed({
 const closeModal = () => {
 	emit('update:show', false);
 	emit('cancel');
+}
+
+const onContinueButtonClick = (): void => {
+	emit('confirm');
 }
 
 </script>
