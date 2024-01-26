@@ -60,7 +60,12 @@ const action = async (el: HTMLElement, binding: DirectiveBinding): Promise<void>
 
 const attach: Directive = {
 	mounted(el: HTMLElement, binding: DirectiveBinding) {
-		window.addEventListener('load', () => action(el, binding), true)
+		if (document.readyState === 'complete') {
+			action(el, binding);
+		} else {
+			window.addEventListener('load', () => action(el, binding));
+		}
+
 		window.addEventListener('scroll', () => action(el, binding), true)
 	},
 }
