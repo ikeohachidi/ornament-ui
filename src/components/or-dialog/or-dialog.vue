@@ -13,16 +13,17 @@
 			<div class="or-dialog-content">
 				<slot></slot>
 			</div>
-			<slot name="footer">
-				<div v-if="showFooter" class="or-dialog-footer">
+
+			<div v-if="showFooter" class="or-dialog-footer">
+				<slot name="footer">
 					<or-button class="text ml-auto" @click="closeModal">
 						{{ cancelText }}
 					</or-button>
 					<or-button @click="onContinueButtonClick">
 						{{ confirmText }}
 					</or-button>
-				</div>
-			</slot>
+				</slot>
+			</div>
 		</div>
 	</or-overlay>
 </template>
