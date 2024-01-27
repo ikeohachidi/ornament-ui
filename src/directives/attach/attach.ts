@@ -17,7 +17,7 @@ const action = async (el: HTMLElement, binding: DirectiveBinding): Promise<void>
 		const { height: elHeight, bottom: elBottom, top: elTop } = el.getBoundingClientRect();
 
 		if (modifiers.fullWidth) {
-			el.style.width = window.getComputedStyle(boundEl) .width;
+			el.style.width = window.getComputedStyle(boundEl).width;
 		}
 
 		el.style.position = 'fixed';

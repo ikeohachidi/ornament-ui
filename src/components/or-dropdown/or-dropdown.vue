@@ -223,6 +223,7 @@ onBeforeMount(() => {
 	visibility: hidden;
 	opacity: 0;
 	transition: 0s visibility, .1s opacity, .1s transform;
+	position: fixed;
 
 	&.or-item-bottom {
 		&.show {
