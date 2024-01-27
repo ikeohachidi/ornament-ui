@@ -49,7 +49,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onBeforeMount, onMounted, ref, unref } from 'vue';
+import { computed, onBeforeMount, ref, unref } from 'vue';
 
 import useDropPosition from "@/utilities/use-drop-position";
 import useClickAway from "@/utilities/use-clickaway";
@@ -130,6 +130,7 @@ const toggleDropdownList = (): void => {
 const hideDropdownList = (): void => {
 	dropdownList.value?.classList.remove('show');
 }
+useClickAway(orDropdown, hideDropdownList);
 
 const toggleOption = (optionIndex: number): void => {
 	const option = filteredOptions.value[optionIndex];
@@ -170,10 +171,6 @@ onBeforeMount(() => {
 	}
 
 	selectedOption.value = findOption(unref(props.modelValue));
-})
-
-onMounted(() => {
-	if (orDropdown.value) useClickAway(orDropdown.value, hideDropdownList);
 })
 </script>
 

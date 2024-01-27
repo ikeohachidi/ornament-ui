@@ -1,10 +1,17 @@
-const useClickAway = (parentEl: HTMLElement, callback: Function) => {
-	window.addEventListener('click', (event: Event) => {
-		const target = event.target as HTMLElement;
-		if (!target) return;
+import type { Ref } from 'vue';
+import { watch } from 'vue';
 
-		isElementChild(target as Element, parentEl) ? () => {} : callback();
-	})
+const useClickAway = (parentEl: Ref<HTMLElement | undefined>, callback: () => void) => {
+	watch(parentEl, (el) => {
+		if (el) {
+			window.addEventListener('click', (event: Event) => {
+				const target = event.target as HTMLElement;
+				if (!target) return;
+
+				isElementChild(target as Element, el) ? () => {} : callback();
+			}, true);
+		}
+	});
 }
 
 const isElementChild = (target: Element, element: Element): boolean => {
@@ -12,7 +19,7 @@ const isElementChild = (target: Element, element: Element): boolean => {
 
 	if (element.hasChildNodes()) {
 		for (const child of Array.from(element.children)) {
-			if (isElementChild(target, child)) return true;
+			return isElementChild(target, child);
 		}
 	}
 
