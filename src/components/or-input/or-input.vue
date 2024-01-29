@@ -15,10 +15,20 @@
 			:class="[getSize]"
 		>
 		<slot name="suffix">
-			<span data-testid="after-icon" class="or-input-position" :class="[getSize]" v-if="clear" @click="clearInput">
+			<span
+				data-testid="after-icon"
+				class="or-input-position"
+				:class="[getSize]"
+				v-if="clear"
+				@click="clearInput"
+			>
 				<i :class="`ri-close-line ri-${size}`"></i>
 			</span>
-			<span class="or-input-position" :class="[getSize, suffix && 'suffix']" v-else-if="afterIcon || suffix">
+			<span
+				class="or-input-position"
+				:class="[getSize, suffix && 'suffix']"
+				v-else-if="afterIcon || suffix"
+			>
 				<i :class="`ri-${afterIcon} ri-${size}`"></i>
 				{{ suffix }}
 			</span>
