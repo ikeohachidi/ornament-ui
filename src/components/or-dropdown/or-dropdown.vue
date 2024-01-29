@@ -174,7 +174,8 @@ watch(
 		selectedOption.value = findOption(unref(value));
 	},
 	{
-		deep: true
+		deep: true,
+		immediate: true
 	}
 );
 </script>
