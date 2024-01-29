@@ -49,12 +49,11 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onBeforeMount, ref, unref } from 'vue';
-
+import { computed, ref, unref, watch } from 'vue';
+import { uid } from 'uid';
 import useDropPosition from "@/utilities/use-drop-position";
 import useClickAway from "@/utilities/use-clickaway";
 import { useListOption } from '@/utilities/use-list-option';
-import { uid } from 'uid';
 
 interface Props {
 	modelValue: object[] | object | string,
@@ -157,21 +156,27 @@ const toggleOption = (optionIndex: number): void => {
 	emit('update:modelValue', value);
 }
 
-onBeforeMount(() => {
-	if (props.multi) {
-		if (!props.modelValue) return
+watch(
+	() => props.modelValue,
+	(value) => {
+		if (props.multi) {
+			if (!value) return
 
-		if (props.modelValue.constructor === Array) {
-			(selectedOptions.value as object[]) = unref(props.modelValue) as object[]
-		} else {
-			(selectedOptions.value as object[]) = [(unref(props.modelValue) as object)];
+			if (value.constructor === Array) {
+				(selectedOptions.value as object[]) = unref(value) as object[]
+			} else {
+				(selectedOptions.value as object[]) = [(unref(value) as object)];
+			}
+			
+			return
 		}
-		
-		return
-	}
 
-	selectedOption.value = findOption(unref(props.modelValue));
-})
+		selectedOption.value = findOption(unref(value));
+	},
+	{
+		deep: true
+	}
+);
 </script>
 
 <style lang="scss" scoped>

@@ -26,7 +26,7 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { onMounted, ref, computed } from "vue";
+import { ref, computed, watch } from "vue";
 import { Size, Sizes, InputState } from '@/types';
 
 const props = withDefaults(defineProps<{
@@ -49,6 +49,12 @@ const emit = defineEmits<{
 
 const input = ref<HTMLInputElement>();
 
+watch(input, (el) => {
+	if (el) {
+		el.value = props.modelValue
+	}
+})
+
 const getSize = computed(() => {
 	if (props.size === Size.MD) { return Sizes.md }
 	if (props.size === Size.LG) { return Sizes.lg }
@@ -66,14 +72,6 @@ const clearInput = (): void => {
 	if (input.value) input.value.value = '';
 	if (props.clear) emit('update:modelValue', '');
 }
-
-onMounted(() => {
-	if (input.value) {
-		input.value.value = props.modelValue;
-	}
-
-	emit('update:modelValue', props.modelValue);
-})
 </script>
 
 <style lang="scss" scoped>
