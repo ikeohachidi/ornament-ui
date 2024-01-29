@@ -6,7 +6,14 @@
 				{{ prefix }}
 			</span>
 		</slot>
-		<input type="text" class="or-input" v-bind="$attrs" ref="input" @input="onTextInput" :class="[getSize]">
+		<input
+			type="text"
+			class="or-input"
+			v-bind="$attrs"
+			ref="input"
+			v-model="inputValue"
+			:class="[getSize]"
+		>
 		<slot name="suffix">
 			<span data-testid="after-icon" class="or-input-position" :class="[getSize]" v-if="clear" @click="clearInput">
 				<i :class="`ri-close-line ri-${size}`"></i>
@@ -49,6 +56,15 @@ const emit = defineEmits<{
 
 const input = ref<HTMLInputElement>();
 
+const inputValue = computed({
+	get() {
+		return props.modelValue;
+	},
+	set(value) {
+		emit('update:modelValue', value);
+	}
+})
+
 watch(input, (el) => {
 	if (el) {
 		el.value = props.modelValue
@@ -61,12 +77,6 @@ const getSize = computed(() => {
 
 	return Sizes.sm;
 })
-
-const onTextInput = (event: Event): void => {
-	const { value } = (event.target as HTMLInputElement);
-
-	emit('update:modelValue', value)
-}
 
 const clearInput = (): void => {
 	if (input.value) input.value.value = '';
