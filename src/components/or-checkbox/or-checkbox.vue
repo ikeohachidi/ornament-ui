@@ -1,7 +1,7 @@
 <template>
-	<input 
+	<input
 		class="or-checkbox-input"
-		type="checkbox" 
+		type="checkbox"
 		data-testid="or-checkbox"
 		:id="inputElementId"
 		ref="checkboxElement"
@@ -16,14 +16,16 @@
 </template>
 
 <script setup lang="ts">
-import { computed, nextTick, onMounted,ref } from 'vue';
+import { computed, nextTick, onMounted,ref, watch } from 'vue';
 import { uid } from 'uid';
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
 	modelValue: unknown;
-	value: unknown;
-	uncheckedValue?: unknown;
-}>()
+	value?: any;
+	uncheckedValue?: any;
+}>(), {
+	value: true,
+})
 
 const modelType = computed(() => {
 	return typeof props.modelValue === "object" ? "array" : "primitive";
@@ -39,12 +41,61 @@ const inputElementId = computed(() => {
 
 const checkboxElement = ref<HTMLInputElement>();
 
-const updateArrayModel = (element: HTMLInputElement) => {
+const checkboxValue = computed({
+    get() {
+        return props.modelValue;
+    },
+    set(value) {
+        emit('update:modelValue', value);
+    }
+})
+watch(checkboxValue, async (v) => {
+	updateArrayModel(false);
+	updatePrimitiveModel(false);
+
+	await nextTick(() => {
+		if (checkboxElement.value) {
+			if (shouldCheckboxBeChecked.value) {
+				checkboxElement.value.checked = true;
+			} else {
+				checkboxElement.value.checked = false;
+			}
+		}
+	});
+});
+
+const shouldCheckboxBeChecked = computed(() => {
+	if (modelType.value === 'array') {
+		const arr = [...props.modelValue as unknown[]];
+
+		if (props.uncheckedValue === undefined) {
+			const index = arr.findIndex(item => JSON.stringify(item) === JSON.stringify(props.uncheckedValue));
+
+			if (index >= 0) {
+				return true;
+			}
+		} else {
+			const index = arr.findIndex(item => JSON.stringify(item) === JSON.stringify(props.value));
+
+			if (index >= 0) {
+				return true;
+			}
+		}
+	}
+
+	if (modelType.value === 'primitive') {
+		return checkboxValue.value === props.value;
+	}
+
+	return false;
+});
+
+const updateArrayModel = (propagate: boolean) => {
 	if (modelType.value !== "array") return;
 
 	const arr = [...props.modelValue as unknown[]];
 
-	if (element.checked) {
+	if (checkboxElement.value && checkboxElement.value.checked) {
 		if (props.uncheckedValue !== undefined) {
 			const index = arr.findIndex(item => JSON.stringify(item) === JSON.stringify(props.uncheckedValue));
 
@@ -66,42 +117,47 @@ const updateArrayModel = (element: HTMLInputElement) => {
 		}
 	}
 
-	emit('update:modelValue', arr);
+	if (propagate === true) {
+		checkboxValue.value = arr;
+	}
 }
 
-const updatePrimitiveModel = (element: HTMLInputElement) => {
+const updatePrimitiveModel = (propagate: boolean) => {
 	if (modelType.value !== 'primitive') return;
 
 	let value;
 
-	if (element.checked) {
+	if (checkboxElement.value && checkboxElement.value.checked) {
 		value = props.value;
 	} else {
 		value = props.uncheckedValue ?? '';
 	}
-	emit('update:modelValue', value);
+
+	if (propagate === true) {
+    	checkboxValue.value = value;
+	}
 }
 
-const onCheckboxValueChange = (event: Event) => {
-	const element = event.target as HTMLInputElement; 
-	
+const onCheckboxValueChange = () => {
 	nextTick(() => {
-		updatePrimitiveModel(element);
-		updateArrayModel(element);
+		updatePrimitiveModel(true);
+		updateArrayModel(true);
 	})
 }
 
 onMounted(() => {
 	if (modelType.value === 'primitive') {
-		if (checkboxElement.value && props.modelValue === (props.value)) {
-			checkboxElement.value.checked = true;
+		if (checkboxElement.value && (props.value !== undefined)) {
+			if (checkboxValue.value === props.value) {
+				checkboxElement.value.checked = true;
+			}
 		}
 
 		return;
 	}
 
 	// modelType is an array
-	const index = (props.modelValue as unknown[])
+	const index = (checkboxValue.value as unknown[])
 		.findIndex(item => JSON.stringify(item) === JSON.stringify(props.value));
 
 	if (index >= 0 && checkboxElement.value) {
@@ -131,7 +187,7 @@ $size: 20px;
 		.or-checkbox-label .or-checkbox:before {
 			content: '';
 		}
-	} 
+	}
 }
 
 .or-checkbox {
