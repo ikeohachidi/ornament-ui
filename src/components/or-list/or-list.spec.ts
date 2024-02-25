@@ -2,17 +2,12 @@ import { mount } from '@vue/test-utils';
 import { describe, it, expect } from 'vitest';
 import { h } from 'vue';
 import { OrList, OrListItem } from '.';
-import { OrCheckbox } from '@/plugin';
 
 const factory = (props = {}, slots = {}) => {
 	return mount(OrList, {
 		// attachTo: document.body,
 		components: {
 			OrListItem,
-			OrCheckbox
-		},
-		global: {
-			stubs: { 'or-checkbox': OrCheckbox }
 		},
 		props,
 		slots
@@ -30,7 +25,7 @@ describe('OrList', () => {
 	})
 
 	it('should display items in or-list-item', () => {
-		const text = 'hello world';
+		const text = 'or-list-item content';
 		const component = factory({}, {
 			default: h(OrListItem, { text }) 
 		})
@@ -48,5 +43,25 @@ describe('OrList', () => {
 
 		expect(component.html()).toContain(header);
 		expect(component.html()).toContain(footer);
-	})
+	});
+
+	it('should display deeper slot content', () => {
+		const prefix = 'Prefix text';
+		const suffix = 'Suffix text';
+
+		const component = factory({
+			items: [
+				{
+					header: 'Seneca',
+					body: 'With The courage'
+				}
+			]
+		}, {
+			prefix,
+			suffix
+		});
+
+		expect(component.html()).toContain(prefix);
+		expect(component.html()).toContain(suffix);
+	});
 })
