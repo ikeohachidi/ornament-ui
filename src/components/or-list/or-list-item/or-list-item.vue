@@ -1,39 +1,28 @@
 <template>
 	<li class="or-list-item">
-		<or-checkbox
-			v-if="checkable"
-			v-model="checkedValue"
-			:value="1"
-			:unchecked-value="0"
-			data-testid="checkbox"
-		></or-checkbox>
-
+		<div class="or-list-item-prefix" v-if="slots.prefix">
+			<slot name="prefix"></slot>
+		</div>
 		<div class="or-list-item-content">
+			<h3 v-if="header">{{ header }}</h3>
+			<p v-if="body"></p>
 			<slot></slot>
+		</div>
+		<div class="or-list-item-suffix" v-if="slots.suffix">
+			<slot name="suffix"></slot>
 		</div>
 	</li>
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from "vue";
-import { Events } from "..";
+import { useSlots } from 'vue';
 
-const props = defineProps<{
-	checkable?: boolean; 
-	value?: unknown;
-}>()
+defineProps<{
+	header?: string;
+	body?: string	
+}>();
 
-const emit = defineEmits<{
-	(event: Events.ITEM_CHECK, value: unknown):  void,
-	(event: Events.ITEM_UNCHECK, value: unknown):  void,
-}>()
-
-const checkedValue = ref(0);
-
-watch(checkedValue, (v: number) => {
-	if (v) emit(Events.ITEM_CHECK, props.value) 
-	else emit(Events.ITEM_UNCHECK, props.value) 
-})
+const slots = useSlots();
 </script>
 
 <style lang="scss" scoped>
@@ -41,13 +30,27 @@ watch(checkedValue, (v: number) => {
 
 .or-list-item {
 	display: flex;
-	align-items: flex-start;
 	padding: 10px;
 	margin-top: -1px;
 	@include border-y(1px solid var(--color-gray-2));
 
-	&-content {
+	&-prefix,
+	&-suffix {
+		flex: 1;
+		height: 100%;
+	}
+
+	&-prefix {
+		margin-right: 10px;
+	}
+
+	&-suffix {
 		margin-left: 10px;
+	}
+
+	&-content {
+		flex: 2;
+		height: 100%;
 	}
 }
 </style>
